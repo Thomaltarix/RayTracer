@@ -40,16 +40,16 @@ namespace RayTracer {
         /**
          * @brief Sets the position of the primitive.
          *
-         * @param point The position as a Point3 object.
+         * @param point The position as a Point3D object.
          */
-        // virtual void setPos(Point3 point) = 0;
+        // virtual void setPos(Point3D point) = 0;
 
         /**
          * @brief Gets the position of the primitive.
          *
-         * @return The position of the primitive as a Point3 object.
+         * @return The position of the primitive as a Point3D object.
          */
-        // virtual Point3 getPos() = 0;
+        // virtual Point3D getPos() = 0;
 
         /**
          * @brief Gets the normal vector at a given point on the primitive.
@@ -57,6 +57,6 @@ namespace RayTracer {
          * @param point The point on the primitive.
          * @return The normal vector at the given point.
          */
-        // virtual Vector3 getNormalAt(const Vector3 &point) = 0;
+        // virtual Vector3D getNormalAt(const Vector3D &point) = 0;
     };
 }
