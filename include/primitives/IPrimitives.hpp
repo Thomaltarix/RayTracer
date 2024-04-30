@@ -26,7 +26,7 @@ namespace RayTracer {
          * @param t The parameter representing the intersection point along the ray.
          * @return True if the ray intersects with the primitive, false otherwise.
          */
-        // virtual bool intersect(const Ray &ray, float &t) = 0;
+        virtual bool hits(const Math::Ray &ray) = 0;
 
         /**
          * @brief Sets the position of the primitive.
