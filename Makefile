@@ -6,15 +6,15 @@
 ##
 
 # Sources
-SRC		=	src/main.cpp
+SRC		=	src/main.cpp						\
+			src/math/points/Point3D.cpp			\
+			src/math/vectors/Vector3D.cpp		\
+			src/math/Ray.cpp					\
+
 TESTS	=	tests/test.cpp
 
 # Plugins
-# This part is in empty since there's no plugin compilable in the project
-# The plugins will be list like this:
-# src/plugins/Sphere/    (for the Sphere plugin)
-# You will also need to update the rules for the plugins
-PLUGINS	=
+PLUGINS	=	src/plugins/
 
 # Objects
 OBJ		=	$(SRC:.cpp=.o)
@@ -24,7 +24,7 @@ NAME	=	raytracer
 
 # Flags
 CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17
-CXXFLAGS	+=	-I./include
+CXXFLAGS	+=	-I./include -I./src/math/vectors
 
 # Optional flags
 SFML		=	-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
@@ -39,12 +39,15 @@ all:	$(NAME)
 
 $(NAME):	$(OBJ)
 	@$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS)
+	@make -sC $(PLUGINS)
 
 clean:
 	@rm -f $(OBJ)
+	@make clean -sC $(PLUGINS)
 
 fclean:	clean clean_tests
 	@rm -f $(NAME)
+	@make fclean -sC $(PLUGINS)
 
 re:	fclean all
 
