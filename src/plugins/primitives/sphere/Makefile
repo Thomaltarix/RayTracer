@@ -9,8 +9,13 @@
 SRC		=	Sphere.cpp		\
 			getInstance.cpp \
 
+HEADER	=	Sphere.hpp		\
+
 # Path to the plugin directory
 PLUGINS	=	../../../../plugins/
+
+# Path to the include directory to copy the header
+INCLUDE	=	../../../../include/plugins/
 
 # Objects
 OBJ		=	$(SRC:.cpp=.o)
@@ -37,12 +42,14 @@ all:	$(NAME)
 
 $(NAME):	$(OBJ)
 	@$(CXX) -shared -o $(NAME) $(OBJ) $(CXXFLAGS)
-	mv $(NAME) $(PLUGINS)
+	@mv $(NAME) $(PLUGINS)
+	@cp $(HEADER) $(INCLUDE)
 
 clean:
 	@rm -f $(OBJ)
 
 fclean:	clean
 	@rm -f $(PLUGINS)$(NAME)
+	@rm -f $(INCLUDE)$(HEADER)
 
 re:	fclean all
