@@ -9,6 +9,9 @@
 
 #include "Ray.hpp"
 #include "Point3D.hpp"
+#include "materials/IMaterial.hpp"
+
+#include <memory>
 
 namespace RayTracer {
     /**
@@ -44,10 +47,22 @@ namespace RayTracer {
         virtual void setPos(Math::Point3D point) = 0;
 
         /**
+         * @brief Sets the material of the primitive.
+         * @param material The material of the primitive.
+         */
+        virtual void setMaterial(std::shared_ptr<IMaterial> material) = 0;
+
+        /**
          * @brief Gets the position of the primitive.
          * @return The position of the primitive as a Point3D object.
          */
         virtual Math::Point3D getPos() = 0;
+
+        /**
+         * @brief Gets the material of the primitive.
+         * @return The material of the primitive.
+         */
+        virtual std::shared_ptr<IMaterial> getMaterial() = 0;
 
         /**
          * @brief Gets the normal vector at a given point on the primitive.
