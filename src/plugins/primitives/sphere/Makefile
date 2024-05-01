@@ -21,9 +21,9 @@ NAME	=	sphere.so
 # Flags
 CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17
 
-CXXFLAGS	+=	-I../ -I../../../../include \
-				-I../../../math/ -I../../../math/points/ \
-				-I../../../math/vectors/
+CXXFLAGS	+=	-I../ 						\
+				-I../../../../include 		\
+				-I../../../../include/math 	\
 
 CXXFLAGS	+=	-fPIC
 
