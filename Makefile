@@ -24,7 +24,8 @@ NAME	=	raytracer
 
 # Flags
 CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17
-CXXFLAGS	+=	-I./include -I./src/math/vectors
+CXXFLAGS	+=	-I./include -I./src/math/ -I./src/math/points/ \
+				-I./src/math/vectors
 
 # Optional flags
 SFML		=	-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
