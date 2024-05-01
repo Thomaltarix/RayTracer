@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "Point3D.hpp"
+
 namespace Math {
     /**
      * @brief Represents a 3D vector.
@@ -77,6 +79,8 @@ namespace Math {
          * @return The difference of the two vectors.
          */
         Vector3D operator-(const Vector3D &vector3D) const;
+
+        Vector3D operator-(const Point3D &point3D) const;
 
         /**
          * @brief Subtracts a Vector3D from the current vector.
