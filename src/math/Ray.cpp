@@ -21,26 +21,26 @@ Math::Ray::Ray(const Math::Vector3D &origin, const Math::Vector3D &direction)
 
 Math::Ray::Ray(const Math::Ray &ray)
 {
-    _origin = ray.GetOrigin();
-    _direction = ray.GetDirection();
+    _origin = ray.getOrigin();
+    _direction = ray.getDirection();
 }
 
 Math::Ray::Ray(const Math::Ray &&ray)
 {
-    _origin = ray.GetOrigin();
-    _direction = ray.GetDirection();
+    _origin = ray.getOrigin();
+    _direction = ray.getDirection();
 }
 
 Math::Ray &Math::Ray::operator=(const Math::Ray &ray)
 {
-    _origin = ray.GetOrigin();
-    _direction = ray.GetDirection();
+    _origin = ray.getOrigin();
+    _direction = ray.getDirection();
     return (*this);
 }
 
 Math::Ray &Math::Ray::operator=(const Math::Ray &&ray)
 {
-    _origin = ray.GetOrigin();
-    _direction = ray.GetDirection();
+    _origin = ray.getOrigin();
+    _direction = ray.getDirection();
     return (*this);
 }

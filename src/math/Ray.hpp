@@ -21,8 +21,8 @@ namespace Math {
         Ray &operator=(const Ray &ray);
         Ray &operator=(const Ray &&ray);
 
-        Vector3D GetOrigin() const { return _origin; }
-        Vector3D GetDirection() const { return _direction; }
+        Vector3D getOrigin() const { return _origin; }
+        Vector3D getDirection() const { return _direction; }
 
     private:
         Vector3D _origin;

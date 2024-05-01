@@ -118,7 +118,7 @@ namespace Math {
          * @param vector3D The vector to be multiplied.
          * @return The dot product of the two vectors.
          */
-        double DotProduct(const Vector3D &vector3D) const;
+        double dot(const Vector3D &vector3D) const;
 
         /**
          * @brief Calculates the length of the vector.

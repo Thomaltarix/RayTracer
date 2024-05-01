@@ -108,7 +108,7 @@ Math::Vector3D &Math::Vector3D::operator/=(const Math::Vector3D &vector3D)
     return (*this);
 }
 
-double Math::Vector3D::DotProduct(const Math::Vector3D &vector3D) const
+double Math::Vector3D::dot(const Math::Vector3D &vector3D) const
 {
     return this->x * vector3D.x + this->y * vector3D.y + this->z * vector3D.z;
 }
