@@ -65,6 +65,6 @@ namespace Primitive {
         Math::Vector3D getNormalAt(const Math::Vector3D &point) override;
 
     private:
-        float radius; /**< The radius of the sphere. */
+        double _radius; /**< The radius of the sphere. */
     };
 }

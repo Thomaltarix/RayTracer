@@ -27,10 +27,10 @@ Primitive::Sphere::Sphere(double x, double y, double z, double radius,
 bool Primitive::Sphere::hits(const Math::Ray &ray)
 {
     Math::Vector3D oc = ray.getOrigin() - getPos();
-    float a = ray.getDirection().dot(ray.getDirection());
-    float b = 2.0 * oc.dot(ray.getDirection());
-    float c = oc.dot(oc) - radius * radius;
-    float discriminant = b * b - 4 * a * c;
+    double a = ray.getDirection().dot(ray.getDirection());
+    double b = 2.0 * oc.dot(ray.getDirection());
+    double c = oc.dot(oc) - _radius * _radius;
+    double discriminant = b * b - 4 * a * c;
 
     if (discriminant < 0)
         return false;
@@ -41,7 +41,8 @@ Math::Vector3D Primitive::Sphere::getNormalAt(const Math::Vector3D &point)
 {
     Math::Point3D center = getPos();
 
-    return Math::Vector3D((point.x  - center.x) / radius,
-        (point.y - center.y) / radius,
-        (point.z - center.z) / radius);
+    return Math::Vector3D((point.x  - center.x) / _radius,
+        (point.y - center.y) / _radius,
+        (point.z - center.z) / _radius);
 }
+
