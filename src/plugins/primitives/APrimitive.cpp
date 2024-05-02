@@ -26,3 +26,13 @@ void RayTracer::APrimitive::setMaterial(std::shared_ptr<IMaterial> material)
 {
     _material = material;
 }
+
+Math::Point3D RayTracer::APrimitive::getPos()
+{
+    return _pos;
+}
+
+std::shared_ptr<RayTracer::IMaterial> RayTracer::APrimitive::getMaterial()
+{
+    return _material;
+}

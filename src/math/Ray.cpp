@@ -44,3 +44,14 @@ Math::Ray &Math::Ray::operator=(const Math::Ray &&ray)
     _direction = ray.getDirection();
     return (*this);
 }
+
+Math::Vector3D Math::Ray::getOrigin() const
+{
+    return _origin;
+}
+
+Math::Vector3D Math::Ray::getDirection() const
+{
+    return _direction;
+}
+
