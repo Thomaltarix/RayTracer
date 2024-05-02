@@ -54,4 +54,3 @@ Math::Vector3D Math::Ray::getDirection() const
 {
     return _direction;
 }
-
