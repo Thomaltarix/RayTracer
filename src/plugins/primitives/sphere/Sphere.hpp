@@ -18,14 +18,31 @@ namespace Primitive {
         /**
          * @brief Default constructor for the Sphere class.
         */
-        Sphere() = default;
+        Sphere();
+
+        /**
+         * @brief Constructs a Sphere object with the given position, radius, and material.
+         * @param radius The radius of the sphere.
+         * @param material The material of the sphere.
+         */
+        Sphere(const Math::Point3D &pos, double radius, const std::shared_ptr<RayTracer::IMaterial> &material = nullptr);
+
+        /**
+         * @brief Constructs a Sphere object with the given position, radius, and material.
+         * @param x The x-coordinate of the position.
+         * @param y The y-coordinate of the position.
+         * @param z The z-coordinate of the position.
+         * @param radius The radius of the sphere.
+         * @param material The material of the sphere.
+         */
+        Sphere(double x, double y, double z, double radius, const std::shared_ptr<RayTracer::IMaterial> &material = nullptr);
 
         /**
          * @brief Constructs a Sphere object with the given radius and material.
          * @param radius The radius of the sphere.
          * @param material The material of the sphere.
          */
-        Sphere(float radius, const std::shared_ptr<RayTracer::IMaterial> &material);
+        Sphere(double radius, const std::shared_ptr<RayTracer::IMaterial> &material);
 
         /**
          * @brief Destroys the Sphere object.

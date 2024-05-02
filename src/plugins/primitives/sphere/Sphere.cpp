@@ -7,12 +7,21 @@
 
 #include "Sphere.hpp"
 
-Primitive::Sphere::Sphere(float radius,
-    const std::shared_ptr<RayTracer::IMaterial> &material)
+Primitive::Sphere::Sphere() : APrimitive()
 {
-    this->radius = radius;
-    this->setMaterial(material);
+    _radius = 0;
+}
 
+Primitive::Sphere::Sphere(const Math::Point3D &pos, double radius,
+    const std::shared_ptr<RayTracer::IMaterial> &material) : APrimitive(pos, material)
+{
+    _radius = radius;
+}
+
+Primitive::Sphere::Sphere(double x, double y, double z, double radius,
+    const std::shared_ptr<RayTracer::IMaterial> &material) : APrimitive(x, y, z, material)
+{
+    _radius = radius;
 }
 
 bool Primitive::Sphere::hits(const Math::Ray &ray)
