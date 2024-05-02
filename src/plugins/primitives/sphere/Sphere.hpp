@@ -47,7 +47,7 @@ namespace Primitive {
         /**
          * @brief Destroys the Sphere object.
          */
-        ~Sphere() override = default;
+        ~Sphere() = default;
 
         /**
          * @brief Checks if a ray intersects with the sphere.
@@ -63,6 +63,18 @@ namespace Primitive {
          * @return The normal at the given point.
          */
         Math::Vector3D getNormalAt(const Math::Vector3D &point) override;
+
+        /**
+         * @brief Gets the radius of the sphere.
+         * @return The radius of the sphere.
+         */
+        double getRadius() const;
+
+        /**
+         * @brief Sets the radius of the sphere.
+         * @param radius The new radius of the sphere.
+         */
+        void setRadius(double radius);
 
     private:
         double _radius; /**< The radius of the sphere. */

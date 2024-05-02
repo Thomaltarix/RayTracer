@@ -46,3 +46,12 @@ Math::Vector3D Primitive::Sphere::getNormalAt(const Math::Vector3D &point)
         (point.z - center.z) / _radius);
 }
 
+double Primitive::Sphere::getRadius() const
+{
+    return _radius;
+}
+
+void Primitive::Sphere::setRadius(double radius)
+{
+    _radius = radius;
+}
