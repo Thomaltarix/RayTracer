@@ -10,6 +10,7 @@ SRC		=	src/main.cpp						\
 			src/math/Point3D.cpp				\
 			src/math/Vector3D.cpp				\
 			src/math/Ray.cpp					\
+			src/math/MathError.cpp				\
 
 TESTS	=	tests/test.cpp
 
