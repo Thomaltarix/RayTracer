@@ -21,23 +21,11 @@ namespace RayTracer {
         APrimitive();
 
         /**
-         * @brief Constructs an APrimitive object with the given position as individual coordinates.
-         * @param pos The position of the primitive.
-         */
-        APrimitive(double x, double y, double z);
-
-        /**
-         * @brief Constructs an APrimitive object with the given position as a Point3D object.
-         * @param pos The position of the primitive.
-        */
-        APrimitive(const Math::Point3D &pos);
-
-        /**
          * @brief Constructs an APrimitive object with the given position and material.
          * @param pos The position of the primitive.
          * @param material The material of the primitive.
          */
-        APrimitive(const Math::Point3D &pos, const std::shared_ptr<IMaterial> &material);
+        APrimitive(const Math::Point3D &pos, const std::shared_ptr<IMaterial> &material = nullptr);
 
         /**
          * @brief Constructs an APrimitive object with the given position as individual coordinates and material.
@@ -46,7 +34,7 @@ namespace RayTracer {
          * @param z The z-coordinate of the position.
          * @param material The material of the primitive.
          */
-        APrimitive(double x, double y, double z, const std::shared_ptr<IMaterial> &material);
+        APrimitive(double x, double y, double z, const std::shared_ptr<IMaterial> &material = nullptr);
 
         /**
          * @brief Destroys the APrimitive object.

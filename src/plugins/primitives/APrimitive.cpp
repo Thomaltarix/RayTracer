@@ -13,18 +13,6 @@ RayTracer::APrimitive::APrimitive()
     _material = nullptr;
 }
 
-RayTracer::APrimitive::APrimitive(double x, double y, double z)
-{
-    _pos = Math::Point3D(x, y, z);
-    _material = nullptr;
-}
-
-RayTracer::APrimitive::APrimitive(const Math::Point3D &pos)
-{
-    _pos = pos;
-    _material = nullptr;
-}
-
 RayTracer::APrimitive::APrimitive(const Math::Point3D &pos, const std::shared_ptr<IMaterial> &material)
 {
     _pos = pos;
