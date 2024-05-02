@@ -88,7 +88,11 @@ namespace RayTracer {
         virtual Math::Vector3D getNormalAt(const Math::Vector3D &point) = 0;
 
     protected:
-        Math::Point3D _pos; /**< The position of the primitive. */
-        std::shared_ptr<IMaterial> _material; /**< The material of the primitive. */
+
+        /**< The position of the primitive. */
+        Math::Point3D _pos;
+
+        /**< The material of the primitive. */
+        std::shared_ptr<IMaterial> _material;
     };
 }
