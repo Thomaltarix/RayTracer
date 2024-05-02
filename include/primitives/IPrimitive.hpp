@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** RayTracer
 ** File description:
-** IPrimitives
+** IPrimitive
 */
 
 #pragma once
@@ -15,15 +15,15 @@
 
 namespace RayTracer {
     /**
-     * @class IPrimitives
+     * @class IPrimitive
      * @brief Interface for ray-traceable primitives.
      */
-    class IPrimitives {
+    class IPrimitive {
     public:
         /**
-         * @brief Virtual destructor for IPrimitives.
+         * @brief Virtual destructor for IPrimitive.
          */
-        virtual ~IPrimitives() = default;
+        virtual ~IPrimitive() = default;
 
         /**
          * @brief Checks if a ray hits the primitive.
@@ -38,7 +38,7 @@ namespace RayTracer {
          * @param y The y-coordinate of the position.
          * @param z The z-coordinate of the position.
          */
-        virtual void setPos(float x, float y, float z) = 0;
+        virtual void setPos(double x, double y, double z) = 0;
 
         /**
          * @brief Sets the position of the primitive.

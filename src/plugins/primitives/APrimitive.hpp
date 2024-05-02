@@ -7,13 +7,13 @@
 
 #pragma once
 
-#include "primitives/IPrimitives.hpp"
+#include "primitives/IPrimitive.hpp"
 
 namespace RayTracer {
     /**
      * @brief The APrimitive class is an abstract base class for all primitives in the RayTracer.
      */
-    class APrimitive : public IPrimitives {
+    class APrimitive : public IPrimitive {
     public:
         /**
          * @brief Constructs an APrimitive object.
