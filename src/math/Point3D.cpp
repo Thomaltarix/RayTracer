@@ -6,6 +6,7 @@
 */
 
 #include "Point3D.hpp"
+#include "MathError.hpp"
 
 Math::Point3D::Point3D()
 {
@@ -134,17 +135,23 @@ Math::Point3D &Math::Point3D::operator*=(const double &value)
 
 Math::Point3D Math::Point3D::operator/(const Math::Point3D &point3D) const
 {
+    if (point3D.x == 0 || point3D.y == 0 || point3D.z == 0)
+        throw Math::MathError("Division by 0");
     return Math::Point3D(this->x / point3D.x, this->y / point3D.y,
         this->z / point3D.z);
 }
 
 Math::Point3D Math::Point3D::operator/(const double &value) const
 {
+    if (value == 0)
+        throw Math::MathError("Division by 0");
     return Math::Point3D(this->x / value, this->y / value, this->z / value);
 }
 
 Math::Point3D &Math::Point3D::operator/=(const Math::Point3D &point3D)
 {
+    if (point3D.x == 0 || point3D.y == 0 || point3D.z == 0)
+        throw Math::MathError("Division by 0");
     this->x /= point3D.x;
     this->y /= point3D.y;
     this->z /= point3D.z;
@@ -153,6 +160,8 @@ Math::Point3D &Math::Point3D::operator/=(const Math::Point3D &point3D)
 
 Math::Point3D &Math::Point3D::operator/=(const double &value)
 {
+    if (value == 0)
+        throw Math::MathError("Division by 0");
     this->x /= value;
     this->y /= value;
     this->z /= value;
