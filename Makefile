@@ -12,6 +12,7 @@ SRC		=	src/main.cpp						\
 			src/math/Rectangle3D.cpp			\
 			src/math/Ray.cpp					\
 			src/math/MathError.cpp				\
+			src/core/Camera.cpp					\
 
 TESTS	=	tests/test.cpp
 
