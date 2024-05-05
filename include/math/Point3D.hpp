@@ -8,6 +8,9 @@
 #pragma once
 
 namespace Math {
+
+    class Vector3D;
+
     /**
      * @class Point3D
      * @brief Represents a point in 3D space.
@@ -63,12 +66,14 @@ namespace Math {
          */
         Point3D operator+(const Point3D &point3D) const;
         Point3D operator+(const double &value) const;
+        Point3D operator+(const Vector3D &vector3D) const;
 
         /**
          * @brief Adds a point to the current point.
          */
         Point3D &operator+=(const Point3D &point3D);
         Point3D &operator+=(const double &value);
+        Point3D &operator+=(const Vector3D &vector3D);
 
         /**
          * @brief Subtracts two points.
