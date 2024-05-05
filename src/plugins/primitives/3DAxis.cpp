@@ -26,5 +26,3 @@ void RayTracer::Axis3D::SetAxis(RayTracer::Axis axis)
 {
     _axis = axis;
 }
-
-
