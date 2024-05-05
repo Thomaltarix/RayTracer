@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** RayTracer
 ** File description:
-** No file there , just an epitech header example .
+** Rectangle3D
 */
 
 #include "Rectangle3D.hpp"
