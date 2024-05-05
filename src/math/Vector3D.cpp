@@ -6,6 +6,7 @@
 */
 
 #include "Vector3D.hpp"
+#include "Point3D.hpp"
 #include "MathError.hpp"
 #include <cmath>
 
@@ -93,11 +94,24 @@ Math::Vector3D Math::Vector3D::operator*(const Math::Vector3D &vector3D) const
         this->z * vector3D.z);
 }
 
+Math::Vector3D Math::Vector3D::operator*(const double value) const
+{
+    return Math::Vector3D(this->x * value, this->y * value, this->z * value);
+}
+
 Math::Vector3D &Math::Vector3D::operator*=(const Math::Vector3D &vector3D)
 {
     this->x *= vector3D.x;
     this->y *= vector3D.y;
     this->z *= vector3D.z;
+    return (*this);
+}
+
+Math::Vector3D &Math::Vector3D::operator*=(const double value)
+{
+    this->x *= value;
+    this->y *= value;
+    this->z *= value;
     return (*this);
 }
 
