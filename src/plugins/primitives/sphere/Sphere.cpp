@@ -37,7 +37,7 @@ bool Primitive::Sphere::hits(const Math::Ray &ray)
     return true;
 }
 
-Math::Vector3D Primitive::Sphere::getNormalAt(const Math::Vector3D &point)
+Math::Vector3D Primitive::Sphere::getNormalAt(const Math::Point3D &point)
 {
     Math::Point3D center = getPos();
 

@@ -85,7 +85,7 @@ namespace RayTracer {
          * @param point The point on the primitive's surface.
          * @return The normal vector at the given point.
          */
-        virtual Math::Vector3D getNormalAt(const Math::Vector3D &point) = 0;
+        virtual Math::Vector3D getNormalAt(const Math::Point3D &point) = 0;
 
     protected:
 
