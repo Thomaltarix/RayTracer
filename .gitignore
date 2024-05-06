@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Built executable
+raytracer
+
+# Built plugin interfaces
+include/plugins/*.hpp
