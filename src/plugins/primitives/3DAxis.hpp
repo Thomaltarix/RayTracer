@@ -30,16 +30,12 @@ namespace RayTracer {
     class Axis3D {
     public:
         /**
-         * @brief Default constructor.
-         * @note The default axis is X.
-         */
-        Axis3D();
-
-        /**
          * @brief Constructor that initializes the axis.
          * @param axis The axis to set.
+         * @param coordinate The coordinate of the axis.
+         * @note The default coordinate is 0.
          */
-        Axis3D(Axis axis);
+        Axis3D(Axis axis = Axis::X);
 
         /**
          * @brief Destructor.
@@ -50,13 +46,13 @@ namespace RayTracer {
          * @brief Get the current axis.
          * @return The current axis.
          */
-        Axis GetAxis() const;
+        Axis getAxis() const;
 
         /**
          * @brief Set the axis.
          * @param axis The axis to set.
          */
-        void SetAxis(Axis axis);
+        void setAxis(Axis axis);
 
     private:
 

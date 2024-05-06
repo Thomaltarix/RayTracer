@@ -7,22 +7,17 @@
 
 #include "3DAxis.hpp"
 
-RayTracer::Axis3D::Axis3D()
-{
-    _axis = RayTracer::Axis::X;
-}
-
-RayTracer::Axis3D::Axis3D(RayTracer::Axis axis)
+RayTracer::Axis3D::Axis3D(Axis axis = Axis::X)
 {
     _axis = axis;
 }
 
-RayTracer::Axis RayTracer::Axis3D::GetAxis() const
+RayTracer::Axis RayTracer::Axis3D::getAxis() const
 {
     return _axis;
 }
 
-void RayTracer::Axis3D::SetAxis(RayTracer::Axis axis)
+void RayTracer::Axis3D::setAxis(RayTracer::Axis axis)
 {
     _axis = axis;
 }
