@@ -7,7 +7,7 @@
 
 #include "3DAxis.hpp"
 
-RayTracer::Axis3D::Axis3D(Axis axis = Axis::X)
+RayTracer::Axis3D::Axis3D(Axis axis)
 {
     _axis = axis;
 }
