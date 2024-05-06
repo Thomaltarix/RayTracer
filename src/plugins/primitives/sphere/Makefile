@@ -8,6 +8,7 @@
 # Sources
 SRC		=	Sphere.cpp		\
 			getInstance.cpp \
+			../APrimitive.cpp	\
 
 HEADER	=	Sphere.hpp		\
 
