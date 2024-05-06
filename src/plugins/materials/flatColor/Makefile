@@ -6,7 +6,8 @@
 ##
 
 # Sources
-SRC		=	FlatColor.cpp	\
+SRC		=	../AMaterial.cpp	\
+			FlatColor.cpp	\
 			getInstance.cpp \
 
 HEADER	=	FlatColor.hpp	\

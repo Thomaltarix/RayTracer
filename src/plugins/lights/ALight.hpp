@@ -78,7 +78,7 @@ namespace RayTracer {
          * @param material The material of the object at the point.
          * @return The illumination at the point.
          */
-        Math::Vector3D Illuminate(Math::Point3D point, IMaterial material) override;
+        Math::Vector3D Illuminate(Math::Point3D point, const std::shared_ptr<IMaterial> &material) override;
 
         /**
          * @brief Check if a point is in shadow.

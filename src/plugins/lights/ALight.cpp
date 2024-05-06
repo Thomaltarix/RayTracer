@@ -5,7 +5,7 @@
 ** ALight.cpp
 */
 
-#include "ALight.cpp"
+#include "ALight.hpp"
 
 RayTracer::ALight::ALight()
 {
@@ -45,14 +45,17 @@ void RayTracer::ALight::setShadowcast(bool doesShadowcast)
     _doesShadowcast = doesShadowcast;
 }
 
-Math::Vector3D RayTracer::ALight::Illuminate(Math::Point3D point, Material material)
+Math::Vector3D RayTracer::ALight::Illuminate(Math::Point3D point, const std::shared_ptr<IMaterial> &material)
 {
-    Math::Vector3D color = material.compute();
+    Math::Vector3D color = material->compute();
+    (void)point;
 
-    return color * _intensity;
+    return Math::Vector3D(color.x * _intensity, color.y * _intensity, color.z * _intensity);
 }
 
 bool RayTracer::ALight::InShadow(Math::Point3D point)
 {
+    (void)point;
+
     return false;
 }

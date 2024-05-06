@@ -6,7 +6,8 @@
 ##
 
 # Sources
-SRC		=	Ambiant.cpp	\
+SRC		=	../ALight.cpp	\
+			Ambiant.cpp	\
 			getInstance.cpp \
 
 HEADER	=	Ambiant.hpp	\

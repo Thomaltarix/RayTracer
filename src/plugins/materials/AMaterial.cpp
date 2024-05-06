@@ -5,29 +5,29 @@
 ** AMaterial.cpp
 */
 
-#include "AMaterial.cpp"
+#include "AMaterial.hpp"
 
-AMaterial::AMaterial()
+RayTracer::AMaterial::AMaterial()
 {
     _color = Math::Vector3D(0, 0, 0);
 }
 
-AMaterial::AMaterial(Math::Vector3D color)
+RayTracer::AMaterial::AMaterial(Math::Vector3D color)
 {
     _color = color;
 }
 
-Math::Vector3D AMaterial::compute()
+Math::Vector3D RayTracer::AMaterial::compute()
 {
     return _color;
 }
 
-Math::Vector3D AMaterial::getColor() const
+Math::Vector3D RayTracer::AMaterial::getColor() const
 {
     return _color;
 }
 
-void AMaterial::setColor(Math::Vector3D color)
+void RayTracer::AMaterial::setColor(Math::Vector3D color)
 {
     _color = color;
 }
