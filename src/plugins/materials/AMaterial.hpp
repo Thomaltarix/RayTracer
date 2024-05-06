@@ -60,7 +60,7 @@ namespace RayTracer {
          */
         void setColor(Math::Vector3D color);
 
-        private:
+        protected:
         Math::Vector3D _color; /**< The color of the material. */
     };
 }
