@@ -7,8 +7,7 @@
 
 .PHONY: all clean fclean re
 
-SRC		=	primitives/			\
-			materials/			\
+SRC		=	flatColor/		\
 
 all:
 	@for dir in $(SRC); do \
