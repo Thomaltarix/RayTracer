@@ -8,6 +8,7 @@
 .PHONY: all clean fclean re
 
 SRC		=	sphere/			\
+			plane/			\
 
 all:
 	@for dir in $(SRC); do \

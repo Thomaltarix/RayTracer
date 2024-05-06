@@ -62,7 +62,7 @@ namespace Primitive {
          * @param point The point to get the normal at.
          * @return The normal at the given point.
          */
-        Math::Vector3D getNormalAt(const Math::Vector3D &point) override;
+        Math::Vector3D getNormalAt(const Math::Point3D &point) override;
 
         /**
          * @brief Gets the radius of the sphere.
