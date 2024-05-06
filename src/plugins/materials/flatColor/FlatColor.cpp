@@ -10,5 +10,3 @@
 Material::FlatColor::FlatColor() : AMaterial() {}
 
 Material::FlatColor::FlatColor(Math::Vector3D color) : AMaterial(color) {}
-
-Material::FlatColor::~FlatColor() {}

@@ -34,6 +34,6 @@ namespace Material {
         /**
          * @brief Destructor for the FlatColor class.
          */
-        ~FlatColor();
+        ~FlatColor() = default;
     };
 }

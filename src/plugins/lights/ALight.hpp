@@ -17,7 +17,7 @@ namespace RayTracer {
      * This class provides common functionality and properties for lights.
      */
     class ALight : public ILight {
-        public:
+    public:
         /**
          * @brief Default constructor.
          */
@@ -41,7 +41,7 @@ namespace RayTracer {
         /**
          * @brief Destructor.
          */
-        ~ALight();
+        ~ALight() = default;
 
         /**
          * @brief Get the intensity of the light.
@@ -78,7 +78,7 @@ namespace RayTracer {
          * @param material The material of the object at the point.
          * @return The illumination at the point.
          */
-        Math::Vector3D Illuminate(Math::Point3D point, IMaterial material);
+        Math::Vector3D Illuminate(Math::Point3D point, IMaterial material) override;
 
         /**
          * @brief Check if a point is in shadow.
@@ -86,9 +86,9 @@ namespace RayTracer {
          * @param point The point to check.
          * @return True if the point is in shadow, false otherwise.
          */
-        bool InShadow(Math::Point3D point);
+        bool InShadow(Math::Point3D point) override;
 
-        protected:
+    protected:
         float _intensity; /**< The intensity of the light. */
         bool _doesShadowcast; /**< Whether the light casts shadows or not. */
     };

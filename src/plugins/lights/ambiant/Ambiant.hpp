@@ -17,7 +17,7 @@ namespace Light {
      * ambient light sources with different intensities.
      */
     class Ambiant : public RayTracer::ALight {
-        public:
+    public:
         /**
          * @brief Default constructor for the Ambiant class.
          */
@@ -33,6 +33,6 @@ namespace Light {
         /**
          * @brief Destructor for the Ambiant class.
          */
-        ~Ambiant();
+        ~Ambiant() = default;
     };
 }

@@ -13,5 +13,3 @@ Light::Ambiant::Ambiant() : ALight()
 }
 
 Light::Ambiant::Ambiant(float intensity) : ALight(intensity) {}
-
-Light::Ambiant::~Ambiant() {}

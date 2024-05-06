@@ -25,8 +25,6 @@ RayTracer::ALight::ALight(float intensity, bool doesShadowcast)
     _doesShadowcast = doesShadowcast;
 }
 
-RayTracer::ALight::~ALight() {}
-
 float RayTracer::ALight::getIntensity() const
 {
     return _intensity;

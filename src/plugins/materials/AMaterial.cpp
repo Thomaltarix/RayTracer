@@ -17,8 +17,6 @@ AMaterial::AMaterial(Math::Vector3D color)
     _color = color;
 }
 
-AMaterial::~AMaterial() {}
-
 Math::Vector3D AMaterial::compute()
 {
     return _color;

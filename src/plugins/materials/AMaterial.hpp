@@ -18,7 +18,7 @@ namespace RayTracer {
      * used in the RayTracer. It defines a color property and a compute() method.
      */
     class AMaterial : public IMaterial {
-        public:
+    public:
         /**
          * @brief Default constructor.
          */
@@ -34,7 +34,7 @@ namespace RayTracer {
         /**
          * @brief Destructor.
          */
-        ~AMaterial();
+        ~AMaterial() = default;
 
         /**
          * @brief Computes the material properties.
@@ -44,7 +44,7 @@ namespace RayTracer {
          *
          * @return The computed material properties.
          */
-        Math::Vector3D compute();
+        Math::Vector3D compute() override;
 
         /**
          * @brief Gets the color of the material.
@@ -60,7 +60,7 @@ namespace RayTracer {
          */
         void setColor(Math::Vector3D color);
 
-        protected:
+    protected:
         Math::Vector3D _color; /**< The color of the material. */
     };
 }
