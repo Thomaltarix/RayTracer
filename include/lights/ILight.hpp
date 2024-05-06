@@ -7,6 +7,10 @@
 
 #pragma once
 
+#include "Vector3D.hpp"
+#include "Point3D.hpp"
+#include "materials/IMaterial.hpp"
+
 namespace RayTracer {
     /**
      * @class ILight
@@ -35,13 +39,13 @@ namespace RayTracer {
          * @param material The material of the object at the point.
          * @return The light intensity as a Vector3.
          */
-        //Vector3 Illuminate(Point3D point, Material material);
+        virtual Math::Vector3D Illuminate(Math::Point3D point, IMaterial material) = 0;
 
         /**
          * @brief Checks if a given point is in shadow.
          * @param point The point to check for shadow.
          * @return True if the point is in shadow, false otherwise.
          */
-        //bool InShadow(Point3D point);
+        virtual bool InShadow(Math::Point3D point) = 0;
     };
 }
