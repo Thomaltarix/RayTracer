@@ -25,7 +25,7 @@ namespace RayTracer {
          * @param pos The position of the primitive.
          * @param material The material of the primitive.
          */
-        APrimitive(const Math::Point3D &pos, const std::shared_ptr<IMaterial> &material = nullptr);
+        APrimitive(const Math::Point3D &pos, const std::shared_ptr<RayTracer::IMaterial> &material = nullptr);
 
         /**
          * @brief Constructs an APrimitive object with the given position as individual coordinates and material.
@@ -34,7 +34,7 @@ namespace RayTracer {
          * @param z The z-coordinate of the position.
          * @param material The material of the primitive.
          */
-        APrimitive(double x, double y, double z, const std::shared_ptr<IMaterial> &material = nullptr);
+        APrimitive(double x, double y, double z, const std::shared_ptr<RayTracer::IMaterial> &material = nullptr);
 
         /**
          * @brief Destroys the APrimitive object.
@@ -66,7 +66,7 @@ namespace RayTracer {
          * @brief Sets the material of the primitive.
          * @param material The material of the primitive.
          */
-        void setMaterial(std::shared_ptr<IMaterial> material) override;
+        void setMaterial(std::shared_ptr<RayTracer::IMaterial> material) override;
 
         /**
          * @brief Gets the position of the primitive.
@@ -78,7 +78,7 @@ namespace RayTracer {
          * @brief Gets the material of the primitive.
          * @return The material of the primitive.
          */
-        std::shared_ptr<IMaterial> getMaterial() override;
+        std::shared_ptr<RayTracer::IMaterial> getMaterial() override;
 
         /**
          * @brief Gets the normal vector at a given point on the primitive's surface.
@@ -93,6 +93,6 @@ namespace RayTracer {
         Math::Point3D _pos;
 
         /**< The material of the primitive. */
-        std::shared_ptr<IMaterial> _material;
+        std::shared_ptr<RayTracer::IMaterial> _material;
     };
 }
