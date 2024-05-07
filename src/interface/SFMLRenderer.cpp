@@ -25,9 +25,6 @@ SFMLRenderer::SFMLRenderer(const std::string &filename)
 void SFMLRenderer::display()
 {
     _window.clear();
-    sf::Sprite sprite(_texture);
-
-    this->setSprite(sprite);
     _window.draw(this->getSprite());
     _window.display();
 }
@@ -43,6 +40,9 @@ void SFMLRenderer::loadPPM(const std::string &filename)
     this->setTexture(texture);
     this->setWidth(image.getSize().x);
     this->setHeight(image.getSize().y);
+
+    sf::Sprite sprite(_texture);
+    this->setSprite(sprite);
     _window.create(sf::VideoMode(this->getWidth(), this->getHeight()), "RayTracer");
 }
 
