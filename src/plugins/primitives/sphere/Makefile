@@ -11,6 +11,9 @@ SRC		=	Sphere.cpp		\
 			../APrimitive.cpp	\
 			../../../../src/math/Point3D.cpp	\
 			../../../../src/math/MathError.cpp	\
+			../../../../src/math/Vector3D.cpp	\
+			../../../../src/math/QuadraticEquation.cpp	\
+			../../../../src/math/Ray.cpp	\
 
 HEADER	=	Sphere.hpp		\
 

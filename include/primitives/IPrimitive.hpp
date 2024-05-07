@@ -32,6 +32,8 @@ namespace RayTracer {
          */
         virtual bool hits(const Math::Ray &ray) = 0;
 
+        virtual Math::Point3D hitPoint(const Math::Ray &ray) = 0;
+
         /**
          * @brief Sets the position of the primitive.
          * @param x The x-coordinate of the position.
