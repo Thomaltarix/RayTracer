@@ -31,19 +31,10 @@ void SFMLRenderer::display()
 
 void SFMLRenderer::loadPPM(const std::string &filename)
 {
-    sf::Image image;
-    image.loadFromFile(filename);
-    this->setImage(image);
-
-    sf::Texture texture;
-    texture.loadFromImage(image);
-    this->setTexture(texture);
-    this->setWidth(image.getSize().x);
-    this->setHeight(image.getSize().y);
-
-    sf::Sprite sprite(_texture);
-    this->setSprite(sprite);
-    window.create(sf::VideoMode(this->getWidth(), this->getHeight()), "RayTracer");
+    _image.loadFromFile(filename);
+    _texture.loadFromImage(_image);
+    _sprite.setTexture(_texture);
+    window.create(sf::VideoMode(_image.getSize().x, _image.getSize().y), "RayTracer");
 }
 
 sf::Image SFMLRenderer::getImage() const
