@@ -7,20 +7,24 @@
 
 #pragma once
 
-#include <exception>
-#include <string>
+#include "../errors/IError.hpp"
 
 namespace Math {
     /**
      * @brief Exception class for mathematical errors.
      */
-    class MathError : public std::exception {
+    class MathError : public IError {
     public:
         /**
          * @brief Constructs a MathError object with the given error message.
          * @param message The error message.
          */
         MathError(std::string const &message);
+
+        /**
+         * @brief Default destructor for the MathError class.
+         */
+        ~MathError() override = default;
 
         /**
          * @brief Returns a C-style string describing the exception.
@@ -32,5 +36,19 @@ namespace Math {
 
         /**< The error message. */
         std::string _message;
+    };
+
+    class MathDivideByZeroError : public MathError {
+    public:
+        /**
+         * @brief Constructs a MathDivideByZeroError object with the given error message.
+         * @param message The error message.
+         */
+        MathDivideByZeroError(std::string const &message);
+
+        /**
+         * @brief Default destructor for the MathDivideByZeroError class.
+         */
+        ~MathDivideByZeroError() override = default;
     };
 }
