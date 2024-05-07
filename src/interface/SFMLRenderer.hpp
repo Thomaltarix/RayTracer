@@ -28,6 +28,12 @@ class SFMLRenderer {
         SFMLRenderer(int width, int height);
 
         /**
+         * @brief Constructor for SFMLRenderer with specified image file.
+         * @param filename The path to the image file.
+         */
+        SFMLRenderer(const std::string &filename);
+
+        /**
          * @brief Destructor for SFMLRenderer.
          */
         ~SFMLRenderer() = default;
@@ -105,9 +111,9 @@ class SFMLRenderer {
 
         sf::RenderWindow _window;
     private:
-        sf::Image _image;
-        sf::Texture _texture;
-        sf::Sprite _sprite;
-        int _width;
-        int _height;
+        sf::Image _image; /**< The SFML image object used for rendering. */
+        sf::Texture _texture; /**< The SFML texture object used for rendering. */
+        sf::Sprite _sprite; /**< The SFML sprite object used for rendering. */
+        int _width; /**< The width of the renderer. */
+        int _height; /**< The height of the renderer. */
 };

@@ -17,6 +17,11 @@ SFMLRenderer::SFMLRenderer(int width, int height)
     _window.create(sf::VideoMode(width, height), "RayTracer");
 }
 
+SFMLRenderer::SFMLRenderer(const std::string &filename)
+{
+    this->loadPPM(filename);
+}
+
 void SFMLRenderer::display()
 {
     _window.clear();
