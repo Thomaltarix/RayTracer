@@ -28,7 +28,7 @@ OBJ		=	$(SRC:.cpp=.o)
 NAME	=	raytracer
 
 # Flags
-CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17
+CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17 -g3
 CXXFLAGS	+=	-I./include -I./include/math
 
 # Optional flags
