@@ -11,6 +11,7 @@ SRC		=	src/main.cpp						\
 			src/math/Vector3D.cpp				\
 			src/math/Ray.cpp					\
 			src/math/MathError.cpp				\
+			src/interface/SFMLRenderer.cpp		\
 
 TESTS	=	tests/test.cpp
 
@@ -39,7 +40,7 @@ CXX		=	g++
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	@$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS)
+	@$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS) $(SFML)
 	@make -sC $(PLUGINS)
 
 clean:
