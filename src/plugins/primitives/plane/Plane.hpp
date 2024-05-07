@@ -14,7 +14,7 @@ namespace Primitive {
     /**
      * @brief The Plane class represents a plane primitive in a ray tracer.
      */
-    class Plane : public RayTracer::APrimitive {
+    class Plane : public RayTracer::APrimitive, public RayTracer::ICanTranslate {
     public:
         /**
          * @brief Default constructor for the Plane class.

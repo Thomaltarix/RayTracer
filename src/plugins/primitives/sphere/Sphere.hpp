@@ -13,7 +13,7 @@ namespace Primitive {
     /**
      * @brief The Sphere class represents a sphere primitive in a ray tracer.
      */
-    class Sphere : public RayTracer::APrimitive {
+    class Sphere : public RayTracer::APrimitive, public RayTracer::ICanTranslate {
     public:
         /**
          * @brief Default constructor for the Sphere class.
