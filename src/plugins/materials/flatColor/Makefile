@@ -9,6 +9,8 @@
 SRC		=	../AMaterial.cpp	\
 			FlatColor.cpp	\
 			getInstance.cpp \
+			../../../../src/math/MathError.cpp	\
+            ../../../../src/math/Vector3D.cpp	\
 
 HEADER	=	FlatColor.hpp	\
 

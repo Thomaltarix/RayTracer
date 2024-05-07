@@ -9,7 +9,7 @@
 
 RayTracer::AMaterial::AMaterial()
 {
-    _color = Math::Vector3D(0, 0, 0);
+    _color = Math::Vector3D(128, 128, 128);
 }
 
 RayTracer::AMaterial::AMaterial(Math::Vector3D color)

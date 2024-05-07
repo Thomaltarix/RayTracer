@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "ALight.hpp"
+#include "../ALight.hpp"
 
 namespace Light {
     /**

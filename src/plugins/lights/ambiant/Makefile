@@ -9,6 +9,8 @@
 SRC		=	../ALight.cpp	\
 			Ambiant.cpp	\
 			getInstance.cpp \
+			../../../../src/math/MathError.cpp	\
+            ../../../../src/math/Vector3D.cpp	\
 
 HEADER	=	Ambiant.hpp	\
 
