@@ -11,6 +11,7 @@ SRC		=	src/main.cpp						\
 			src/math/Vector3D.cpp				\
 			src/math/Rectangle3D.cpp			\
 			src/math/Ray.cpp					\
+			src/math/QuadraticEquation.cpp		\
 			src/math/MathError.cpp				\
 			src/core/Camera.cpp					\
 
@@ -42,7 +43,7 @@ all:	$(NAME)
 
 $(NAME):	$(OBJ)
 	@$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS)
-	@make -sC $(PLUGINS)
+	#@make -sC $(PLUGINS)
 
 clean:
 	@rm -f $(OBJ)
