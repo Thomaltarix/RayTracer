@@ -38,13 +38,6 @@ namespace Primitive {
         Sphere(double x, double y, double z, double radius, const std::shared_ptr<RayTracer::IMaterial> &material = nullptr);
 
         /**
-         * @brief Constructs a Sphere object with the given radius and material.
-         * @param radius The radius of the sphere.
-         * @param material The material of the sphere.
-         */
-        Sphere(double radius, const std::shared_ptr<RayTracer::IMaterial> &material);
-
-        /**
          * @brief Destroys the Sphere object.
          */
         ~Sphere() = default;
