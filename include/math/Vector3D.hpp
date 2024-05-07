@@ -52,6 +52,7 @@ namespace Math {
          * @return Reference to the assigned vector.
          */
         Vector3D &operator=(const Vector3D &vector3D);
+        Vector3D &operator=(const Point3D &point3D);
 
         /**
          * @brief Move assignment operator.

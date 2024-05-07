@@ -45,6 +45,14 @@ Math::Point3D &Math::Point3D::operator=(const Math::Point3D &point3D)
     return (*this);
 }
 
+Math::Point3D &Math::Point3D::operator=(const Math::Vector3D &vector3D)
+{
+    this->x = vector3D.x;
+    this->y = vector3D.y;
+    this->z = vector3D.z;
+    return (*this);
+}
+
 Math::Point3D &Math::Point3D::operator=(const Math::Point3D &&point3D)
 {
     this->x = point3D.x;
