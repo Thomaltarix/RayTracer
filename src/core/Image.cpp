@@ -8,6 +8,9 @@
 #include "Image.hpp"
 #include <any>
 #include <fstream>
+#include <iostream>
+
+#include "../plugins/materials/flatColor/FlatColor.hpp"
 
 RayTracer::Image::Image()
 {
@@ -47,6 +50,7 @@ void RayTracer::Image::render(std::string filename)
             double v = double(j) / (double)_height;
             Math::Ray ray = _camera.ray(u, v);
             std::any closestHit = 0;
+            std::shared_ptr<IPrimitive> closestHitPrimitive = nullptr;
             for (const auto& primitive : _primitives) {
                 if (primitive->hits(ray)) {
                     Math::Point3D hitPoint = primitive->hitPoint(ray);
@@ -55,10 +59,12 @@ void RayTracer::Image::render(std::string filename)
                     }
                     catch (const std::bad_any_cast &e) {
                         closestHit = hitPoint;
+                        closestHitPrimitive = primitive;
                         continue;
                     }
                     if (hitPoint.distance(_camera.origin) < std::any_cast<Math::Point3D>(closestHit).distance(_camera.origin)) {
                         closestHit = hitPoint;
+                        closestHitPrimitive = primitive;
                     }
                 }
             }
@@ -70,8 +76,11 @@ void RayTracer::Image::render(std::string filename)
                 continue;
             }
             Math::Point3D hitPoint = std::any_cast<Math::Point3D>(closestHit);
-            // do lighting
-            file << "255 255 255" << std::endl;
+            Math::Vector3D color;
+            for (const auto& light : _lights) {
+                color += light->Illuminate(hitPoint, closestHitPrimitive->getMaterial());
+            }
+            file << color.x << " " << color.y << " " << color.z << std::endl;
         }
     }
 }
