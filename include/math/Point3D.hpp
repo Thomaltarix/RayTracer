@@ -112,6 +112,13 @@ namespace Math {
         Point3D &operator/=(const Point3D &point3D);
         Point3D &operator/=(const double &value);
 
+        /**
+         * @brief Calculates the distance between two points.
+         * @param point3D The point to calculate the distance to.
+         * @return The distance between the two points.
+         */
+        double distance(const Point3D &point3D) const;
+
         double x; /**< The x-coordinate of the point. */
         double y; /**< The y-coordinate of the point. */
         double z; /**< The z-coordinate of the point. */

@@ -8,6 +8,7 @@
 #include "Point3D.hpp"
 #include "Vector3D.hpp"
 #include "MathError.hpp"
+#include <cmath>
 
 Math::Point3D::Point3D()
 {
@@ -188,4 +189,10 @@ Math::Point3D &Math::Point3D::operator/=(const double &value)
     this->y /= value;
     this->z /= value;
     return (*this);
+}
+
+double Math::Point3D::distance(const Math::Point3D &point3D) const
+{
+    return sqrt(pow(this->x - point3D.x, 2) + pow(this->y - point3D.y, 2) +
+        pow(this->z - point3D.z, 2));
 }
