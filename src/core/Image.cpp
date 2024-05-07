@@ -55,14 +55,12 @@ void RayTracer::Image::render(std::string filename)
                 if (primitive->hits(ray)) {
                     Math::Point3D hitPoint = primitive->hitPoint(ray);
                     try {
-                        std::any_cast<Math::Point3D>(closestHit);
+                        if (hitPoint.distance(_camera.origin) < std::any_cast<Math::Point3D>(closestHit).distance(_camera.origin)) {
+                            closestHit = hitPoint;
+                            closestHitPrimitive = primitive;
+                        }
                     }
                     catch (const std::bad_any_cast &e) {
-                        closestHit = hitPoint;
-                        closestHitPrimitive = primitive;
-                        continue;
-                    }
-                    if (hitPoint.distance(_camera.origin) < std::any_cast<Math::Point3D>(closestHit).distance(_camera.origin)) {
                         closestHit = hitPoint;
                         closestHitPrimitive = primitive;
                     }
