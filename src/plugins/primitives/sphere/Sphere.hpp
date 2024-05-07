@@ -7,7 +7,9 @@
 
 #pragma once
 
-#include "APrimitive.hpp"
+#include "../APrimitive.hpp"
+#include "../../../../include/math/Point3D.hpp"
+#include "../../../../include/math/Ray.hpp"
 
 namespace Primitive {
     /**

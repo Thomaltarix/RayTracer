@@ -9,6 +9,8 @@
 SRC		=	Sphere.cpp		\
 			getInstance.cpp \
 			../APrimitive.cpp	\
+			../../../../src/math/Point3D.cpp	\
+			../../../../src/math/MathError.cpp	\
 
 HEADER	=	Sphere.hpp		\
 
@@ -42,7 +44,7 @@ CXX		=	g++
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	@$(CXX) -shared -o $(NAME) $(OBJ) $(CXXFLAGS)
+	@$(CXX) $(CXXFLAGS) -shared -o $(NAME) $(OBJ)
 	@mv $(NAME) $(PLUGINS)
 	@cp $(HEADER) $(INCLUDE)
 

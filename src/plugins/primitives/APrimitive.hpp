@@ -7,7 +7,10 @@
 
 #pragma once
 
-#include "primitives/IPrimitive.hpp"
+#include "../../../include/primitives/IPrimitive.hpp"
+#include "../../../include/materials/IMaterial.hpp"
+#include "../../../include/math/Point3D.hpp"
+#include "../../../include/math/Ray.hpp"
 
 namespace RayTracer {
     /**
@@ -60,25 +63,25 @@ namespace RayTracer {
          * @brief Sets the position of the primitive using a Point3D object.
          * @param point The position of the primitive.
          */
-        void setPos(Math::Point3D point) override;
+        void setPos(Math::Point3D point);
 
         /**
          * @brief Sets the material of the primitive.
          * @param material The material of the primitive.
          */
-        void setMaterial(std::shared_ptr<RayTracer::IMaterial> material) override;
+        void setMaterial(std::shared_ptr<RayTracer::IMaterial> material);
 
         /**
          * @brief Gets the position of the primitive.
          * @return The position of the primitive.
          */
-        Math::Point3D getPos() override;
+        Math::Point3D getPos();
 
         /**
          * @brief Gets the material of the primitive.
          * @return The material of the primitive.
          */
-        std::shared_ptr<RayTracer::IMaterial> getMaterial() override;
+        std::shared_ptr<RayTracer::IMaterial> getMaterial();
 
         /**
          * @brief Gets the normal vector at a given point on the primitive's surface.

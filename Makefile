@@ -14,6 +14,7 @@ SRC		=	src/main.cpp						\
 			src/math/QuadraticEquation.cpp		\
 			src/math/MathError.cpp				\
 			src/core/Camera.cpp					\
+			src/core/Image.cpp					\
 
 TESTS	=	tests/test.cpp
 
@@ -39,11 +40,13 @@ CXX		=	g++
 # Rules
 .PHONY:	all clean fclean re tests_run clean_tests
 
-all:	$(NAME)
+all:	compile_plugins $(NAME)
 
-$(NAME):	$(OBJ)
-	@$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS)
-	#@make -sC $(PLUGINS)
+$(NAME): 	$(OBJ)
+	@$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS) $(SFML)
+
+compile_plugins:
+	@make -sC $(PLUGINS)
 
 clean:
 	@rm -f $(OBJ)

@@ -26,7 +26,8 @@ Primitive::Sphere::Sphere(double x, double y, double z, double radius,
 
 bool Primitive::Sphere::hits(const Math::Ray &ray)
 {
-    Math::Vector3D oc = ray.getOrigin() - getPos();
+    Math::Vector3D oc;
+    oc = ray.getOrigin() - getPos();
     double a = ray.getDirection().dot(ray.getDirection());
     double b = 2.0 * oc.dot(ray.getDirection());
     double c = oc.dot(oc) - _radius * _radius;
