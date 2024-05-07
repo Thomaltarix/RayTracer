@@ -9,6 +9,7 @@
 
 #include "APrimitive.hpp"
 #include "3DAxis.hpp"
+#include "ICanTranslate.hpp"
 
 namespace Primitive {
     /**
@@ -50,6 +51,20 @@ namespace Primitive {
          * @return The normal vector at the given point.
          */
         Math::Vector3D getNormalAt(const Math::Point3D &point) override;
+
+        /**
+         * @brief Translates the plane by the given amounts along the x, y, and z axes.
+         * @param x The amount to translate along the x-axis.
+         * @param y The amount to translate along the y-axis.
+         * @param z The amount to translate along the z-axis.
+         */
+        void translate(double x, double y, double z) override;
+
+        /**
+         * @brief Translates the plane by the given vector.
+         * @param vec The vector by which to translate the plane.
+         */
+        void translate(const Math::Vector3D &vec) override;
 
     private:
 

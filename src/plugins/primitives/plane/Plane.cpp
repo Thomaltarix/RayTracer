@@ -60,3 +60,17 @@ Math::Vector3D Primitive::Plane::getNormalAt(const Math::Point3D &point)
     }
     return normal;
 }
+
+void Primitive::Plane::translate(double x, double y, double z)
+{
+    _pos.x += x;
+    _pos.y += y;
+    _pos.z += z;
+}
+
+void Primitive::Plane::translate(const Math::Vector3D &vec)
+{
+    _pos.x += vec.x;
+    _pos.y += vec.y;
+    _pos.z += vec.z;
+}

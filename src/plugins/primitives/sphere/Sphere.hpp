@@ -8,6 +8,7 @@
 #pragma once
 
 #include "APrimitive.hpp"
+#include "ICanTranslate.hpp"
 
 namespace Primitive {
     /**
@@ -68,6 +69,20 @@ namespace Primitive {
          * @param radius The new radius of the sphere.
          */
         void setRadius(double radius);
+
+        /**
+         * @brief Translates the sphere by the given vector.
+         * @param vec The vector to translate the sphere by.
+         */
+        void translate(const Math::Vector3D &vec) override;
+
+        /**
+         * @brief Translates the sphere by the given x, y, and z values.
+         * @param x The x value to translate by.
+         * @param y The y value to translate by.
+         * @param z The z value to translate by.
+         */
+        void translate(double x, double y, double z) override;
 
     private:
         double _radius; /**< The radius of the sphere. */
