@@ -6,8 +6,9 @@
 */
 
 #include <cmath>
+#include "../../include/math/QuadraticEquation.hpp"
 
-bool solveQuadraticEquation(double a, double b, double c, double &x1, double &x2)
+bool Math::solveQuadraticEquation(double a, double b, double c, double &x1, double &x2)
 {
     double delta = b * b - 4 * a * c;
 
