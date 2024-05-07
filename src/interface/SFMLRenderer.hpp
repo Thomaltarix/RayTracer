@@ -36,7 +36,7 @@ class SFMLRenderer {
         /**
          * @brief Destructor for SFMLRenderer.
          */
-        ~SFMLRenderer() = default;
+        ~SFMLRenderer();
 
         /**
          * @brief Displays the rendered image on the SFML window.
@@ -109,7 +109,8 @@ class SFMLRenderer {
          */
         void setHeight(int height);
 
-        sf::RenderWindow _window;
+        sf::RenderWindow window; /**< The SFML window object used for rendering. */
+
     private:
         sf::Image _image; /**< The SFML image object used for rendering. */
         sf::Texture _texture; /**< The SFML texture object used for rendering. */

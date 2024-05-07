@@ -9,12 +9,12 @@
 
 SFMLRenderer::SFMLRenderer()
 {
-    _window.create(sf::VideoMode(800, 600), "RayTracer");
+    window.create(sf::VideoMode(800, 600), "RayTracer");
 }
 
 SFMLRenderer::SFMLRenderer(int width, int height)
 {
-    _window.create(sf::VideoMode(width, height), "RayTracer");
+    window.create(sf::VideoMode(width, height), "RayTracer");
 }
 
 SFMLRenderer::SFMLRenderer(const std::string &filename)
@@ -24,9 +24,9 @@ SFMLRenderer::SFMLRenderer(const std::string &filename)
 
 void SFMLRenderer::display()
 {
-    _window.clear();
-    _window.draw(this->getSprite());
-    _window.display();
+    window.clear();
+    window.draw(this->getSprite());
+    window.display();
 }
 
 void SFMLRenderer::loadPPM(const std::string &filename)
@@ -43,7 +43,7 @@ void SFMLRenderer::loadPPM(const std::string &filename)
 
     sf::Sprite sprite(_texture);
     this->setSprite(sprite);
-    _window.create(sf::VideoMode(this->getWidth(), this->getHeight()), "RayTracer");
+    window.create(sf::VideoMode(this->getWidth(), this->getHeight()), "RayTracer");
 }
 
 sf::Image SFMLRenderer::getImage() const
@@ -94,4 +94,9 @@ int SFMLRenderer::getHeight() const
 void SFMLRenderer::setHeight(int height)
 {
     _height = height;
+}
+
+SFMLRenderer::~SFMLRenderer()
+{
+    window.close();
 }
