@@ -6,14 +6,17 @@
 ##
 
 # Sources
-SRC		=	Sphere.cpp		\
-			getInstance.cpp \
+SRC		=	Sphere.cpp			\
+			getInstance.cpp 	\
 			../APrimitive.cpp	\
+			../../../math/Vector3D.cpp	\
+			../../../math/Point3D.cpp	\
+			../../../math/MathError.cpp	\
 
 HEADER	=	Sphere.hpp		\
 
 # Path to the plugin directory
-PLUGINS	=	../../../../plugins/
+PLUGINS	=	../../../../plugins/primitives/
 
 # Path to the include directory to copy the header
 INCLUDE	=	../../../../include/plugins/
@@ -22,7 +25,7 @@ INCLUDE	=	../../../../include/plugins/
 OBJ		=	$(SRC:.cpp=.o)
 
 # Binary
-NAME	=	sphere.so
+NAME	=	libsphere.so
 
 # Flags
 CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17
