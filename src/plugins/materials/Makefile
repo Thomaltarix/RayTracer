@@ -7,8 +7,7 @@
 
 .PHONY: all clean fclean re
 
-SRC		=	sphere/			\
-			plane/			\
+SRC		=	flatColor/		\
 
 all:
 	@for dir in $(SRC); do \

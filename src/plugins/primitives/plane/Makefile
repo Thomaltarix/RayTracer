@@ -6,11 +6,11 @@
 ##
 
 # Sources
-SRC		=	Sphere.cpp		\
+SRC		=	Plane.cpp		\
 			getInstance.cpp \
 			../APrimitive.cpp	\
 
-HEADER	=	Sphere.hpp		\
+HEADER	=	Plane.hpp		\
 
 # Path to the plugin directory
 PLUGINS	=	../../../../plugins/
@@ -22,7 +22,7 @@ INCLUDE	=	../../../../include/plugins/
 OBJ		=	$(SRC:.cpp=.o)
 
 # Binary
-NAME	=	sphere.so
+NAME	=	plane.so
 
 # Flags
 CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17

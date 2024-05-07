@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "Vector3D.hpp"
+
 namespace RayTracer {
     /**
      * @class IMaterial
@@ -33,10 +35,10 @@ namespace RayTracer {
          */
 
         /**
-         * @brief Compute the color of the material and return a Vector with RGB values.
+         * @brief Compute the color of the material and return a Vector with RGB values -> should be RGBA values in the future.
          * @return The computed color of the material.
          * @note If the material is reflective, refractive, etc., implement this method; otherwise, return the color of the material.
          */
-        // virtual Vector4D compute() = 0;
+        virtual Math::Vector3D compute() = 0;
     };
 }
