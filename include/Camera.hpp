@@ -19,7 +19,7 @@ namespace RayTracer {
      * It provides methods to create a default camera, create a camera with specific parameters, and generate a ray.
      */
     class Camera {
-    private:
+    public:
         /**
          * @brief The origin point of the camera in 3D space.
          */
@@ -29,7 +29,7 @@ namespace RayTracer {
          * @brief The screen rectangle that the camera is capturing.
          */
         Math::Rectangle3D screen;
-    public:
+
         /**
          * @brief Default constructor. Creates a default camera.
          */
