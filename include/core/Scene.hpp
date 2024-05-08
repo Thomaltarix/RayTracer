@@ -21,6 +21,7 @@
 #include <libconfig.h++>
 #include <unordered_map>
 #include <functional>
+#include <vector>
 
 namespace RayTracer {
     class Scene {
@@ -77,6 +78,20 @@ namespace RayTracer {
          * @param core pointer to the core object
          */
         void createPlanes(libconfig::Setting &primitives, std::shared_ptr<Core> core);
+
+        /**
+         * @brief Get the Primitives object
+         * Get the primitives from the configuration file.
+         * @return std::vector<std::shared_ptr<IPrimitive>> primitives
+         */
+        std::vector<std::shared_ptr<RayTracer::IPrimitive>> getPrimitives() const;
+
+        /**
+         * @brief Get the Lights object
+         * Get the lights from the configuration file.
+         * @return std::vector<std::shared_ptr<ILight>> lights
+         */
+        std::vector<std::shared_ptr<RayTracer::ILight>> getLights() const;
 
     private:
         /**

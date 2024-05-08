@@ -236,3 +236,23 @@ std::shared_ptr<Math::Vector3D> RayTracer::Scene::getColor(libconfig::Setting &s
     color.lookupValue("b", b);
     return std::make_shared<Math::Vector3D>(r, g, b);
 }
+
+std::vector<std::shared_ptr<RayTracer::IPrimitive>> RayTracer::Scene::getPrimitives() const
+{
+    std::vector<std::shared_ptr<RayTracer::IPrimitive>> primitives;
+
+    for (auto &primitive : this->_primitives) {
+        primitives.push_back(primitive.second);
+    }
+    return primitives;
+}
+
+std::vector<std::shared_ptr<RayTracer::ILight>> RayTracer::Scene::getLights() const
+{
+    std::vector<std::shared_ptr<RayTracer::ILight>> lights;
+
+    for (auto &light : this->_lights) {
+        lights.push_back(light.second);
+    }
+    return lights;
+}
