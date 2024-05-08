@@ -13,16 +13,43 @@
 #include "../errors/IError.hpp"
 
 namespace Utils {
+    /**
+     * @brief Safe Plugins Lister class
+     * This class is responsible for listing the files in a directory.
+     * It is used to safely list the files in a directory.
+     * @see SafePluginsListerException
+     */
     class SafePluginsLister {
     public:
+        /**
+         * @brief Construct a new Safe Plugins Lister object
+         * This class is responsible for listing the files in a directory.
+         * It is used to safely list the files in a directory.
+         * @param path path to the directory
+         */
         SafePluginsLister(std::string const &path);
+
+        /**
+         * @brief Destroy the Safe Plugins Lister object
+         * Destroy the Safe Plugins Lister object.
+         */
         ~SafePluginsLister();
 
+        /**
+         * @brief Get the next file
+         * Get the next file in the directory.
+         * @return std::string next file
+         */
         std::string getNextFile();
 
     private:
+        /** Path to the directory */
         std::string _path;
+
+        /** Directory pointer */
         DIR *_dir;
+
+        /** Directory entry */
         struct dirent *_ent;
     };
 
