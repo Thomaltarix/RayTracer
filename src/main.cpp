@@ -15,8 +15,8 @@ int main(int ac, char **av)
         return 84;
     }
     try {
-        RayTracer::Core core;
-        RayTracer::Scene scene(av[1], &core);
+        std::shared_ptr<RayTracer::Core> core = std::make_shared<RayTracer::Core>();
+        RayTracer::Scene scene(av[1], core);
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
         return 84;

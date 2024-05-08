@@ -33,11 +33,11 @@ static RayTracer::Axis transformAxis(std::string axis)
     throw RayTracer::SceneParseError("Invalid axis for plane");
 }
 
-RayTracer::Scene::Scene(std::string path, Core *core)
+RayTracer::Scene::Scene(std::string path, std::shared_ptr<Core> core)
 {
     this->_primitiveCreators = {
-        {"spheres", [this](libconfig::Setting &primitive, Core *core) {createSpheres(primitive, core);} },
-        {"planes", [this](libconfig::Setting &primitive, Core *core) {createPlanes(primitive, core);} }
+        {"spheres", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createSpheres(primitive, core);} },
+        {"planes", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createPlanes(primitive, core);} }
     };
     try {
         libconfig::Config libconfig;
@@ -108,11 +108,10 @@ void RayTracer::Scene::createCamera(libconfig::Setting &camera)
     std::cout << "Camera created" << std::endl << std::endl;
 }
 
-void RayTracer::Scene::createLights(libconfig::Setting &lights, Core *core)
+void RayTracer::Scene::createLights(libconfig::Setting &lights, std::shared_ptr<Core> core)
 {
     double ambiantIntensity, diffuseIntensity;
     std::unordered_map<std::string, Math::Point3D> positions;
-    // std::unordered_map<std::string, RayTracer::DirectionalLight *> directionalLights;
 
     (void)core;
     std::cout << "Creating lights" << std::endl;
@@ -141,13 +140,13 @@ void RayTracer::Scene::createLights(libconfig::Setting &lights, Core *core)
     //         libconfig::Setting &light = directionalLights[i];
     //         CREATE DIRECTIONAL LIGHT
     // }
-    Light::Ambiant *ambiant = new Light::Ambiant(ambiantIntensity);
+    std::shared_ptr<Light::Ambiant> ambiant = std::make_shared<Light::Ambiant>(ambiantIntensity);
     this->_lights["ambiant"] = ambiant;
     (void)diffuseIntensity;
     std::cout << "Lights created" << std::endl << std::endl;
 }
 
-void RayTracer::Scene::createPrimitives(libconfig::Config &libconfig, Core *core)
+void RayTracer::Scene::createPrimitives(libconfig::Config &libconfig, std::shared_ptr<Core> core)
 {
     libconfig::Setting &primitives = libconfig.lookup("primitives");
     for (int i = 0; i < primitives.getLength(); i++) {
@@ -160,7 +159,7 @@ void RayTracer::Scene::createPrimitives(libconfig::Config &libconfig, Core *core
     }
 }
 
-void RayTracer::Scene::createSpheres(libconfig::Setting &spheres, Core *core)
+void RayTracer::Scene::createSpheres(libconfig::Setting &spheres, std::shared_ptr<Core> core)
 {
     std::cout << "Creating spheres" << std::endl;
     for (int i = 0; i < spheres.getLength(); i++) {
@@ -170,7 +169,7 @@ void RayTracer::Scene::createSpheres(libconfig::Setting &spheres, Core *core)
     std::cout << "Spheres created" << std::endl << std::endl;
 }
 
-void RayTracer::Scene::createSphere(libconfig::Setting &primitive, Core *core)
+void RayTracer::Scene::createSphere(libconfig::Setting &primitive, std::shared_ptr<Core> core)
 {
     double x, y, z, radius;
     std::string name;
@@ -183,17 +182,16 @@ void RayTracer::Scene::createSphere(libconfig::Setting &primitive, Core *core)
     radius = transformValue(primitive.lookup("r"));
     primitive.lookupValue("material", material);
     std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << "; radius: " << radius << "; material: " << material << std::endl;
-    Math::Vector3D *color = getColor(primitive);
-    IMaterial *mat = core->factoryMaterial(material);
-    std::shared_ptr<IMaterial> materialPtr(mat);
+    std::shared_ptr<Math::Vector3D> color = getColor(primitive);
+    std::shared_ptr<IMaterial> materialPtr = core->factoryMaterial(material);
     materialPtr->setColor(*color);
-    Primitive::Sphere *sphere = new Primitive::Sphere(x, y, z, radius, materialPtr);
+    std::shared_ptr<Primitive::Sphere> sphere = std::make_shared<Primitive::Sphere>(x, y, z, radius, materialPtr);
     if (this->_primitives.find(name) != this->_primitives.end())
         throw SceneDuplicateNameException("Duplicate primitive name");
     this->_primitives[name] = sphere;
 }
 
-void RayTracer::Scene::createPlanes(libconfig::Setting &planes, Core *core)
+void RayTracer::Scene::createPlanes(libconfig::Setting &planes, std::shared_ptr<Core> core)
 {
     std::cout << "Creating planes" << std::endl;
     for (int i = 0; i < planes.getLength(); i++) {
@@ -203,7 +201,7 @@ void RayTracer::Scene::createPlanes(libconfig::Setting &planes, Core *core)
     std::cout << "Planes created" << std::endl << std::endl;
 }
 
-void RayTracer::Scene::createPlane(libconfig::Setting &primitive, Core *core)
+void RayTracer::Scene::createPlane(libconfig::Setting &primitive, std::shared_ptr<Core> core)
 {
     double x, y, z;
     Axis axis;
@@ -216,18 +214,17 @@ void RayTracer::Scene::createPlane(libconfig::Setting &primitive, Core *core)
     y = transformValue(primitive.lookup("y"));
     z = transformValue(primitive.lookup("z"));
     primitive.lookupValue("material", material);
-    Math::Vector3D *color = getColor(primitive);
-    IMaterial *mat = core->factoryMaterial(material);
-    std::shared_ptr<IMaterial> materialPtr(mat);
+    std::shared_ptr<Math::Vector3D> color = getColor(primitive);
+    std::shared_ptr<IMaterial> materialPtr = core->factoryMaterial(material);
     materialPtr->setColor(*color);
-    std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << " ;axis: " << axis << "; material: " << material << std::endl;
-    Primitive::Plane *plane = new Primitive::Plane(x, y, z, materialPtr, axis);
+    std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << " ; axis: " << axis << "; material: " << material << std::endl;
+    std::shared_ptr<Primitive::Plane> plane = std::make_shared<Primitive::Plane>(x, y, z, materialPtr, axis);
     if (this->_primitives.find(name) != this->_primitives.end())
         throw SceneDuplicateNameException("Duplicate primitive name");
     this->_primitives[name] = plane;
 }
 
-Math::Vector3D *RayTracer::Scene::getColor(libconfig::Setting &setting)
+std::shared_ptr<Math::Vector3D> RayTracer::Scene::getColor(libconfig::Setting &setting)
 {
     double r, g, b;
 
@@ -237,5 +234,5 @@ Math::Vector3D *RayTracer::Scene::getColor(libconfig::Setting &setting)
     color.lookupValue("r", r);
     color.lookupValue("g", g);
     color.lookupValue("b", b);
-    return new Math::Vector3D(r, g, b);
+    return std::make_shared<Math::Vector3D>(r, g, b);
 }

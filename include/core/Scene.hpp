@@ -31,7 +31,7 @@ namespace RayTracer {
          * @param path path to the configuration file
          * @param core pointer to the core object
          */
-        Scene(std::string path, Core *core);
+        Scene(std::string path, std::shared_ptr<Core> core);
 
         /**
          * @brief Destroy the Scene object
@@ -45,7 +45,7 @@ namespace RayTracer {
          * @param cfg configuration file
          * @param core pointer to the core object
          */
-        void createPrimitives(libconfig::Config &cfg, Core *core);
+        void createPrimitives(libconfig::Config &cfg, std::shared_ptr<Core> core);
 
         /**
          * @brief Create the camera
@@ -60,7 +60,7 @@ namespace RayTracer {
          * @param lights configuration file
          * @param core pointer to the core object
          */
-        void createLights(libconfig::Setting &lights, Core *core);
+        void createLights(libconfig::Setting &lights, std::shared_ptr<Core> core);
 
         /**
          * @brief Create the spheres
@@ -68,7 +68,7 @@ namespace RayTracer {
          * @param primitives configuration file
          * @param core pointer to the core object
          */
-        void createSpheres(libconfig::Setting &primitives, Core *core);
+        void createSpheres(libconfig::Setting &primitives, std::shared_ptr<Core> core);
 
         /**
          * @brief Create the planes
@@ -76,7 +76,7 @@ namespace RayTracer {
          * @param primitives configuration file
          * @param core pointer to the core object
          */
-        void createPlanes(libconfig::Setting &primitives, Core *core);
+        void createPlanes(libconfig::Setting &primitives, std::shared_ptr<Core> core);
 
     private:
         /**
@@ -85,32 +85,31 @@ namespace RayTracer {
          * @param primitive configuration file
          * @param core pointer to the core object
          */
-        void createSphere(libconfig::Setting &primitive, Core *core);
-
+        void createSphere(libconfig::Setting &primitive, std::shared_ptr<Core> core);
         /**
          * @brief Create a Plane object
          * Create a Plane object from the configuration file.
          * @param primitive configuration file
          * @param core pointer to the core object
          */
-        void createPlane(libconfig::Setting &primitive, Core *core);
+        void createPlane(libconfig::Setting &primitive, std::shared_ptr<Core> core);
 
         /**
-         * @brief Create a 3DAxis object
-         * Create a 3DAxis object from the configuration file.
-         * @param primitive configuration file
-         * @param core pointer to the core object
+         * @brief Get the Color object
+         * Get the color from the configuration file.
+         * @param setting configuration file
+         * @return std::shared_ptr<Math::Vector3D> color
          */
-        Math::Vector3D *getColor(libconfig::Setting &setting);
+        std::shared_ptr<Math::Vector3D> getColor(libconfig::Setting &setting);
 
         /** Map of primitive creators */
-        std::unordered_map<std::string, std::function<void(libconfig::Setting &, Core *)>> _primitiveCreators;
+        std::unordered_map<std::string, std::function<void(libconfig::Setting &, std::shared_ptr<Core>)>> _primitiveCreators;
 
         /** Map of primitives */
-        std::unordered_map<std::string, IPrimitive *> _primitives;
+        std::unordered_map<std::string, std::shared_ptr<IPrimitive>> _primitives;
 
         /** Map of lights */
-        std::unordered_map<std::string, ILight *> _lights;
+        std::unordered_map<std::string, std::shared_ptr<ILight>> _lights;
 
         /** Camera object */
         // std::shared_ptr<Camera> _camera;

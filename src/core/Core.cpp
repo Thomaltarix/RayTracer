@@ -6,10 +6,11 @@
 */
 
 #include "core/Core.hpp"
+#include <memory>
 
 RayTracer::Core::Core()
 {
-    this->LoadPlugins();
+    this->loadPlugins();
 }
 
 RayTracer::Core::~Core()
@@ -82,33 +83,36 @@ void RayTracer::Core::scanMaterials()
     }
 }
 
-void RayTracer::Core::LoadPlugins()
+void RayTracer::Core::loadPlugins()
 {
     this->scanPrimitives();
     this->scanLights();
     this->scanMaterials();
 }
 
-RayTracer::IPrimitive *RayTracer::Core::factoryPrimitive(std::string const &name)
+std::shared_ptr<RayTracer::IPrimitive> RayTracer::Core::factoryPrimitive(std::string const &name)
 {
     if (this->_primitives.find(name) == this->_primitives.end()) {
         throw CoreUnknownPrimitiveException("Unknown primitive: " + name);
     }
-    return this->_primitives[name]->getInstance();
+    std::shared_ptr<IPrimitive> primitive(this->_primitives[name]->getInstance());
+    return primitive;
 }
 
-RayTracer::ILight *RayTracer::Core::factoryLight(std::string const &name)
+std::shared_ptr<RayTracer::ILight> RayTracer::Core::factoryLight(std::string const &name)
 {
     if (this->_lights.find(name) == this->_lights.end()) {
         throw CoreUnknownLightException("Unknown light: " + name);
     }
-    return this->_lights[name]->getInstance();
+    std::shared_ptr<ILight> light(this->_lights[name]->getInstance());
+    return light;
 }
 
-RayTracer::IMaterial *RayTracer::Core::factoryMaterial(std::string const &name)
+std::shared_ptr<RayTracer::IMaterial> RayTracer::Core::factoryMaterial(std::string const &name)
 {
     if (this->_materials.find(name) == this->_materials.end()) {
         throw CoreUnknownMaterialException("Unknown material: " + name);
     }
-    return this->_materials[name]->getInstance();
+    std::shared_ptr<IMaterial> material(this->_materials[name]->getInstance());
+    return material;
 }

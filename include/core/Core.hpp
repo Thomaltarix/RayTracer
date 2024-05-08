@@ -15,6 +15,7 @@
 #include "core/SafePluginsLister.hpp"
 #include "errors/CoreException.hpp"
 #include <unordered_map>
+#include <memory>
 
 namespace RayTracer {
 
@@ -45,7 +46,7 @@ namespace RayTracer {
          * @brief Load the plugins
          * Load the plugins from the plugins directory.
          */
-        void LoadPlugins();
+        void loadPlugins();
 
         /**
          * @brief Scan the primitives plugins
@@ -70,27 +71,27 @@ namespace RayTracer {
          * Create an instance of a primitive from the given name.
          *
          * @param name Name of the primitive to create
-         * @return IPrimitive* Instance of the primitive
+         * @return std::shared_ptr<IPrimitive> Instance of the primitive
          */
-        IPrimitive *factoryPrimitive(std::string const &name);
+        std::shared_ptr<IPrimitive> factoryPrimitive(std::string const &name);
 
         /**
          * @brief Factory method for lights
          * Create an instance of a light from the given name.
          *
          * @param name Name of the light to create
-         * @return ILight* Instance of the light
+         * @return std::shared_ptr<ILight> Instance of the light
          */
-        ILight *factoryLight(std::string const &name);
+        std::shared_ptr<ILight> factoryLight(std::string const &name);
 
         /**
          * @brief Factory method for materials
          * Create an instance of a material from the given name.
          *
          * @param name Name of the material to create
-         * @return IMaterial* Instance of the material
+         * @return std::shared_ptr<IMaterial> Instance of the material
          */
-        IMaterial *factoryMaterial(std::string const &name);
+        std::shared_ptr<IMaterial> factoryMaterial(std::string const &name);
 
     private:
         /** Map of primitives */
