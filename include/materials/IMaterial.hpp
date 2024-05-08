@@ -25,13 +25,6 @@ namespace RayTracer {
         virtual ~IMaterial() = default;
 
         /**
-         * @brief Gets the color of the material.
-         *
-         * @return The color of the material.
-         */
-        virtual Math::Vector3D getColor() const = 0;
-
-        /**
          * @brief Sets the color of the material.
          *
          * @param color The color of the material.

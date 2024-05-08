@@ -51,7 +51,7 @@ namespace RayTracer {
          *
          * @return The color of the material.
          */
-        Math::Vector3D getColor() const override;
+        Math::Vector3D getColor() const;
 
         /**
          * @brief Sets the color of the material.
