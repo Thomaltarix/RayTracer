@@ -22,7 +22,7 @@ namespace RayTracer {
      * It provides methods to create an empty image, create an image with specific parameters, and render the image to a file.
      */
     class Image {
-    public:
+    private:
         /**
          * @brief The camera used to capture the image.
          */
@@ -47,7 +47,7 @@ namespace RayTracer {
          * @brief The height of the image in pixels.
          */
         std::size_t _height;
-
+    public:
         /**
          * @brief Default constructor. Creates an empty image.
          */
