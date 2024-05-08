@@ -8,8 +8,8 @@
 #pragma once
 
 #include "../APrimitive.hpp"
-#include "../../../../include/math/Point3D.hpp"
-#include "../../../../include/math/Ray.hpp"
+#include "math/Point3D.hpp"
+#include "math/Ray.hpp"
 
 namespace Primitive {
     /**

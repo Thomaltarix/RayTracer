@@ -6,7 +6,7 @@
 */
 
 #include "Sphere.hpp"
-#include "../../../../include/math/QuadraticEquation.hpp"
+#include "math/QuadraticEquation.hpp"
 #include <iostream>
 
 Primitive::Sphere::Sphere() : APrimitive()
