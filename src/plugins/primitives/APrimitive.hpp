@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include "../../../include/primitives/IPrimitive.hpp"
-#include "../../../include/materials/IMaterial.hpp"
-#include "../../../include/math/Point3D.hpp"
-#include "../../../include/math/Ray.hpp"
+#include "primitives/IPrimitive.hpp"
+#include "materials/IMaterial.hpp"
+#include "math/Point3D.hpp"
+#include "math/Ray.hpp"
 
 namespace RayTracer {
     /**
