@@ -72,7 +72,7 @@ namespace RayTracer {
          *
          * @param filename The name of the file to which the image is rendered.
          */
-        void render(std::string filename);
+        void render(std::string filename="output.ppm");
     };
 }
 
