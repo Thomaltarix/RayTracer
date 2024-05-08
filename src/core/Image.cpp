@@ -13,11 +13,11 @@
 RayTracer::Image::Image()
 {
     _camera = Camera();
-    _height = 1000;
-    _width = 1000;
+    _height = 0;
+    _width = 0;
 }
 
-RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<IPrimitive>> &primitives, const std::vector<std::shared_ptr<ILight>> &lights)
+RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<IPrimitive>> &primitives, const std::vector<std::shared_ptr<ILight>> &lights, std::size_t width, std::size_t height)
 {
     _camera = camera;
     for (auto &primitive : primitives) {
@@ -26,11 +26,9 @@ RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<
     for (auto &light : lights) {
         _lights.push_back(light);
     }
-    _lights = lights;
-    _height = 1000;
-    _width = 1000;
+    _width = width;
+    _height = height;
 }
-
 
 void RayTracer::Image::render(std::string filename)
 {
