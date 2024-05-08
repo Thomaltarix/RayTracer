@@ -17,9 +17,8 @@ namespace Math {
         Math::Vector3D width;
         Math::Vector3D height;
 
-        Rectangle3D() : origin(), width(), height() {}
-        Rectangle3D(const Math::Point3D &origin, const Math::Vector3D &width, const Math::Vector3D &height) :
-                origin(origin), width(width), height(height) {}
+        Rectangle3D();
+        Rectangle3D(const Math::Point3D &origin, const Math::Vector3D &width, const Math::Vector3D &height);
         ~Rectangle3D() = default;
 
         /**
