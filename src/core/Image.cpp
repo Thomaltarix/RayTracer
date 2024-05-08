@@ -10,8 +10,6 @@
 #include <fstream>
 #include <iostream>
 
-#include "../plugins/materials/flatColor/FlatColor.hpp"
-
 RayTracer::Image::Image()
 {
     _camera = Camera();
