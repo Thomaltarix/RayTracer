@@ -6,6 +6,7 @@
 */
 
 #pragma once
+#include <iostream>
 
 namespace RayTracer {
 
@@ -60,3 +61,5 @@ namespace RayTracer {
         Axis _axis;
     };
 }
+
+std::ostream &operator<<(std::ostream &os, const RayTracer::Axis3D &axis);

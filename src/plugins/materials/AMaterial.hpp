@@ -58,7 +58,7 @@ namespace RayTracer {
          *
          * @param color The color of the material.
          */
-        void setColor(Math::Vector3D color);
+        void setColor(Math::Vector3D color) override;
 
     protected:
         Math::Vector3D _color; /**< The color of the material. */

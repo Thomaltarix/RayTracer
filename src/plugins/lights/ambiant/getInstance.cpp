@@ -21,6 +21,11 @@ extern "C"
         return new Light::Ambiant();
     }
 
+    const std::string &getName(void) {
+        const static std::string name = "AmbiantLight";
+        return name;
+    }
+
     __attribute__((destructor))
     static void destroysharedlibrary()
     {

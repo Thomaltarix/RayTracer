@@ -104,7 +104,7 @@ Math::Vector3D &Math::Vector3D::operator*=(const Math::Vector3D &vector3D)
 Math::Vector3D Math::Vector3D::operator/(const Math::Vector3D &vector3D) const
 {
     if (vector3D.x == 0 || vector3D.y == 0 || vector3D.z == 0)
-        throw MathError("Division by 0");
+        throw MathDivideByZeroError("Division by 0");
     return Math::Vector3D(this->x / vector3D.x, this->y / vector3D.y,
         this->z / vector3D.z);
 }
@@ -112,7 +112,7 @@ Math::Vector3D Math::Vector3D::operator/(const Math::Vector3D &vector3D) const
 Math::Vector3D &Math::Vector3D::operator/=(const Math::Vector3D &vector3D)
 {
     if (vector3D.x == 0 || vector3D.y == 0 || vector3D.z == 0)
-        throw MathError("Division by 0");
+        throw MathDivideByZeroError("Division by 0");
     this->x /= vector3D.x;
     this->y /= vector3D.y;
     this->z /= vector3D.z;
