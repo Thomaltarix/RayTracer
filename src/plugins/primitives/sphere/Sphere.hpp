@@ -8,7 +8,7 @@
 #pragma once
 
 #include "APrimitive.hpp"
-#include "ICanTranslate.hpp"
+#include "transformations/ICanTranslate.hpp"
 
 namespace Primitive {
     /**
