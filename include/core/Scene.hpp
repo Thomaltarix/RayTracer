@@ -16,6 +16,8 @@
 #include "plugins/3DAxis.hpp"
 #include "plugins/Ambiant.hpp"
 #include "errors/SceneException.hpp"
+#include "transformations/ICanRotate.hpp"
+#include "transformations/ICanTranslate.hpp"
 #include <iostream>
 #include <memory>
 #include <libconfig.h++>
@@ -41,6 +43,21 @@ namespace RayTracer {
         ~Scene() = default;
 
         /**
+         * @brief Get the Primitives object
+         * Get the primitives from the configuration file.
+         * @return std::vector<std::shared_ptr<IPrimitive>> primitives
+         */
+        std::vector<std::shared_ptr<RayTracer::IPrimitive>> getPrimitives() const;
+
+        /**
+         * @brief Get the Lights object
+         * Get the lights from the configuration file.
+         * @return std::vector<std::shared_ptr<ILight>> lights
+         */
+        std::vector<std::shared_ptr<RayTracer::ILight>> getLights() const;
+
+    private:
+        /**
          * @brief Create the primitives
          * Create the primitives from the configuration file.
          * @param cfg configuration file
@@ -63,6 +80,12 @@ namespace RayTracer {
          */
         void createLights(libconfig::Setting &lights, std::shared_ptr<Core> core);
 
+        void applyTransformations(libconfig::Setting &transformation);
+        void applyTransformation(libconfig::Setting &transformation);
+
+        void applyTranslation(libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive);
+        void applyRotation(libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive);
+
         /**
          * @brief Create the spheres
          * Create the spheres from the configuration file.
@@ -72,6 +95,14 @@ namespace RayTracer {
         void createSpheres(libconfig::Setting &primitives, std::shared_ptr<Core> core);
 
         /**
+         * @brief Create a Sphere object
+         * Create a Sphere object from the configuration file.
+         * @param primitive configuration file
+         * @param core pointer to the core object
+         */
+        void createSphere(libconfig::Setting &primitive, std::shared_ptr<Core> core);
+
+        /**
          * @brief Create the planes
          * Create the planes from the configuration file.
          * @param primitives configuration file
@@ -79,28 +110,6 @@ namespace RayTracer {
          */
         void createPlanes(libconfig::Setting &primitives, std::shared_ptr<Core> core);
 
-        /**
-         * @brief Get the Primitives object
-         * Get the primitives from the configuration file.
-         * @return std::vector<std::shared_ptr<IPrimitive>> primitives
-         */
-        std::vector<std::shared_ptr<RayTracer::IPrimitive>> getPrimitives() const;
-
-        /**
-         * @brief Get the Lights object
-         * Get the lights from the configuration file.
-         * @return std::vector<std::shared_ptr<ILight>> lights
-         */
-        std::vector<std::shared_ptr<RayTracer::ILight>> getLights() const;
-
-    private:
-        /**
-         * @brief Create a Sphere object
-         * Create a Sphere object from the configuration file.
-         * @param primitive configuration file
-         * @param core pointer to the core object
-         */
-        void createSphere(libconfig::Setting &primitive, std::shared_ptr<Core> core);
         /**
          * @brief Create a Plane object
          * Create a Plane object from the configuration file.
@@ -119,6 +128,9 @@ namespace RayTracer {
 
         /** Map of primitive creators */
         std::unordered_map<std::string, std::function<void(libconfig::Setting &, std::shared_ptr<Core>)>> _primitiveCreators;
+
+        /** Map of transformation we can apply to primitives */
+        std::unordered_map<std::string, std::function<void(libconfig::Setting &, std::shared_ptr<IPrimitive>)>> _primitiveTransformations;
 
         /** Map of primitives */
         std::unordered_map<std::string, std::shared_ptr<IPrimitive>> _primitives;
