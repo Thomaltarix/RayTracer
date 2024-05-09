@@ -6,30 +6,30 @@
 ##
 
 # Sources
-SRC				=	src/main.cpp						\
+SRC				=	src/main.cpp									\
 					\
-					src/core/Core.cpp					\
-					src/core/Scene.cpp					\
-					src/core/DLLoaderException.cpp		\
-					src/core/SafePluginsLister.cpp		\
-					src/core/CoreException.cpp			\
-					src/core/SceneException.cpp			\
+					src/core/Core.cpp								\
+					src/core/Scene.cpp								\
+					src/core/DLLoaderException.cpp					\
+					src/core/SafePluginsLister.cpp					\
+					src/core/CoreException.cpp						\
+					src/core/SceneException.cpp						\
 					\
-					src/math/Point3D.cpp				\
-					src/math/Vector3D.cpp				\
-					src/math/Ray.cpp					\
-					src/math/MathError.cpp				\
+					src/math/Point3D.cpp							\
+					src/math/Vector3D.cpp							\
+					src/math/Ray.cpp								\
+					src/math/MathError.cpp							\
 					\
-					src/plugins/primitives/APrimitive.cpp	\
-					src/plugins/primitives/3DAxis.cpp		\
-					src/plugins/primitives/sphere/Sphere.cpp	\
-					src/plugins/primitives/plane/Plane.cpp	\
+					src/plugins/primitives/APrimitive.cpp			\
+					src/plugins/primitives/3DAxis.cpp				\
+					src/plugins/primitives/sphere/Sphere.cpp		\
+					src/plugins/primitives/plane/Plane.cpp			\
 					\
-					src/plugins/materials/AMaterial.cpp	\
+					src/plugins/materials/AMaterial.cpp				\
 					src/plugins/materials/flatColor/FlatColor.cpp	\
 					\
-					src/plugins/lights/ALight.cpp		\
-					src/plugins/lights/ambiant/Ambiant.cpp	\
+					src/plugins/lights/ALight.cpp					\
+					src/plugins/lights/ambiant/Ambiant.cpp			\
 
 
 TESTS			=	tests/test.cpp
