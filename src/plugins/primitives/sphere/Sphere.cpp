@@ -55,3 +55,17 @@ void Primitive::Sphere::setRadius(double radius)
 {
     _radius = radius;
 }
+
+void Primitive::Sphere::translate(double x, double y, double z)
+{
+    _pos.x += x;
+    _pos.y += y;
+    _pos.z += z;
+}
+
+void Primitive::Sphere::translate(const Math::Vector3D &vec)
+{
+    _pos.x += vec.x;
+    _pos.y += vec.y;
+    _pos.z += vec.z;
+}

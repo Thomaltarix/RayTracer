@@ -33,6 +33,7 @@ CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17
 CXXFLAGS	+=	-I../ 						\
 				-I../../../../include 		\
 				-I../../../../include/math 	\
+				-I../../../../include/transformations	\
 
 CXXFLAGS	+=	-fPIC
 

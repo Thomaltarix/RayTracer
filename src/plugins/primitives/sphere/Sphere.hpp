@@ -8,12 +8,13 @@
 #pragma once
 
 #include "APrimitive.hpp"
+#include "ICanTranslate.hpp"
 
 namespace Primitive {
     /**
      * @brief The Sphere class represents a sphere primitive in a ray tracer.
      */
-    class Sphere : public RayTracer::APrimitive {
+    class Sphere : public RayTracer::APrimitive, public RayTracer::ICanTranslate {
     public:
         /**
          * @brief Default constructor for the Sphere class.
@@ -36,13 +37,6 @@ namespace Primitive {
          * @param material The material of the sphere.
          */
         Sphere(double x, double y, double z, double radius, const std::shared_ptr<RayTracer::IMaterial> &material = nullptr);
-
-        /**
-         * @brief Constructs a Sphere object with the given radius and material.
-         * @param radius The radius of the sphere.
-         * @param material The material of the sphere.
-         */
-        Sphere(double radius, const std::shared_ptr<RayTracer::IMaterial> &material);
 
         /**
          * @brief Destroys the Sphere object.
@@ -75,6 +69,20 @@ namespace Primitive {
          * @param radius The new radius of the sphere.
          */
         void setRadius(double radius);
+
+        /**
+         * @brief Translates the sphere by the given vector.
+         * @param vec The vector to translate the sphere by.
+         */
+        void translate(const Math::Vector3D &vec) override;
+
+        /**
+         * @brief Translates the sphere by the given x, y, and z values.
+         * @param x The x value to translate by.
+         * @param y The y value to translate by.
+         * @param z The z value to translate by.
+         */
+        void translate(double x, double y, double z) override;
 
     private:
         double _radius; /**< The radius of the sphere. */
