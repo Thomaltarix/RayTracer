@@ -9,13 +9,14 @@
 SRC		=	../AMaterial.cpp	\
 			FlatColor.cpp	\
 			getInstance.cpp \
-			../../../../src/math/MathError.cpp	\
-            ../../../../src/math/Vector3D.cpp	\
+			../../../math/Vector3D.cpp	\
+			../../../math/Point3D.cpp	\
+			../../../math/MathError.cpp	\
 
 HEADER	=	FlatColor.hpp	\
 
 # Path to the plugin directory
-PLUGINS	=	../../../../plugins/
+PLUGINS	=	../../../../plugins/materials/
 
 # Path to the include directory to copy the header
 INCLUDE	=	../../../../include/plugins/
@@ -24,7 +25,7 @@ INCLUDE	=	../../../../include/plugins/
 OBJ		=	$(SRC:.cpp=.o)
 
 # Binary
-NAME	=	flatColor.so
+NAME	=	libflatColor.so
 
 # Flags
 CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17

@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "ITransformation.hpp"
+#include "Vector3D.hpp"
 
 namespace Raytracer {
     /**
@@ -16,7 +16,7 @@ namespace Raytracer {
      * It inherits the ITransformation class and the transform method.
      * This method will be used to rotate the object and will have all the variables needed to do so.
      */
-    class ICanRotate : public RayTracer::ITransformation {
+    class ICanRotate {
     public:
         /**
          * @brief Destructor for ICanRotate class.

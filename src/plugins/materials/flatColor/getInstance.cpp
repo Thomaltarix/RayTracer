@@ -21,6 +21,12 @@ extern "C"
         return new Material::FlatColor();
     }
 
+    const std::string &getName(void)
+    {
+        const static std::string name = "FlatColor";
+        return name;
+    }
+
     __attribute__((destructor))
     static void destroysharedlibrary()
     {
