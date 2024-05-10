@@ -6,15 +6,19 @@
 ##
 
 # Sources
-SRC		=	Cylinder.cpp		\
-			getInstance.cpp \
+SRC		=	Cylinder.cpp			\
+			getInstance.cpp 	\
 			../APrimitive.cpp	\
-			../3DAxis.cpp		\
+			../../../../src/math/Point3D.cpp	\
+			../../../../src/math/MathError.cpp	\
+			../../../../src/math/Vector3D.cpp	\
+			../../../../src/math/QuadraticEquation.cpp	\
+			../../../../src/math/Ray.cpp	\
 
 HEADER	=	Cylinder.hpp		\
 
 # Path to the plugin directory
-PLUGINS	=	../../../../plugins/
+PLUGINS	=	../../../../plugins/primitives/
 
 # Path to the include directory to copy the header
 INCLUDE	=	../../../../include/plugins/
@@ -23,7 +27,7 @@ INCLUDE	=	../../../../include/plugins/
 OBJ		=	$(SRC:.cpp=.o)
 
 # Binary
-NAME	=	cylinder.so
+NAME	=	libcylinder.so
 
 # Flags
 CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17
@@ -31,6 +35,7 @@ CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17
 CXXFLAGS	+=	-I../ 						\
 				-I../../../../include 		\
 				-I../../../../include/math 	\
+				-I../../../../include/transformations	\
 
 CXXFLAGS	+=	-fPIC
 
@@ -43,7 +48,7 @@ CXX		=	g++
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	@$(CXX) -shared -o $(NAME) $(OBJ) $(CXXFLAGS)
+	@$(CXX) $(CXXFLAGS) -shared -o $(NAME) $(OBJ)
 	@mv $(NAME) $(PLUGINS)
 	@cp $(HEADER) $(INCLUDE)
 
