@@ -7,6 +7,7 @@
 
 #include "core/Camera.hpp"
 #include <cmath>
+#include <iostream>
 
 RayTracer::Camera::Camera()
 {
@@ -19,8 +20,6 @@ RayTracer::Camera::Camera(const Math::Point3D &origin, const Math::Rectangle3D &
     _origin = origin;
     _screen = screen;
 }
-
-#include <iostream>
 
 RayTracer::Camera::Camera(const Math::Point3D &origin, const Math::Vector3D &rotation, std::size_t width, std::size_t height, double fov)
 {
