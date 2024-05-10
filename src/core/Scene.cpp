@@ -232,9 +232,9 @@ std::shared_ptr<Math::Vector3D> RayTracer::Scene::getColor(libconfig::Setting &s
     if (!setting.exists("color"))
         Math::Vector3D(255, 255, 255);
     libconfig::Setting &color = setting.lookup("color");
-    color.lookupValue("r", r);
-    color.lookupValue("g", g);
-    color.lookupValue("b", b);
+    r = transformValue(color.lookup("r"));
+    g = transformValue(color.lookup("g"));
+    b = transformValue(color.lookup("b"));
     return std::make_shared<Math::Vector3D>(r, g, b);
 }
 
