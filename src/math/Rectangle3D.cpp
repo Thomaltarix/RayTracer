@@ -16,7 +16,7 @@ Math::Rectangle3D::Rectangle3D(const Math::Point3D &origin, const Math::Vector3D
 Math::Point3D Math::Rectangle3D::pointAt(double u, double v) const
 {
     if (u < 0 || u > 1 || v < 0 || v > 1) {
-        throw Math::MathError("u and v must be between 0 and 1");
+        throw Math::MathIndexOutOfBoundsError("u and v must be between 0 and 1");
     }
     return origin + width * u + height * v;
 }

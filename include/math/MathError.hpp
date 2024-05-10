@@ -65,4 +65,18 @@ namespace Math {
          */
         ~MathNoSolutionError() override = default;
     };
+
+    class MathIndexOutOfBoundsError : public MathError {
+    public:
+        /**
+         * @brief Constructs a MathIndexOutOfBoundsError object with the given error message.
+         * @param message The error message.
+         */
+        MathIndexOutOfBoundsError(std::string const &message);
+
+        /**
+         * @brief Default destructor for the MathIndexOutOfBoundsError class.
+         */
+        ~MathIndexOutOfBoundsError() override = default;
+    };
 }
