@@ -51,4 +51,32 @@ namespace Math {
          */
         ~MathDivideByZeroError() override = default;
     };
+
+    class MathNoSolutionError : public MathError {
+    public:
+        /**
+         * @brief Constructs a MathNoIntersectionError object with the given error message.
+         * @param message The error message.
+         */
+        MathNoSolutionError(std::string const &message);
+
+        /**
+         * @brief Default destructor for the MathNoIntersectionError class.
+         */
+        ~MathNoSolutionError() override = default;
+    };
+
+    class MathIndexOutOfBoundsError : public MathError {
+    public:
+        /**
+         * @brief Constructs a MathIndexOutOfBoundsError object with the given error message.
+         * @param message The error message.
+         */
+        MathIndexOutOfBoundsError(std::string const &message);
+
+        /**
+         * @brief Default destructor for the MathIndexOutOfBoundsError class.
+         */
+        ~MathIndexOutOfBoundsError() override = default;
+    };
 }

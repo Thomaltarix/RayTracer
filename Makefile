@@ -14,11 +14,15 @@ SRC				=	src/main.cpp						\
 					src/core/SafePluginsLister.cpp		\
 					src/core/CoreException.cpp			\
 					src/core/SceneException.cpp			\
+					src/core/Camera.cpp					\
+                    src/core/Image.cpp					\
 					\
 					src/math/Point3D.cpp				\
 					src/math/Vector3D.cpp				\
 					src/math/Ray.cpp					\
 					src/math/MathError.cpp				\
+					src/math/Rectangle3D.cpp			\
+					src/math/QuadraticEquation.cpp		\
 					\
 					src/plugins/primitives/APrimitive.cpp	\
 					src/plugins/primitives/3DAxis.cpp		\
@@ -30,7 +34,6 @@ SRC				=	src/main.cpp						\
 					\
 					src/plugins/lights/ALight.cpp		\
 					src/plugins/lights/ambiant/Ambiant.cpp	\
-
 
 TESTS			=	tests/test.cpp
 
@@ -44,7 +47,7 @@ OBJ			=	$(SRC:.cpp=.o)
 NAME		=	raytracer
 
 # Flags
-CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17
+CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17 -g3
 CXXFLAGS	+=	-I./include -I./include/math -lconfig++
 
 # Optional flags

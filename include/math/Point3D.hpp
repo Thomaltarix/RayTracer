@@ -8,6 +8,9 @@
 #pragma once
 
 namespace Math {
+
+    class Vector3D;
+
     /**
      * @class Point3D
      * @brief Represents a point in 3D space.
@@ -50,6 +53,7 @@ namespace Math {
          * @return Reference to the assigned point.
          */
         Point3D &operator=(const Point3D &point3D);
+        Point3D &operator=(const Vector3D &vector3D);
 
         /**
          * @brief Move assignment operator.
@@ -63,24 +67,28 @@ namespace Math {
          */
         Point3D operator+(const Point3D &point3D) const;
         Point3D operator+(const double &value) const;
+        Point3D operator+(const Vector3D &vector3D) const;
 
         /**
          * @brief Adds a point to the current point.
          */
         Point3D &operator+=(const Point3D &point3D);
         Point3D &operator+=(const double &value);
+        Point3D &operator+=(const Vector3D &vector3D);
 
         /**
          * @brief Subtracts two points.
          */
         Point3D operator-(const Point3D &point3D) const;
         Point3D operator-(const double &value) const;
+        Point3D operator-(const Vector3D &vector3D) const;
 
         /**
          * @brief Subtracts a point from the current point.
          */
         Point3D &operator-=(const Point3D &point3D);
         Point3D &operator-=(const double &value);
+        Point3D &operator-=(const Vector3D &vector3D);
 
         /**
          * @brief Multiplies two points.
@@ -105,6 +113,13 @@ namespace Math {
          */
         Point3D &operator/=(const Point3D &point3D);
         Point3D &operator/=(const double &value);
+
+        /**
+         * @brief Calculates the distance between two points.
+         * @param point3D The point to calculate the distance to.
+         * @return The distance between the two points.
+         */
+        double distance(const Point3D &point3D) const;
 
         double x; /**< The x-coordinate of the point. */
         double y; /**< The y-coordinate of the point. */

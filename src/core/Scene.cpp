@@ -6,6 +6,7 @@
 */
 
 #include "core/Scene.hpp"
+#include "core/Camera.hpp"
 
 static double transformValue(libconfig::Setting &setting)
 {
@@ -98,9 +99,9 @@ void RayTracer::Scene::createCamera(libconfig::Setting &camera)
     } else {
         throw SceneCameraException("You must provide a field of view for your camera");
     }
-    Math::Vector3D position(posX, posY, posZ);
+    Math::Point3D position(posX, posY, posZ);
     Math::Vector3D rotation(rotX, rotY, rotZ);
-    // _camera = std::make_shared<Camera>(position, rotation, width, height, fov); // Add the camera class here
+    _camera = std::make_shared<RayTracer::Camera>(position, rotation, width, height, fov); // Add the camera class here
     std::cout << "Position: " << posX << ", " << posY << ", " << posZ << std::endl;
     std::cout << "Rotation: " << rotX << ", " << rotY << ", " << rotZ << std::endl;
     std::cout << "Resolution: " << width << ", " << height << std::endl;

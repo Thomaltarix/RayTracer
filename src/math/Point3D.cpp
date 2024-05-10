@@ -6,7 +6,9 @@
 */
 
 #include "Point3D.hpp"
+#include "Vector3D.hpp"
 #include "MathError.hpp"
+#include <cmath>
 
 Math::Point3D::Point3D()
 {
@@ -44,6 +46,14 @@ Math::Point3D &Math::Point3D::operator=(const Math::Point3D &point3D)
     return (*this);
 }
 
+Math::Point3D &Math::Point3D::operator=(const Math::Vector3D &vector3D)
+{
+    this->x = vector3D.x;
+    this->y = vector3D.y;
+    this->z = vector3D.z;
+    return (*this);
+}
+
 Math::Point3D &Math::Point3D::operator=(const Math::Point3D &&point3D)
 {
     this->x = point3D.x;
@@ -63,6 +73,11 @@ Math::Point3D Math::Point3D::operator+(const double &value) const
     return Math::Point3D(this->x + value, this->y + value, this->z + value);
 }
 
+Math::Point3D Math::Point3D::operator+(const Math::Vector3D &vector3D) const
+{
+    return Math::Point3D(this->x + vector3D.x, this->y + vector3D.y, this->z + vector3D.z);
+}
+
 Math::Point3D &Math::Point3D::operator+=(const Math::Point3D &point3D)
 {
     this->x += point3D.x;
@@ -79,6 +94,14 @@ Math::Point3D &Math::Point3D::operator+=(const double &value)
     return (*this);
 }
 
+Math::Point3D &Math::Point3D::operator+=(const Math::Vector3D &vector3D)
+{
+    this->x += vector3D.x;
+    this->y += vector3D.y;
+    this->z += vector3D.z;
+    return (*this);
+}
+
 Math::Point3D Math::Point3D::operator-(const Math::Point3D &point3D) const
 {
     return Math::Point3D(this->x - point3D.x, this->y - point3D.y,
@@ -88,6 +111,11 @@ Math::Point3D Math::Point3D::operator-(const Math::Point3D &point3D) const
 Math::Point3D Math::Point3D::operator-(const double &value) const
 {
     return Math::Point3D(this->x - value, this->y - value, this->z - value);
+}
+
+Math::Point3D Math::Point3D::operator-(const Math::Vector3D &vector3D) const
+{
+    return Math::Point3D(this->x - vector3D.x, this->y - vector3D.y, this->z - vector3D.z);
 }
 
 Math::Point3D &Math::Point3D::operator-=(const Math::Point3D &point3D)
@@ -103,6 +131,14 @@ Math::Point3D &Math::Point3D::operator-=(const double &value)
     this->x -= value;
     this->y -= value;
     this->z -= value;
+    return (*this);
+}
+
+Math::Point3D &Math::Point3D::operator-=(const Math::Vector3D &vector3D)
+{
+    this->x -= vector3D.x;
+    this->y -= vector3D.y;
+    this->z -= vector3D.z;
     return (*this);
 }
 
@@ -166,4 +202,10 @@ Math::Point3D &Math::Point3D::operator/=(const double &value)
     this->y /= value;
     this->z /= value;
     return (*this);
+}
+
+double Math::Point3D::distance(const Math::Point3D &point3D) const
+{
+    return sqrt(pow(this->x - point3D.x, 2) + pow(this->y - point3D.y, 2) +
+        pow(this->z - point3D.z, 2));
 }

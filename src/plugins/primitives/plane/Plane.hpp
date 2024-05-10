@@ -9,7 +9,7 @@
 
 #include "APrimitive.hpp"
 #include "3DAxis.hpp"
-#include "ICanTranslate.hpp"
+#include "transformations/ICanTranslate.hpp"
 
 namespace Primitive {
     /**
