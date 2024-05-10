@@ -29,7 +29,8 @@ RayTracer::Camera::Camera(const Math::Point3D &origin, const Math::Vector3D &rot
     double aspectRatio = (double)width / (double)height;
     std::cout << "Aspect ratio: " << aspectRatio << std::endl;
     _screen = Math::Rectangle3D(Math::Point3D((-1 * aspectRatio) / 2, 1, (-1 * (1 / aspectRatio)) / 2) + origin, Math::Vector3D(aspectRatio, 0, 0), Math::Vector3D(0, 0, 1 / aspectRatio));
-
+    (void)rotation;
+    (void)fov;
 }
 
 Math::Ray RayTracer::Camera::ray(double u, double v) const

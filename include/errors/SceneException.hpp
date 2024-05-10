@@ -187,4 +187,46 @@ namespace RayTracer {
          */
         ~SceneUnknownObjectException() override = default;
     };
+
+    /**
+     * @brief SceneUnknownTransformationException class
+     * This class is an exception class for the Scene
+     * It inherits from SceneException
+     */
+    class SceneUnknownTransformationException : public SceneException {
+    public:
+        /**
+         * @brief Construct a new SceneUnknownTransformationException object
+         * Construct a new SceneUnknownTransformationException object with a message.
+         * @param message The message of the exception.
+         */
+        SceneUnknownTransformationException(std::string const &message);
+
+        /**
+         * @brief Destroy the SceneUnknownTransformationException object
+         * Destroy the SceneUnknownTransformationException object and free the memory allocated for the message.
+         */
+        ~SceneUnknownTransformationException() override = default;
+    };
+
+    /**
+     * @brief SceneInvalidTransformationException class
+     * This class is an exception class for the Scene
+     * It inherits from SceneException
+     */
+    class SceneInvalidTransformationException : public SceneException {
+    public:
+        /**
+         * @brief Construct a new SceneInvalidTransformationException object
+         * Construct a new SceneInvalidTransformationException object with a message.
+         * @param message The message of the exception.
+         */
+        SceneInvalidTransformationException(std::string const &message);
+
+        /**
+         * @brief Destroy the SceneInvalidTransformationException object
+         * Destroy the SceneInvalidTransformationException object and free the memory allocated for the message.
+         */
+        ~SceneInvalidTransformationException() override = default;
+    };
 }
