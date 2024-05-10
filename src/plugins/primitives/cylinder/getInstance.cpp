@@ -21,6 +21,12 @@ extern "C"
         return new Primitive::Cylinder();
     }
 
+    const std::string &getName(void)
+    {
+        const static std::string name = "Cylinder";
+        return name;
+    }
+
     __attribute__((destructor))
     static void destroysharedlibrary()
     {
