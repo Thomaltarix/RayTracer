@@ -6,6 +6,7 @@
 */
 
 #include "Cylinder.hpp"
+#include "math/MathError.hpp"
 #include <cmath>
 
 Primitive::Cylinder::Cylinder() : APrimitive() {}
@@ -20,18 +21,20 @@ bool Primitive::Cylinder::hits(const Math::Ray &ray)
 {
     std::pair<double, double> points = getIntersectionPoints(ray);
 
-    return (points.first >= 0 && points.first <= 1) || (points.second >= 0 && points.second <= 1);
+    return (points.first >= 0 || points.second >= 0);
 }
 
 Math::Point3D Primitive::Cylinder::hitPoint(const Math::Ray &ray)
 {
     std::pair<double, double> points = getIntersectionPoints(ray);
 
-    if (points.first >= 0 && points.first <= 1)
-        return _pos + ray.getDirection() * points.first;
-    if (points.second >= 0 && points.second <= 1)
-        return _pos + ray.getDirection() * points.second;
-    return Math::Point3D();
+    if (points.first < 0 && points.second < 0)
+        throw Math::MathNoSolutionError("No intersection with sphere");
+    if (points.first < 0)
+        return ray.getOrigin() + ray.getDirection() * points.second;
+    if (points.second < 0)
+        return ray.getOrigin() + ray.getDirection() * points.first;
+    return ray.getOrigin() + ray.getDirection() * std::min(points.first, points.second);
 }
 
 Math::Vector3D Primitive::Cylinder::getNormalAt(const Math::Point3D &point)
