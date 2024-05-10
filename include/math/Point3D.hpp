@@ -121,6 +121,12 @@ namespace Math {
          */
         double distance(const Point3D &point3D) const;
 
+        /**
+         * @brief Rotates the point around the origin.
+         * @param rotation The rotation to apply.
+         */
+        void rotate(const Vector3D &rotation);
+
         double x; /**< The x-coordinate of the point. */
         double y; /**< The y-coordinate of the point. */
         double z; /**< The z-coordinate of the point. */
