@@ -32,8 +32,10 @@ SRC				=	src/main.cpp									\
 					src/plugins/materials/AMaterial.cpp				\
 					src/plugins/materials/flatColor/FlatColor.cpp	\
 					\
-					src/plugins/lights/ALight.cpp					\
-					src/plugins/lights/ambiant/Ambiant.cpp			\
+					src/plugins/lights/ALight.cpp		            \
+					src/plugins/lights/ambiant/Ambiant.cpp	        \
+					\
+					src/interface/SFMLRenderer.cpp		            \
 
 TESTS			=	tests/test.cpp
 
@@ -62,7 +64,7 @@ CXX		=	g++
 all: 	plug $(NAME)
 
 $(NAME):	$(OBJ)
-	$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS)
+	$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS) $(SFML)
 
 clean:
 	@rm -f $(OBJ)
