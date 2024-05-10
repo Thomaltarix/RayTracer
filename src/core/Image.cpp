@@ -42,10 +42,10 @@ void RayTracer::Image::render(std::string filename)
     if (!file.is_open()) {
         throw std::runtime_error("Could not open file");
     }
-    file << "P3\n" << _height << " " << _width << "\n255\n";
+    file << "P3\n" << _width << " " << _height << "\n255\n";
 
-    for (std::size_t i = 0; i < _width; i++) {
-        for (std::size_t j = 0; j < _height; j++) {
+    for (size_t j = _height; j > 0; j--) {
+        for (size_t i = 0; i < _width; i++) {
             double u = double(i) / (double)_width;
             double v = double(j) / (double)_height;
             Math::Ray ray = _camera.ray(u, v);
@@ -80,11 +80,9 @@ void RayTracer::Image::render(std::string filename)
                 continue;
             }
             Math::Point3D hitPoint = std::any_cast<Math::Point3D>(closestHit);
-            Math::Vector3D color;
+            Math::Vector3D color(0, 0, 0);
             for (const auto& light : _lights) {
-                //color += light->Illuminate(hitPoint, closestHitPrimitive->getMaterial()); // color with light
-                //color = closestHitPrimitive->getMaterial()->compute(); // just color
-                color = Math::Vector3D(255, 255, 255);
+                color += light->Illuminate(hitPoint, closestHitPrimitive->getMaterial()); // color with light
             }
             file << round(color.x) << " " << round(color.y) << " " << round(color.z) << std::endl;
         }

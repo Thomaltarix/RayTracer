@@ -44,3 +44,11 @@ RayTracer::SceneDuplicateNameException::SceneDuplicateNameException(std::string 
 RayTracer::SceneUnknownObjectException::SceneUnknownObjectException(std::string const &message) : SceneException(message)
 {
 }
+
+RayTracer::SceneInvalidTransformationException::SceneInvalidTransformationException(std::string const &message) : SceneException(message)
+{
+}
+
+RayTracer::SceneUnknownTransformationException::SceneUnknownTransformationException(std::string const &message) : SceneException(message)
+{
+}

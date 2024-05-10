@@ -42,6 +42,24 @@ bool Primitive::Plane::hits(const Math::Ray &ray)
     return true;
 }
 
+Math::Point3D Primitive::Plane::hitPoint(const Math::Ray &ray)
+{
+    double coef = 0;
+
+    switch (_axis.getAxis()) {
+        case RayTracer::Axis::X:
+            coef = (_pos.x - ray.getOrigin().x) / ray.getDirection().x;
+            break;
+        case RayTracer::Axis::Y:
+            coef = (_pos.y - ray.getOrigin().y) / ray.getDirection().y;
+            break;
+        case RayTracer::Axis::Z:
+            coef = (_pos.z - ray.getOrigin().z) / ray.getDirection().z;
+            break;
+    }
+    return ray.getOrigin() + ray.getDirection() * coef;
+}
+
 Math::Vector3D Primitive::Plane::getNormalAt(const Math::Point3D &point)
 {
     (void) point;
