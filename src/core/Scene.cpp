@@ -188,11 +188,12 @@ void RayTracer::Scene::createSphere(libconfig::Setting &primitive, std::shared_p
     z = transformValue(primitive.lookup("z"));
     radius = transformValue(primitive.lookup("r"));
     primitive.lookupValue("material", material);
-    std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << "; radius: " << radius << "; material: " << material << std::endl;
     std::shared_ptr<Math::Vector3D> color = getColor(primitive);
     std::shared_ptr<IMaterial> materialPtr = core->factoryMaterial(material);
     materialPtr->setColor(*color);
     std::shared_ptr<Primitive::Sphere> sphere = std::make_shared<Primitive::Sphere>(x, y, z, radius, materialPtr);
+    std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << "; radius: " << radius;
+    std::cout << "; material: " << material << " ; color: " << color->x << ", " << color->y << ", " << color->z << std::endl;
     if (this->_primitives.find(name) != this->_primitives.end())
         throw SceneDuplicateNameException("Duplicate primitive name");
     this->_primitives[name] = sphere;
@@ -224,7 +225,8 @@ void RayTracer::Scene::createPlane(libconfig::Setting &primitive, std::shared_pt
     std::shared_ptr<Math::Vector3D> color = getColor(primitive);
     std::shared_ptr<IMaterial> materialPtr = core->factoryMaterial(material);
     materialPtr->setColor(*color);
-    std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << " ; axis: " << axis << "; material: " << material << std::endl;
+    std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << " ; axis: " << axis;
+    std::cout << "; material: " << material << " ; color: " << color->x << ", " << color->y << ", " << color->z << std::endl;
     std::shared_ptr<Primitive::Plane> plane = std::make_shared<Primitive::Plane>(x, y, z, materialPtr, axis);
     if (this->_primitives.find(name) != this->_primitives.end())
         throw SceneDuplicateNameException("Duplicate primitive name");
