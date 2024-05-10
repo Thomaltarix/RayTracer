@@ -10,12 +10,13 @@
 #include "APrimitive.hpp"
 #include "3DAxis.hpp"
 #include "transformations/ICanTranslate.hpp"
+#include "transformations/ICanScale.hpp"
 
 namespace Primitive {
     /**
      * @brief The Plane class represents a plane primitive in a ray tracer.
      */
-    class Plane : public RayTracer::APrimitive, public RayTracer::ICanTranslate {
+    class Plane : public RayTracer::APrimitive, public RayTracer::ICanTranslate, public RayTracer::ICanScale {
     public:
         /**
          * @brief Default constructor for the Plane class.
@@ -72,6 +73,14 @@ namespace Primitive {
          * @param vec The vector by which to translate the plane.
          */
         void translate(const Math::Vector3D &vec) override;
+
+        /**
+         * @brief Scales the plane by the given multiplier.
+         * @attention This does not change any of the other properties of the
+         * plane because its size is already infinite.
+         * @param multiplier The amount by which to scale the plane.
+         */
+        void scale(double multiplier) override;
 
     private:
 

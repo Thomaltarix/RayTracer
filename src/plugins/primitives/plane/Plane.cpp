@@ -80,3 +80,8 @@ void Primitive::Plane::translate(const Math::Vector3D &vec)
     _pos.y += vec.y;
     _pos.z += vec.z;
 }
+
+void Primitive::Plane::scale(double multiplier)
+{
+    (void) multiplier;
+}
