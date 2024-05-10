@@ -36,6 +36,7 @@ SRC				=	src/main.cpp									\
 					src/plugins/lights/ambiant/Ambiant.cpp	        \
 					\
 					src/interface/SFMLRenderer.cpp		            \
+					src/interface/SFMLException.cpp		            \
 
 TESTS			=	tests/test.cpp
 
