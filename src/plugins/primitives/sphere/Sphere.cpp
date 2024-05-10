@@ -95,3 +95,8 @@ void Primitive::Sphere::translate(const Math::Vector3D &vec)
     _pos.y += vec.y;
     _pos.z += vec.z;
 }
+
+void Primitive::Sphere::scale(double multiplier)
+{
+    _radius *= multiplier;
+}
