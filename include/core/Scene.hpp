@@ -51,11 +51,25 @@ namespace RayTracer {
         std::vector<std::shared_ptr<RayTracer::IPrimitive>> getPrimitives() const;
 
         /**
+         * @brief Get the Primitives Map object
+         * Get the primitives map from the configuration file.
+         * @return std::unordered_map<std::string, std::shared_ptr<IPrimitive>> primitives
+         */
+        std::unordered_map<std::string, std::shared_ptr<IPrimitive>> getPrimitivesMap() const;
+
+        /**
          * @brief Get the Lights object
          * Get the lights from the configuration file.
          * @return std::vector<std::shared_ptr<ILight>> lights
          */
         std::vector<std::shared_ptr<RayTracer::ILight>> getLights() const;
+
+        /**
+         * @brief Get the Lights Map object
+         * Get the lights map from the configuration file.
+         * @return std::unordered_map<std::string, std::shared_ptr<ILight>> lights
+         */
+        std::unordered_map<std::string, std::shared_ptr<ILight>> getLightsMap() const;
 
     private:
         /**
@@ -81,10 +95,50 @@ namespace RayTracer {
          */
         void createLights(libconfig::Setting &lights, std::shared_ptr<Core> core);
 
+        /**
+         * @brief Import the scenes
+         * Import the scenes from other configuration files.
+         * @param scenes configuration file
+         * @param core pointer to the core object
+         */
+        void importScenes(libconfig::Setting &scenes, std::shared_ptr<Core> core);
+
+        /**
+         * @brief Import the scene
+         * Import the scene from the configuration file.
+         * @param scene configuration file
+         * @param core pointer to the core object
+         */
+        void importScene(libconfig::Setting &scene, std::shared_ptr<Core> core);
+
+        /**
+         * @brief Apply the transformations
+         * Apply the transformations to the primitives.
+         * @param transformations configuration file
+         */
         void applyTransformations(libconfig::Setting &transformation);
+
+        /**
+         * @brief Apply the transformation
+         * Apply the transformation to the primitive.
+         * @param transformation configuration file
+         */
         void applyTransformation(libconfig::Setting &transformation);
 
+        /**
+         * @brief Apply the translation
+         * Apply the translation to the primitive.
+         * @param transformation configuration file
+         * @param primitive pointer to the primitive object
+         */
         void applyTranslation(libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive);
+
+        /**
+         * @brief Apply the rotation
+         * Apply the rotation to the primitive.
+         * @param transformation configuration file
+         * @param primitive pointer to the primitive object
+         */
         void applyRotation(libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive);
 
         /**
