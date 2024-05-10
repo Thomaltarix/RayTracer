@@ -42,10 +42,10 @@ void RayTracer::Image::render(std::string filename)
     if (!file.is_open()) {
         throw std::runtime_error("Could not open file");
     }
-    file << "P3\n" << _height << " " << _width << "\n255\n";
+    file << "P3\n" << _width << " " << _height << "\n255\n";
 
-    for (std::size_t i = 0; i < _width; i++) {
-        for (std::size_t j = 0; j < _height; j++) {
+    for (size_t j = _height; j > 0; j--) {
+        for (size_t i = 0; i < _width; i++) {
             double u = double(i) / (double)_width;
             double v = double(j) / (double)_height;
             Math::Ray ray = _camera.ray(u, v);
