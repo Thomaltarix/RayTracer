@@ -21,7 +21,8 @@ RayTracer::Image::Image()
     _width = 0;
 }
 
-RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<IPrimitive>> &primitives, const std::vector<std::shared_ptr<ILight>> &lights, std::size_t width, std::size_t height)
+RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<IPrimitive>> &primitives,
+    const std::vector<std::shared_ptr<ILight>> &lights, std::size_t width, std::size_t height, bool sfml)
 {
     _camera = camera;
     for (auto &primitive : primitives) {
@@ -32,12 +33,17 @@ RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<
     }
     _width = width;
     _height = height;
+    this->_sfmlDisplay = sfml;
+    this->_renderer = nullptr;
 }
 
 void RayTracer::Image::render(std::string filename)
 {
     std::ofstream file;
 
+    if (_sfmlDisplay) {
+        this->_renderer = std::make_shared<SFMLRenderer>(_width, _height);
+    }
     file.open(filename);
     if (!file.is_open()) {
         throw std::runtime_error("Could not open file");
@@ -85,7 +91,21 @@ void RayTracer::Image::render(std::string filename)
                 color += light->Illuminate(hitPoint, closestHitPrimitive->getMaterial()); // color with light
             }
             file << round(color.x) << " " << round(color.y) << " " << round(color.z) << std::endl;
+            if (_sfmlDisplay) {
+                this->setSFMLPixel(i, j, color);
+                this->renderSFML();
+            }
         }
     }
 }
 
+void RayTracer::Image::setSFMLPixel(unsigned int x, unsigned int y, Math::Vector3D color)
+{
+    this->_renderer->setPixel(x, y, color);
+}
+
+void RayTracer::Image::renderSFML()
+{
+    this->_renderer->display();
+    this->_renderer->handleEvents();
+}

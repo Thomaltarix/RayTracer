@@ -8,6 +8,7 @@
 #pragma once
 
 #include "Scene.hpp"
+#include "interface/SFMLRenderer.hpp"
 #include <vector>
 #include <string>
 
@@ -60,7 +61,9 @@ namespace RayTracer {
          * @param width The width of the image in pixels.
          * @param height The height of the image in pixels.
          */
-        Image(const Camera &camera, const std::vector<std::shared_ptr<IPrimitive>> &primitives, const std::vector<std::shared_ptr<ILight>> &lights, std::size_t width, std::size_t height);
+        Image(const Camera &camera, const std::vector<std::shared_ptr<IPrimitive>> &primitives,
+            const std::vector<std::shared_ptr<ILight>> &lights, std::size_t width, std::size_t height,
+            bool sfmlDisplay = false);
 
         /**
          * @brief Default destructor.
@@ -73,6 +76,27 @@ namespace RayTracer {
          * @param filename The name of the file to which the image is rendered.
          */
         void render(std::string filename="output.ppm");
+
+        /**
+         * @brief Sets the pixel at the specified coordinates to the specified color.
+         *
+         * @param x The x-coordinate of the pixel.
+         * @param y The y-coordinate of the pixel.
+         * @param color The color of the pixel.
+         */
+        void setSFMLPixel(unsigned int x, unsigned int y, Math::Vector3D color);
+
+        /**
+         * @brief Renders the image using SFML.
+         */
+        void renderSFML();
+
+    private:
+        /** A boolean to check if the image should be displayed using SFML. */
+        bool _sfmlDisplay;
+
+        /** The SFMLRenderer object used to render the image. */
+        std::shared_ptr<SFMLRenderer> _renderer;
     };
 }
 
