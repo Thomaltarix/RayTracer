@@ -46,6 +46,13 @@ namespace Primitive {
         bool hits(const Math::Ray &ray) override;
 
         /**
+         * @brief Gets the point where the ray hits the plane.
+         * @param ray The ray to check for hits.
+         * @return The point where the ray hits the plane.
+         */
+        Math::Point3D hitPoint(const Math::Ray &ray) override;
+
+        /**
          * @brief Calculates the normal vector at a given point on the plane.
          * @param point The point on the plane.
          * @return The normal vector at the given point.
