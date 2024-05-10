@@ -9,7 +9,6 @@
 
 #include "APrimitive.hpp"
 #include "3DAxis.hpp"
-#include "ICanTranslate.hpp"
 
 namespace Primitive {
     /**
@@ -55,6 +54,13 @@ namespace Primitive {
         bool hits(const Math::Ray &ray) override;
 
         /**
+         * @brief Gets the point where the ray intersects with the cylinder.
+         * @param ray The ray to check for intersection.
+         * @return The point where the ray intersects with the cylinder.
+         */
+        Math::Point3D hitPoint(const Math::Ray &ray) override;
+
+        /**
          * @brief Calculates the normal vector at a given point on the cylinder.
          * @param point The point on the cylinder to calculate the normal vector for.
          * @return The normal vector at the given point.
@@ -64,5 +70,7 @@ namespace Primitive {
     private:
         RayTracer::Axis3D _axis; // The axis of the cylinder.
         double _radius; // The radius of the cylinder.
+
+        std::pair<double, double> getIntersectionPoints(const Math::Ray &ray);
     };
 }
