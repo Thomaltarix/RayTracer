@@ -14,11 +14,15 @@ SRC				=	src/main.cpp						\
 					src/core/SafePluginsLister.cpp		\
 					src/core/CoreException.cpp			\
 					src/core/SceneException.cpp			\
+					src/core/Camera.cpp					\
+                    src/core/Image.cpp					\
 					\
 					src/math/Point3D.cpp				\
 					src/math/Vector3D.cpp				\
 					src/math/Ray.cpp					\
 					src/math/MathError.cpp				\
+					src/math/Rectangle3D.cpp			\
+					src/math/QuadraticEquation.cpp		\
 					\
 					src/plugins/primitives/APrimitive.cpp	\
 					src/plugins/primitives/3DAxis.cpp		\
@@ -30,16 +34,6 @@ SRC				=	src/main.cpp						\
 					\
 					src/plugins/lights/ALight.cpp		\
 					src/plugins/lights/ambiant/Ambiant.cpp	\
-SRC		=	src/main.cpp						\
-			src/math/Point3D.cpp				\
-			src/math/Vector3D.cpp				\
-			src/math/Rectangle3D.cpp			\
-			src/math/Ray.cpp					\
-			src/math/QuadraticEquation.cpp		\
-			src/math/MathError.cpp				\
-			src/core/Camera.cpp					\
-			src/core/Image.cpp					\
-
 
 TESTS			=	tests/test.cpp
 

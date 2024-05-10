@@ -7,9 +7,7 @@
 
 #pragma once
 
-#include "Camera.hpp"
-#include "../src/plugins/primitives/APrimitive.hpp"
-#include "../src/plugins/lights/ALight.hpp"
+#include "Scene.hpp"
 #include <vector>
 #include <string>
 

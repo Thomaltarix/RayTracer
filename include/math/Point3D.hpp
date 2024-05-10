@@ -81,12 +81,14 @@ namespace Math {
          */
         Point3D operator-(const Point3D &point3D) const;
         Point3D operator-(const double &value) const;
+        Point3D operator-(const Vector3D &vector3D) const;
 
         /**
          * @brief Subtracts a point from the current point.
          */
         Point3D &operator-=(const Point3D &point3D);
         Point3D &operator-=(const double &value);
+        Point3D &operator-=(const Vector3D &vector3D);
 
         /**
          * @brief Multiplies two points.

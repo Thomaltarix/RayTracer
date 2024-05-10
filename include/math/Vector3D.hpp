@@ -125,6 +125,7 @@ namespace Math {
          * @return The quotient of the two vectors.
          */
         Vector3D operator/(const Vector3D &vector3D) const;
+        Vector3D operator/(double scalar) const;
 
         /**
          * @brief Divides the current vector by another vector.

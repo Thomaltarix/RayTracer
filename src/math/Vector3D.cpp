@@ -131,6 +131,13 @@ Math::Vector3D Math::Vector3D::operator/(const Math::Vector3D &vector3D) const
         this->z / vector3D.z);
 }
 
+Math::Vector3D Math::Vector3D::operator/(const double scalar) const
+{
+    if (scalar == 0)
+        throw MathDivideByZeroError("Division by 0");
+    return Math::Vector3D(this->x / scalar, this->y / scalar, this->z / scalar);
+}
+
 Math::Vector3D &Math::Vector3D::operator/=(const Math::Vector3D &vector3D)
 {
     if (vector3D.x == 0 || vector3D.y == 0 || vector3D.z == 0)

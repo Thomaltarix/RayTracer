@@ -5,10 +5,14 @@
 ** No file there , just an epitech header example .
 */
 
-#include "Image.hpp"
+#include "core/Image.hpp"
+#include "../plugins/ALight.hpp"
+#include "../plugins/APrimitive.hpp"
+#include "math/MathError.hpp"
 #include <any>
 #include <fstream>
 #include <iostream>
+#include <cmath>
 
 RayTracer::Image::Image()
 {
@@ -38,7 +42,7 @@ void RayTracer::Image::render(std::string filename)
     if (!file.is_open()) {
         throw std::runtime_error("Could not open file");
     }
-    file << "P3\n" << _width << " " << _height << "\n255\n";
+    file << "P3\n" << _height << " " << _width << "\n255\n";
 
     for (std::size_t i = 0; i < _width; i++) {
         for (std::size_t j = 0; j < _height; j++) {
@@ -49,9 +53,15 @@ void RayTracer::Image::render(std::string filename)
             std::shared_ptr<IPrimitive> closestHitPrimitive = nullptr;
             for (const auto& primitive : _primitives) {
                 if (primitive->hits(ray)) {
-                    Math::Point3D hitPoint = primitive->hitPoint(ray);
+                    Math::Point3D hitPoint;
                     try {
-                        if (hitPoint.distance(_camera.origin) < std::any_cast<Math::Point3D>(closestHit).distance(_camera.origin)) {
+                        hitPoint = primitive->hitPoint(ray);
+                    }
+                    catch (const Math::MathNoSolutionError &e) {
+                        continue;
+                    }
+                    try {
+                        if (hitPoint.distance(_camera._origin) < std::any_cast<Math::Point3D>(closestHit).distance(_camera._origin)) {
                             closestHit = hitPoint;
                             closestHitPrimitive = primitive;
                         }
@@ -72,9 +82,11 @@ void RayTracer::Image::render(std::string filename)
             Math::Point3D hitPoint = std::any_cast<Math::Point3D>(closestHit);
             Math::Vector3D color;
             for (const auto& light : _lights) {
-                color += light->Illuminate(hitPoint, closestHitPrimitive->getMaterial());
+                //color += light->Illuminate(hitPoint, closestHitPrimitive->getMaterial()); // color with light
+                //color = closestHitPrimitive->getMaterial()->compute(); // just color
+                color = Math::Vector3D(255, 255, 255);
             }
-            file << color.x << " " << color.y << " " << color.z << std::endl;
+            file << round(color.x) << " " << round(color.y) << " " << round(color.z) << std::endl;
         }
     }
 }

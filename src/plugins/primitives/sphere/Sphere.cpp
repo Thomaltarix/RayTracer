@@ -7,6 +7,7 @@
 
 #include "Sphere.hpp"
 #include "math/QuadraticEquation.hpp"
+#include "math/MathError.hpp"
 #include <iostream>
 
 Primitive::Sphere::Sphere() : APrimitive()
@@ -50,10 +51,10 @@ Math::Point3D Primitive::Sphere::hitPoint(const Math::Ray &ray)
     double b = 2.0 * oc.dot(ray.getDirection());
     double c = oc.dot(oc) - _radius * _radius;
     if (!Math::solveQuadraticEquation(a, b, c, x0, x1)) {
-        throw std::runtime_error("No intersection with sphere");
+        throw Math::MathNoSolutionError("No intersection with sphere");
     }
     if (x0 < 0 && x1 < 0) {
-        throw std::runtime_error("No intersection with sphere");
+        throw Math::MathNoSolutionError("No intersection with sphere");
     }
     if (x0 < 0)
         return ray.getOrigin() + ray.getDirection() * x1;

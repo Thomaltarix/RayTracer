@@ -9,6 +9,7 @@
 
 #include "Ray.hpp"
 #include "Rectangle3D.hpp"
+#include <cstddef>
 
 namespace RayTracer {
     /**
@@ -23,12 +24,22 @@ namespace RayTracer {
         /**
          * @brief The origin point of the camera in 3D space.
          */
-        Math::Point3D origin;
+        Math::Point3D _origin;
 
         /**
          * @brief The screen rectangle that the camera is capturing.
          */
-        Math::Rectangle3D screen;
+        Math::Rectangle3D _screen;
+
+        /**
+         * @brief The width of the camera screen.
+         */
+        std::size_t _width;
+
+        /**
+         * @brief The height of the camera screen.
+         */
+        std::size_t _height;
 
         /**
          * @brief Default constructor. Creates a default camera.
@@ -42,6 +53,8 @@ namespace RayTracer {
          * @param screen The screen rectangle that the camera is capturing.
          */
         Camera(const Math::Point3D &origin, const Math::Rectangle3D &screen);
+
+        Camera(const Math::Point3D &origin, const Math::Vector3D &rotation, std::size_t width, std::size_t height, double fov);
 
         /**
          * @brief Default destructor.

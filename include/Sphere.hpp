@@ -8,9 +8,9 @@
 #pragma once
 
 #include "APrimitive.hpp"
+#include "ICanTranslate.hpp"
 #include "math/Point3D.hpp"
 #include "math/Ray.hpp"
-#include "transformations/ICanTranslate.hpp"
 
 namespace Primitive {
     /**
