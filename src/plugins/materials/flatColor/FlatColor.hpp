@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "AMaterial.hpp"
+#include "../AMaterial.hpp"
 
 namespace Material {
 

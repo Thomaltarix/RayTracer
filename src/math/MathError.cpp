@@ -20,3 +20,11 @@ const char *Math::MathError::what() const noexcept
 Math::MathDivideByZeroError::MathDivideByZeroError(std::string const &message) : MathError(message)
 {
 }
+
+Math::MathNoSolutionError::MathNoSolutionError(std::string const &message) : MathError(message)
+{
+}
+
+Math::MathIndexOutOfBoundsError::MathIndexOutOfBoundsError(std::string const &message) : MathError(message)
+{
+}

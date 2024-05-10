@@ -8,6 +8,8 @@
 #pragma once
 
 #include "APrimitive.hpp"
+#include "math/Point3D.hpp"
+#include "math/Ray.hpp"
 #include "transformations/ICanTranslate.hpp"
 
 namespace Primitive {
@@ -49,14 +51,21 @@ namespace Primitive {
          * @param ray The ray to check for intersection.
          * @return True if the ray intersects with the sphere, false otherwise.
          */
-        bool hits(const Math::Ray &ray) override;
+        bool hits(const Math::Ray &ray);
+
+        /**
+         * @brief Gets the point where the ray hits the sphere.
+         * @param ray The ray to check for hits.
+         * @return The point where the ray hits the sphere.
+         */
+        Math::Point3D hitPoint(const Math::Ray &ray);
 
         /**
          * @brief Gets the normal at a given point on the sphere.
          * @param point The point to get the normal at.
          * @return The normal at the given point.
          */
-        Math::Vector3D getNormalAt(const Math::Point3D &point) override;
+        Math::Vector3D getNormalAt(const Math::Point3D &point);
 
         /**
          * @brief Gets the radius of the sphere.

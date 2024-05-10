@@ -10,6 +10,7 @@
 #include "math/Vector3D.hpp"
 #include "primitives/IPrimitive.hpp"
 #include "core/Core.hpp"
+#include "core/Camera.hpp"
 #include "plugins/AMaterial.hpp"
 #include "plugins/Sphere.hpp"
 #include "plugins/Plane.hpp"
@@ -132,6 +133,7 @@ namespace RayTracer {
         /** Map of transformation we can apply to primitives */
         std::unordered_map<std::string, std::function<void(libconfig::Setting &, std::shared_ptr<IPrimitive>)>> _primitiveTransformations;
 
+    public:
         /** Map of primitives */
         std::unordered_map<std::string, std::shared_ptr<IPrimitive>> _primitives;
 
@@ -139,6 +141,6 @@ namespace RayTracer {
         std::unordered_map<std::string, std::shared_ptr<ILight>> _lights;
 
         /** Camera object */
-        // std::shared_ptr<Camera> _camera;
+        std::shared_ptr<Camera> _camera;
     };
 }
