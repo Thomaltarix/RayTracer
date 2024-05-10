@@ -16,3 +16,15 @@ const char *Math::MathError::what() const noexcept
 {
     return this->_message.c_str();
 }
+
+Math::MathDivideByZeroError::MathDivideByZeroError(std::string const &message) : MathError(message)
+{
+}
+
+Math::MathNoSolutionError::MathNoSolutionError(std::string const &message) : MathError(message)
+{
+}
+
+Math::MathIndexOutOfBoundsError::MathIndexOutOfBoundsError(std::string const &message) : MathError(message)
+{
+}

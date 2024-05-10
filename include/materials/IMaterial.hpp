@@ -25,14 +25,11 @@ namespace RayTracer {
         virtual ~IMaterial() = default;
 
         /**
-         * @brief Getters for the material properties.
-         * @note These getters are not implemented yet.
+         * @brief Sets the color of the material.
+         *
+         * @param color The color of the material.
          */
-
-        /**
-         * @brief Setters for the material properties.
-         * @note These setters are not implemented yet.
-         */
+        virtual void setColor(Math::Vector3D color) = 0;
 
         /**
          * @brief Compute the color of the material and return a Vector with RGB values -> should be RGBA values in the future.

@@ -21,6 +21,12 @@ extern "C"
         return new Primitive::Sphere();
     }
 
+    const std::string &getName(void)
+    {
+        const static std::string name = "Sphere";
+        return name;
+    }
+
     __attribute__((destructor))
     static void destroysharedlibrary()
     {

@@ -36,3 +36,6 @@ raytracer
 
 # Built plugin interfaces
 include/plugins/*.hpp
+
+# Visual Studio files
+.vscode
