@@ -29,7 +29,7 @@ namespace Primitive {
          * @param axis The axis of the cylinder.
          * @param radius The radius of the cylinder.
          */
-        Cylinder(const Math::Point3D &pos, const std::shared_ptr<RayTracer::IMaterial> &material = nullptr, const Math::Vector3D &axis = Math::Vector3D(), double radius = 0);
+        Cylinder(const Math::Point3D &pos, const std::shared_ptr<RayTracer::IMaterial> &material = nullptr, const RayTracer::Axis3D &axis = RayTracer::Axis::X, double radius = 0);
 
         /**
          * @brief Constructor for the Cylinder class.
@@ -40,7 +40,7 @@ namespace Primitive {
          * @param axis The axis of the cylinder.
          * @param radius The radius of the cylinder.
          */
-        Cylinder(double x, double y, double z, const std::shared_ptr<RayTracer::IMaterial> &material = nullptr, const Math::Vector3D &axis = Math::Vector3D(), double radius = 0);
+        Cylinder(double x, double y, double z, const std::shared_ptr<RayTracer::IMaterial> &material = nullptr, const RayTracer::Axis3D &axis = RayTracer::Axis::X, double radius = 0);
 
         /**
          * @brief Default destructor for the Cylinder class.
@@ -62,7 +62,7 @@ namespace Primitive {
         Math::Vector3D getNormalAt(const Math::Point3D &point) override;
 
     private:
-        Math::Vector3D _axis; // The axis of the cylinder.
+        RayTracer::Axis3D _axis; // The axis of the cylinder.
         double _radius; // The radius of the cylinder.
     };
 }

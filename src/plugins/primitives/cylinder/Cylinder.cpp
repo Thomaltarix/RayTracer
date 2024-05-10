@@ -10,10 +10,10 @@
 
 Primitive::Cylinder::Cylinder() : APrimitive() {}
 
-Primitive::Cylinder::Cylinder(const Math::Point3D &pos, const std::shared_ptr<RayTracer::IMaterial> &material, const Math::Vector3D &axis, double radius)
+Primitive::Cylinder::Cylinder(const Math::Point3D &pos, const std::shared_ptr<RayTracer::IMaterial> &material, const RayTracer::Axis3D &axis, double radius)
     : APrimitive(pos, material), _axis(axis), _radius(radius) {}
 
-Primitive::Cylinder::Cylinder(double x, double y, double z, const std::shared_ptr<RayTracer::IMaterial> &material, const Math::Vector3D &axis, double radius)
+Primitive::Cylinder::Cylinder(double x, double y, double z, const std::shared_ptr<RayTracer::IMaterial> &material, const RayTracer::Axis3D &axis, double radius)
     : APrimitive(x, y, z, material), _axis(axis), _radius(radius) {}
 
 bool Primitive::Cylinder::hits(const Math::Ray &ray)
