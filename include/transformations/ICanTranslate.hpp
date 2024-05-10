@@ -15,7 +15,7 @@ namespace RayTracer {
      * @brief This class is an interface for all the classes that can translate.
      * This method will be used to translate the object and will have all the variables needed to do so.
      */
-    class ICanTranslate{
+    class ICanTranslate {
     public:
         /**
          * @brief Destructor for ICanTranslate class.

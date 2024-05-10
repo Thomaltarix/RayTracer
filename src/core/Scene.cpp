@@ -43,7 +43,8 @@ RayTracer::Scene::Scene(std::string path, std::shared_ptr<Core> core)
     };
     this->_primitiveTransformations = {
         {"rotation", [this](libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive) {applyRotation(transformation, primitive);} },
-        {"translation", [this](libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive) {applyTranslation(transformation, primitive);} }
+        {"translation", [this](libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive) {applyTranslation(transformation, primitive);} },
+        {"scale", [this](libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive) {applyScale(transformation, primitive);} }
     };
     try {
         libconfig::Config libconfig;
@@ -362,6 +363,17 @@ void RayTracer::Scene::applyRotation(libconfig::Setting &transformation, std::sh
     // if (dynamic_cast<ICanRotate *>(primitive.get()) == nullptr)
     //     throw SceneInvalidTransformationException("Invalid transformation for object");
     // dynamic_cast<ICanRotate *>(primitive.get())->rotate(angle, axis);
+}
+
+void RayTracer::Scene::applyScale(libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive)
+{
+    double multiplier;
+
+    multiplier = transformValue(transformation.lookup("multiplier"));
+    std::cout << "Scale: multiplier: " << multiplier << std::endl;
+    if (dynamic_cast<ICanScale *>(primitive.get()) == nullptr)
+        throw SceneInvalidTransformationException("Invalid transformation for object");
+    dynamic_cast<ICanScale *>(primitive.get())->scale(multiplier);
 }
 
 std::vector<std::shared_ptr<RayTracer::IPrimitive>> RayTracer::Scene::getPrimitives() const
