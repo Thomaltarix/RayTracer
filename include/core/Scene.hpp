@@ -19,6 +19,7 @@
 #include "errors/SceneException.hpp"
 #include "transformations/ICanRotate.hpp"
 #include "transformations/ICanTranslate.hpp"
+#include "transformations/ICanScale.hpp"
 #include <iostream>
 #include <memory>
 #include <libconfig.h++>
@@ -104,14 +105,6 @@ namespace RayTracer {
         void importScenes(libconfig::Setting &scenes, std::shared_ptr<Core> core);
 
         /**
-         * @brief Import the scene
-         * Import the scene from the configuration file.
-         * @param scene configuration file
-         * @param core pointer to the core object
-         */
-        void importScene(libconfig::Setting &scene, std::shared_ptr<Core> core);
-
-        /**
          * @brief Apply the transformations
          * Apply the transformations to the primitives.
          * @param transformations configuration file
@@ -140,6 +133,14 @@ namespace RayTracer {
          * @param primitive pointer to the primitive object
          */
         void applyRotation(libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive);
+
+        /**
+         * @brief Apply the scale
+         * Apply the scale to the primitive.
+         * @param transformation configuration file
+         * @param primitive pointer to the primitive object
+         */
+        void applyScale(libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive);
 
         /**
          * @brief Create the spheres
