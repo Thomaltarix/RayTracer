@@ -48,6 +48,18 @@ Math::Vector3D Primitive::Cylinder::getNormalAt(const Math::Point3D &point)
     return Math::Vector3D();
 }
 
+void Primitive::Cylinder::translate(const Math::Vector3D &vec)
+{
+    _pos += vec;
+}
+
+void Primitive::Cylinder::translate(double x, double y, double z)
+{
+    _pos.x += x;
+    _pos.y += y;
+    _pos.z += z;
+}
+
 std::pair<double, double> Primitive::Cylinder::getIntersectionPoints(const Math::Ray &ray)
 {
     Math::Point3D pos = ray.getOrigin();

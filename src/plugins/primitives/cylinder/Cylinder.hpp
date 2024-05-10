@@ -8,13 +8,14 @@
 #pragma once
 
 #include "APrimitive.hpp"
+#include "transformations/ICanTranslate.hpp"
 #include "3DAxis.hpp"
 
 namespace Primitive {
     /**
      * @brief The Cylinder class represents a cylinder primitive in a ray tracer.
      */
-    class Cylinder : public RayTracer::APrimitive {
+    class Cylinder : public RayTracer::APrimitive, public RayTracer::ICanTranslate {
     public:
         /**
          * @brief Default constructor for the Cylinder class.
@@ -66,6 +67,20 @@ namespace Primitive {
          * @return The normal vector at the given point.
          */
         Math::Vector3D getNormalAt(const Math::Point3D &point) override;
+
+        /**
+         * @brief Translates the cylinder by a given vector.
+         * @param translation The vector to translate the cylinder by.
+         */
+        void translate(const Math::Vector3D &translation) override;
+
+        /**
+         * @brief Translates the cylinder by a given vector.
+         * @param x The x-coordinate to translate the cylinder by.
+         * @param y The y-coordinate to translate the cylinder by.
+         * @param z The z-coordinate to translate the cylinder by.
+         */
+        void translate(double x, double y, double z) override;
 
     private:
         RayTracer::Axis3D _axis; // The axis of the cylinder.
