@@ -54,18 +54,3 @@ std::shared_ptr<RayTracer::IMaterial> RayTracer::APrimitive::getMaterial()
 {
     return _material;
 }
-
-bool RayTracer::APrimitive::hits(const Math::Ray &ray)
-{
-    return false;
-}
-
-Math::Point3D RayTracer::APrimitive::hitPoint(const Math::Ray &ray)
-{
-    return Math::Point3D(0, 0, 0);
-}
-
-Math::Vector3D RayTracer::APrimitive::getNormalAt(const Math::Point3D &point)
-{
-    return Math::Vector3D(0, 0, 0);
-}
