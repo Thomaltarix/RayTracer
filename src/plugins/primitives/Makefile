@@ -10,10 +10,16 @@
 SRC		=	sphere/			\
 			plane/			\
 
+HEADER	=	APrimitive.hpp	\
+			3DAxis.hpp		\
+
+INCLUDE =	../../../include/plugins/
+
 all:
 	@for dir in $(SRC); do \
 		$(MAKE) -C $$dir; \
 	done
+	@cp $(HEADER) $(INCLUDE)
 
 clean:
 	@for dir in $(SRC); do \
@@ -23,6 +29,9 @@ clean:
 fclean:
 	@for dir in $(SRC); do \
 		$(MAKE) fclean -C $$dir; \
+	done
+	@for header in $(HEADER); do \
+		rm -f $(INCLUDE)$$header; \
 	done
 
 re: fclean all

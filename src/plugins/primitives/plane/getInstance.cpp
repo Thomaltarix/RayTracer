@@ -21,6 +21,12 @@ extern "C"
         return new Primitive::Plane();
     }
 
+    const std::string &getName(void)
+    {
+        const static std::string name = "Plane";
+        return name;
+    }
+
     __attribute__((destructor))
     static void destroysharedlibrary()
     {

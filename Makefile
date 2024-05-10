@@ -6,26 +6,49 @@
 ##
 
 # Sources
-SRC		=	src/main.cpp						\
-			src/math/Point3D.cpp				\
-			src/math/Vector3D.cpp				\
-			src/math/Ray.cpp					\
-			src/math/MathError.cpp				\
+SRC				=	src/main.cpp						\
+					\
+					src/core/Core.cpp					\
+					src/core/Scene.cpp					\
+					src/core/DLLoaderException.cpp		\
+					src/core/SafePluginsLister.cpp		\
+					src/core/CoreException.cpp			\
+					src/core/SceneException.cpp			\
+					src/core/Camera.cpp					\
+                    src/core/Image.cpp					\
+					\
+					src/math/Point3D.cpp				\
+					src/math/Vector3D.cpp				\
+					src/math/Ray.cpp					\
+					src/math/MathError.cpp				\
+					src/math/Rectangle3D.cpp			\
+					src/math/QuadraticEquation.cpp		\
+					\
+					src/plugins/primitives/APrimitive.cpp	\
+					src/plugins/primitives/3DAxis.cpp		\
+					src/plugins/primitives/sphere/Sphere.cpp	\
+					src/plugins/primitives/plane/Plane.cpp	\
+					\
+					src/plugins/materials/AMaterial.cpp	\
+					src/plugins/materials/flatColor/FlatColor.cpp	\
+					\
+					src/plugins/lights/ALight.cpp		\
+					src/plugins/lights/ambiant/Ambiant.cpp	\
 
-TESTS	=	tests/test.cpp
+TESTS			=	tests/test.cpp
 
 # Plugins
-PLUGINS	=	src/plugins/
+PLUGINS_DIR		=	src/plugins/
 
 # Objects
-OBJ		=	$(SRC:.cpp=.o)
+OBJ			=	$(SRC:.cpp=.o)
 
 # Binary
-NAME	=	raytracer
+NAME		=	raytracer
 
 # Flags
-CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17
-CXXFLAGS	+=	-I./include -I./include/math
+CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17 -g3
+CXXFLAGS	+=	-I./include -I./include/math -lconfig++
 
 # Optional flags
 SFML		=	-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
@@ -36,19 +59,18 @@ CXX		=	g++
 # Rules
 .PHONY:	all clean fclean re tests_run clean_tests
 
-all:	$(NAME)
+all: 	plug $(NAME)
 
 $(NAME):	$(OBJ)
-	@$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS)
-	@make -sC $(PLUGINS)
+	$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS)
 
 clean:
 	@rm -f $(OBJ)
-	@make clean -sC $(PLUGINS)
+	@make clean -sC $(PLUGINS_DIR)
 
 fclean:	clean clean_tests
 	@rm -f $(NAME)
-	@make fclean -sC $(PLUGINS)
+	@make fclean -sC $(PLUGINS_DIR)
 
 re:	fclean all
 
@@ -62,3 +84,6 @@ clean_tests:
 	@rm -f unit_tests
 	@rm -f *.gcda
 	@rm -f *.gcno
+
+plug:
+	@make re -sC $(PLUGINS_DIR)
