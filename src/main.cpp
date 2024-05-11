@@ -17,8 +17,6 @@ int main(int ac, char **av)
         std::shared_ptr<RayTracer::Core> core = std::make_shared<RayTracer::Core>();
         RayTracer::Scene scene(args->getScenePath(), core);
         RayTracer::Image image(*(scene._camera), scene.getPrimitives(), scene.getLights(), scene._camera->_width, scene._camera->_height, args);
-        // if (args.isFastRender())
-        //     image.fastRender();
         image.render();
     } catch (RayTracer::SFMLCLoseWindowException &e) {
         std::cerr << e.what() << std::endl;

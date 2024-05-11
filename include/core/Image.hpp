@@ -112,7 +112,7 @@ namespace RayTracer {
 
     private:
         /** The SFMLRenderer object used to render the image. */
-        std::shared_ptr<SFMLRenderer> _renderer;
+        std::unique_ptr<SFMLRenderer> _renderer;
 
         /** The class who contains the arguments */
         std::shared_ptr<ArgsHandler> _args;

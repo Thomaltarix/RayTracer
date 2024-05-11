@@ -37,7 +37,7 @@ RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<
     this->_height = height;
     this->_args = args;
     if (args->isSFML()) {
-        this->_renderer = std::make_shared<SFMLRenderer>(width, height);
+        this->_renderer = std::make_unique<SFMLRenderer>(width, height);
     }
     else {
         this->_renderer = nullptr;
@@ -132,14 +132,16 @@ void RayTracer::Image::render(std::string filename)
         thread.join();
     }
 
+    std::string content = "";
     for (size_t j = _height - 1; j > 0; j--) {
         for (size_t i = 0; i < _width; i++) {
-            file << (int)(tab[j][i].x) << " " << (int)(tab[j][i].y) << " " << (int)(tab[j][i].z ) << std::endl;
+            content += std::to_string((int)(tab[j][i].x)) + " " + std::to_string((int)(tab[j][i].y)) + " " + std::to_string((int)(tab[j][i].z)) + "\n";
         }
     }
     for (size_t i = 0; i < _width; i++) {
-        file << (int)(tab[0][i].x) << " " << (int)(tab[0][i].y) << " " << (int)(tab[0][i].z) << std::endl;
+        content += std::to_string((int)(tab[0][i].x)) + " " + std::to_string((int)(tab[0][i].y)) + " " + std::to_string((int)(tab[0][i].z)) + "\n";
     }
+    file << content;
     file.close();
 }
 
@@ -155,7 +157,6 @@ void RayTracer::Image::threadHandlingSFML(std::vector<std::vector<Math::Vector3D
         }
     } catch (const SFMLCLoseWindowException &e) {
         std::cerr << e.what() << std::endl;
-        exit(0);
     }
 }
 
