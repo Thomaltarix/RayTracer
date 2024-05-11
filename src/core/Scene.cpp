@@ -423,14 +423,20 @@ void RayTracer::Scene::applyRotation(libconfig::Setting &transformation, std::sh
 {
     double angle;
     Axis axis;
+    Math::Vector3D vector;
 
+    if (dynamic_cast<ICanRotate *>(primitive.get()) == nullptr)
+        throw SceneInvalidTransformationException("Invalid transformation for object");
     angle = transformValue(transformation.lookup("angle"));
-    axis = transformAxis(transformation.lookup("axis"));
-    std::cout << "Rotation: angle: " << angle << "; axis: " << axis << std::endl;
-    (void)primitive;
-    // if (dynamic_cast<ICanRotate *>(primitive.get()) == nullptr)
-    //     throw SceneInvalidTransformationException("Invalid transformation for object");
-    // dynamic_cast<ICanRotate *>(primitive.get())->rotate(angle, axis);
+    if (transformation.exists("axis")) {
+        axis = transformAxis(transformation.lookup("axis"));
+        std::cout << "Rotation: angle: " << angle << "; axis: " << axis << std::endl;
+        // dynamic_cast<ICanRotate *>(primitive.get())->rotate(angle, axis);
+    } else {
+        vector = getVector3D(transformation.lookup("vector"));
+        std::cout << "Rotation: angle: " << angle << "; vector: " << vector.x << ", " << vector.y << ", " << vector.z << std::endl;
+        // dynamic_cast<ICanRotate *>(primitive.get())->rotate(angle, vector);
+    }
 }
 
 void RayTracer::Scene::applyScale(libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive)
