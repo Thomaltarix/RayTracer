@@ -43,7 +43,7 @@ namespace RayTracer {
              * @brief Displays the rendered image on the SFML window and waits for the specified time.
              * @param timeBeforeUpdating The time to wait before updating the window.
              */
-            void display(int timeBeforeUpdating);
+            void display(double timeBeforeUpdating);
 
             /**
              * @brief Clears the rendered image on the SFML window.

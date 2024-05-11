@@ -78,7 +78,7 @@ namespace RayTracer {
          * Get the time to display the scene.
          * @return The time to display the scene.
          */
-        int getTimeToDisplay() const;
+        double getTimeToDisplay() const;
 
     private:
         /**
@@ -114,6 +114,6 @@ namespace RayTracer {
         bool _displayWhileRendering;
 
         /** The time to display the scene. */
-        int _timeToDisplay;
+        double _timeToDisplay;
     };
 }

@@ -56,7 +56,7 @@ void RayTracer::ArgsHandler::parseArgs(int ac, char **av)
             i++;
             if (i < ac) {
                 try {
-                    this->_timeToDisplay = std::stoi(av[i]);
+                    this->_timeToDisplay = std::stof(av[i]);
                 } catch (std::exception &e) {
                     throw ArgsHandlerInvalidArgException("Invalid time specified for --display");
                 }
@@ -114,7 +114,7 @@ bool RayTracer::ArgsHandler::isDisplayWhileRendering() const
     return this->_displayWhileRendering;
 }
 
-int RayTracer::ArgsHandler::getTimeToDisplay() const
+double RayTracer::ArgsHandler::getTimeToDisplay() const
 {
     return this->_timeToDisplay;
 }

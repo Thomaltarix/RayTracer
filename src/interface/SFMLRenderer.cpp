@@ -25,7 +25,7 @@ RayTracer::SFMLRenderer::~SFMLRenderer()
     this->window.close();
 }
 
-void RayTracer::SFMLRenderer::display(int timeBeforeUpdating)
+void RayTracer::SFMLRenderer::display(double timeBeforeUpdating)
 {
     window.clear();
     if (this->_clock->getElapsedTime().asSeconds() > timeBeforeUpdating) {
