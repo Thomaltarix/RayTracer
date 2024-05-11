@@ -10,19 +10,19 @@
 #include "ALight.hpp"
 
 namespace Light {
-    class Directional : public ALight {
+    class Directional : public RayTracer::ALight {
     public:
         Directional();
         Directional(float intensity);
-        Directional(float intensity, RayTracer::Vector3 direction);
-        Directional(RayTracer::Vector3 direction);
+        Directional(float intensity, Math::Vector3D direction);
+        Directional(Math::Vector3D direction);
         ~Directional() = default;
 
-        RayTracer::Vector3 getDirection() const;
-        void setDirection(RayTracer::Vector3 direction);
+        Math::Vector3D getDirection() const;
+        void setDirection(Math::Vector3D direction);
         bool InShadow(Math::Point3D point) override;
-        Math::Vector3D Illuminate(Math::Point3D point, const std::shared_ptr<IMaterial> &material) override;
+        Math::Vector3D Illuminate(Math::Point3D point, const std::shared_ptr<RayTracer::IMaterial> &material) override;
     private:
-        RayTracer::Vector3 _direction;
+        Math::Vector3D _direction;
     };
 }

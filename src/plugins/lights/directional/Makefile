@@ -9,11 +9,14 @@
 SRC		=	../ALight.cpp	\
 			Directional.cpp	\
 			getInstance.cpp \
+			../../../math/Vector3D.cpp	\
+			../../../math/Point3D.cpp	\
+			../../../math/MathError.cpp	\
 
 HEADER	=	Directional.hpp	\
 
 # Path to the plugin directory
-PLUGINS	=	../../../../plugins/
+PLUGINS	=	../../../../plugins/lights/
 
 # Path to the include directory to copy the header
 INCLUDE	=	../../../../include/plugins/
@@ -22,7 +25,7 @@ INCLUDE	=	../../../../include/plugins/
 OBJ		=	$(SRC:.cpp=.o)
 
 # Binary
-NAME	=	directional.so
+NAME	=	libdirectional.so
 
 # Flags
 CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17

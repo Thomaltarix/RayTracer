@@ -21,6 +21,11 @@ extern "C"
         return new Light::Directional();
     }
 
+    const std::string &getName(void) {
+        const static std::string name = "DirectionalLight";
+        return name;
+    }
+
     __attribute__((destructor))
     static void destroysharedlibrary()
     {
