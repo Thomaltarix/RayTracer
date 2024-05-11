@@ -39,7 +39,7 @@ RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<
     this->_renderer = nullptr;
 }
 
-void RayTracer::Image::renderThread(std::vector<std::vector<std::string>> &tab, size_t threadId, size_t start, size_t end)
+void RayTracer::Image::renderThread(std::vector<std::vector<Math::Vector3D>> &tab, size_t threadId, size_t start, size_t end)
 {
     (void)threadId;
 
@@ -82,7 +82,7 @@ void RayTracer::Image::renderThread(std::vector<std::vector<std::string>> &tab, 
             for (const auto& light : _lights) {
                 color += light->Illuminate(hitPoint, closestHitPrimitive->getMaterial()); // color with light
             }
-            tab[j][i] = std::to_string((int)round(color.x)) + " " + std::to_string((int)round(color.y)) + " " + std::to_string((int)round(color.z));
+            tab[j][i] = color;
         }
     }
 }
@@ -102,7 +102,7 @@ void RayTracer::Image::render(std::string filename)
     maxThreads = maxThreads == 0 ? 1 : maxThreads;
     maxThreads = maxThreads > _height? _height: maxThreads;
 
-    std::vector<std::vector<std::string>> tab(_height, std::vector<std::string>(_width, "1 1 1"));
+    std::vector<std::vector<Math::Vector3D>> tab(_height, std::vector<Math::Vector3D>(_width, Math::Vector3D(1, 1, 1)));
     for (size_t i = 0; i < maxThreads; i++) {
         threads.push_back(std::thread(&Image::renderThread, this, std::ref(tab), i, i * (_height / maxThreads), (i + 1) * (_height / maxThreads)));
     }
@@ -112,11 +112,11 @@ void RayTracer::Image::render(std::string filename)
 
     for (size_t j = _height - 1; j > 0; j--) {
         for (size_t i = 0; i < _width; i++) {
-            file << tab[j][i] << std::endl;
+            file << (int)(tab[j][i].x) << " " << (int)(tab[j][i].y) << " " << (int)(tab[j][i].z ) << std::endl;
         }
     }
     for (size_t i = 0; i < _width; i++) {
-        file << tab[0][i] << std::endl;
+        file << (int)(tab[0][i].x) << " " << (int)(tab[0][i].y) << " " << (int)(tab[0][i].z) << std::endl;
     }
     file.close();
 }
