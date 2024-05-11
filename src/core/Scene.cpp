@@ -39,7 +39,8 @@ RayTracer::Scene::Scene(std::string path, std::shared_ptr<Core> core)
     this->_primitiveCreators = {
         {"spheres", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createSpheres(primitive, core);} },
         {"planes", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createPlanes(primitive, core);} },
-        {"cylinders", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createCylinders(primitive, core);} }
+        {"cylinders", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createCylinders(primitive, core);} },
+        {"cones", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createCones(primitive, core);} }
     };
     this->_primitiveTransformations = {
         {"rotation", [this](libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive) {applyRotation(transformation, primitive);} },
@@ -300,6 +301,70 @@ void RayTracer::Scene::createCylinder(libconfig::Setting &primitive, std::shared
     this->_primitives[name] = cylinder;
 }
 
+void RayTracer::Scene::createCones(libconfig::Setting &cones, std::shared_ptr<Core> core)
+{
+    std::cout << "Creating cones" << std::endl;
+    for (int i = 0; i < cones.getLength(); i++) {
+        libconfig::Setting &cone = cones[i];
+        if (cone.exists("axis")) {
+            createConeFromAxis(cone, core);
+        } else {
+            createConeFromVector(cone, core);
+        }
+    }
+    std::cout << "Cones created" << std::endl << std::endl;
+}
+
+void RayTracer::Scene::createConeFromAxis(libconfig::Setting &primitive, std::shared_ptr<Core> core)
+{
+    double x, y, z, angle;
+    std::string name;
+    std::string material;
+    Axis3D axis;
+
+    primitive.lookupValue("name", name);
+    x = transformValue(primitive.lookup("x"));
+    y = transformValue(primitive.lookup("y"));
+    z = transformValue(primitive.lookup("z"));
+    angle = transformValue(primitive.lookup("angle"));
+    axis = transformAxis(primitive.lookup("axis"));
+    primitive.lookupValue("material", material);
+    std::shared_ptr<Math::Vector3D> color = getColor(primitive);
+    std::shared_ptr<IMaterial> materialPtr = core->factoryMaterial(material);
+    materialPtr->setColor(*color);
+    std::shared_ptr<Primitive::Cone> cone = std::make_shared<Primitive::Cone>(x, y, z, materialPtr, axis, angle);
+    std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << "; angle: " << angle << "; axis: " << axis;
+    std::cout << "; material: " << material << " ; color: " << color->x << ", " << color->y << ", " << color->z << std::endl;
+    if (this->_primitives.find(name) != this->_primitives.end())
+        throw SceneDuplicateNameException("Duplicate primitive name");
+    this->_primitives[name] = cone;
+}
+
+void RayTracer::Scene::createConeFromVector(libconfig::Setting &primitive, std::shared_ptr<Core> core)
+{
+    double x, y, z, angle;
+    std::string name;
+    std::string material;
+    Math::Vector3D vector;
+
+    primitive.lookupValue("name", name);
+    x = transformValue(primitive.lookup("x"));
+    y = transformValue(primitive.lookup("y"));
+    z = transformValue(primitive.lookup("z"));
+    angle = transformValue(primitive.lookup("angle"));
+    vector = getVector3D(primitive);
+    primitive.lookupValue("material", material);
+    std::shared_ptr<Math::Vector3D> color = getColor(primitive);
+    std::shared_ptr<IMaterial> materialPtr = core->factoryMaterial(material);
+    materialPtr->setColor(*color);
+    std::shared_ptr<Primitive::Cone> cone = std::make_shared<Primitive::Cone>(x, y, z, materialPtr, vector, angle);
+    std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << "; angle: " << angle << "; vector: " << vector.x << ", " << vector.y << ", " << vector.z;
+    std::cout << "; material: " << material << " ; color: " << color->x << ", " << color->y << ", " << color->z << std::endl;
+    if (this->_primitives.find(name) != this->_primitives.end())
+        throw SceneDuplicateNameException("Duplicate primitive name");
+    this->_primitives[name] = cone;
+}
+
 std::shared_ptr<Math::Vector3D> RayTracer::Scene::getColor(libconfig::Setting &setting)
 {
     double r, g, b;
@@ -311,6 +376,19 @@ std::shared_ptr<Math::Vector3D> RayTracer::Scene::getColor(libconfig::Setting &s
     g = transformValue(color.lookup("g"));
     b = transformValue(color.lookup("b"));
     return std::make_shared<Math::Vector3D>(r, g, b);
+}
+
+Math::Vector3D RayTracer::Scene::getVector3D(libconfig::Setting &setting)
+{
+    double x, y, z;
+
+    if (!setting.exists("vector"))
+        throw RayTracer::SceneParseError("Vector not found");
+    libconfig::Setting &vector = setting.lookup("vector");
+    x = transformValue(vector.lookup("x"));
+    y = transformValue(vector.lookup("y"));
+    z = transformValue(vector.lookup("z"));
+    return Math::Vector3D(x, y, z);
 }
 
 void RayTracer::Scene::applyTransformations(libconfig::Setting &transformations)
