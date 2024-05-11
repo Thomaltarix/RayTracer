@@ -13,6 +13,7 @@ SRC		=	Plane.cpp			\
 			../../../math/Vector3D.cpp	\
 			../../../math/Point3D.cpp	\
 			../../../math/MathError.cpp	\
+			../../../math/DegToRad.cpp	\
 
 HEADER	=	Plane.hpp		\
 
