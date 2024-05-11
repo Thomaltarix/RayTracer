@@ -122,6 +122,7 @@ void RayTracer::Scene::createLights(libconfig::Setting &lights, std::shared_ptr<
 {
     double ambiantIntensity, diffuseIntensity;
     std::unordered_map<std::string, Math::Point3D> positions;
+    std::unordered_map<std::string, Math::Vector3D> vectors;
 
     (void)core;
     std::cout << "Creating lights" << std::endl;
@@ -144,15 +145,30 @@ void RayTracer::Scene::createLights(libconfig::Setting &lights, std::shared_ptr<
             std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << std::endl;
         }
     }
-    // if (lights.exists("directional")) {
-    //     libconfig::Setting &directionalLights = lights.lookup("directional");
-    //     for (int i = 0; i < directionalLights.getLength(); i++) {
-    //         libconfig::Setting &light = directionalLights[i];
-    //         CREATE DIRECTIONAL LIGHT
-    // }
+    if (lights.exists("directional")) {
+        libconfig::Setting &lightVectors = lights.lookup("directional");
+        for (int i = 0; i < lightVectors.getLength(); i++) {
+            libconfig::Setting &light = lightVectors[i];
+            double x, y, z;
+            std::string name;
+
+            light.lookupValue("name", name);
+            x = transformValue(light.lookup("x"));
+            y = transformValue(light.lookup("y"));
+            z = transformValue(light.lookup("z"));
+
+            if (vectors.find(name) != vectors.end())
+                throw SceneDuplicateNameException("Duplicate light name");
+            vectors[name] = Math::Vector3D(x, y, z);
+            std::cout << name << " --> {x: " << x << "; y: " << y << "; z: " << z << "};" << std::endl;
+        }
+    }
     std::shared_ptr<Light::Ambiant> ambiant = std::make_shared<Light::Ambiant>(ambiantIntensity);
     this->_lights["ambiant"] = ambiant;
-    (void)diffuseIntensity;
+    for (auto &vector : vectors) {
+        std::shared_ptr<Light::Directional> directional = std::make_shared<Light::Directional>(diffuseIntensity, vector.second);
+        this->_lights[vector.first] = directional;
+    }
     std::cout << "Lights created" << std::endl << std::endl;
 }
 

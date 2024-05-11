@@ -34,6 +34,7 @@ SRC				=	src/main.cpp									\
 					\
 					src/plugins/lights/ALight.cpp		            \
 					src/plugins/lights/ambiant/Ambiant.cpp	        \
+					src/plugins/lights/directional/Directional.cpp	\
 					\
 					src/interface/SFMLRenderer.cpp		            \
 
