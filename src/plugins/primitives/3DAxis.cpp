@@ -21,3 +21,19 @@ void RayTracer::Axis3D::setAxis(RayTracer::Axis axis)
 {
     _axis = axis;
 }
+
+std::ostream &operator<<(std::ostream &os, const RayTracer::Axis3D &axis)
+{
+    switch (axis.getAxis()) {
+        case RayTracer::Axis::X:
+            os << "X";
+            break;
+        case RayTracer::Axis::Y:
+            os << "Y";
+            break;
+        case RayTracer::Axis::Z:
+            os << "Z";
+            break;
+    }
+    return os;
+}

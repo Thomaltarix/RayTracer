@@ -8,6 +8,9 @@
 #pragma once
 
 #include "primitives/IPrimitive.hpp"
+#include "materials/IMaterial.hpp"
+#include "math/Point3D.hpp"
+#include "math/Ray.hpp"
 
 namespace RayTracer {
     /**
@@ -46,7 +49,14 @@ namespace RayTracer {
          * @param ray The ray to check for hits.
          * @return True if the ray hits the primitive, false otherwise.
          */
-        virtual bool hits(const Math::Ray &ray) = 0;
+        bool hits(const Math::Ray &ray) override = 0;
+
+        /**
+         * @brief Gets the point where the ray hits the primitive.
+         * @param ray The ray to check for hits.
+         * @return The point where the ray hits the primitive.
+         */
+        Math::Point3D hitPoint(const Math::Ray &ray) override = 0;
 
         /**
          * @brief Sets the position of the primitive using individual coordinates.
@@ -85,7 +95,7 @@ namespace RayTracer {
          * @param point The point on the primitive's surface.
          * @return The normal vector at the given point.
          */
-        virtual Math::Vector3D getNormalAt(const Math::Point3D &point) = 0;
+        Math::Vector3D getNormalAt(const Math::Point3D &point) override = 0;
 
     protected:
 

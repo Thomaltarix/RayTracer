@@ -9,9 +9,16 @@
 
 SRC		=	ambiant/		\
 
+HEADER	=	ALight.hpp		\
+
+INCLUDE =	../../../include/plugins/
+
 all:
 	@for dir in $(SRC); do \
 		$(MAKE) -C $$dir; \
+	done
+	@for header in $(HEADER); do \
+		cp $$header $(INCLUDE); \
 	done
 
 clean:
@@ -22,6 +29,9 @@ clean:
 fclean:
 	@for dir in $(SRC); do \
 		$(MAKE) fclean -C $$dir; \
+	done
+	@for header in $(HEADER); do \
+		rm -f $(INCLUDE)$$header; \
 	done
 
 re: fclean all

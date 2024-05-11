@@ -9,12 +9,14 @@
 
 #include "APrimitive.hpp"
 #include "3DAxis.hpp"
+#include "transformations/ICanTranslate.hpp"
+#include "transformations/ICanScale.hpp"
 
 namespace Primitive {
     /**
      * @brief The Plane class represents a plane primitive in a ray tracer.
      */
-    class Plane : public RayTracer::APrimitive {
+    class Plane : public RayTracer::APrimitive, public RayTracer::ICanTranslate, public RayTracer::ICanScale {
     public:
         /**
          * @brief Default constructor for the Plane class.
@@ -45,11 +47,40 @@ namespace Primitive {
         bool hits(const Math::Ray &ray) override;
 
         /**
+         * @brief Gets the point where the ray hits the plane.
+         * @param ray The ray to check for hits.
+         * @return The point where the ray hits the plane.
+         */
+        Math::Point3D hitPoint(const Math::Ray &ray) override;
+
+        /**
          * @brief Calculates the normal vector at a given point on the plane.
          * @param point The point on the plane.
          * @return The normal vector at the given point.
          */
         Math::Vector3D getNormalAt(const Math::Point3D &point) override;
+
+        /**
+         * @brief Translates the plane by the given amounts along the x, y, and z axes.
+         * @param x The amount to translate along the x-axis.
+         * @param y The amount to translate along the y-axis.
+         * @param z The amount to translate along the z-axis.
+         */
+        void translate(double x, double y, double z) override;
+
+        /**
+         * @brief Translates the plane by the given vector.
+         * @param vec The vector by which to translate the plane.
+         */
+        void translate(const Math::Vector3D &vec) override;
+
+        /**
+         * @brief Scales the plane by the given multiplier.
+         * @attention This does not change any of the other properties of the
+         * plane because its size is already infinite.
+         * @param multiplier The amount by which to scale the plane.
+         */
+        void scale(double multiplier) override;
 
     private:
 
