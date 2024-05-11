@@ -10,6 +10,7 @@
 #include "Scene.hpp"
 #include <vector>
 #include <string>
+#include <mutex>
 
 namespace RayTracer {
     /**
@@ -73,6 +74,16 @@ namespace RayTracer {
          * @param filename The name of the file to which the image is rendered.
          */
         void render(std::string filename="output.ppm");
+
+        /**
+         * @brief Renders the image to a file using multiple threads.
+         *
+         * @param tab The image data to render.
+         * @param threadId The ID of the thread rendering the image.
+         * @param start The starting row of the image data to render.
+         * @param end The ending row of the image data to render.
+         */
+        void renderThread(std::vector<std::vector<std::string>> &tab, size_t threadId, size_t start, size_t end);
     };
 }
 
