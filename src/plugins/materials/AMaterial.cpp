@@ -17,8 +17,9 @@ RayTracer::AMaterial::AMaterial(Math::Vector3D color)
     _color = color;
 }
 
-Math::Vector3D RayTracer::AMaterial::compute()
+Math::Vector3D RayTracer::AMaterial::compute(Math::Point3D point)
 {
+    (void)point;
     return _color;
 }
 

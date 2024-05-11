@@ -8,6 +8,10 @@
 .PHONY: all clean fclean re
 
 SRC		=	flatColor/		\
+			grid/			\
+			gridX/			\
+			gridY/			\
+			gridZ/			\
 
 HEADER	=	AMaterial.hpp	\
 

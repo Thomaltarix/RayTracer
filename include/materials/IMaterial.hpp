@@ -8,6 +8,7 @@
 #pragma once
 
 #include "Vector3D.hpp"
+#include "Point3D.hpp"
 
 namespace RayTracer {
     /**
@@ -36,6 +37,6 @@ namespace RayTracer {
          * @return The computed color of the material.
          * @note If the material is reflective, refractive, etc., implement this method; otherwise, return the color of the material.
          */
-        virtual Math::Vector3D compute() = 0;
+        virtual Math::Vector3D compute(Math::Point3D point) = 0;
     };
 }
