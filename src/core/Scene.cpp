@@ -431,11 +431,11 @@ void RayTracer::Scene::applyRotation(libconfig::Setting &transformation, std::sh
     if (transformation.exists("axis")) {
         axis = transformAxis(transformation.lookup("axis"));
         std::cout << "Rotation: angle: " << angle << "; axis: " << axis << std::endl;
-        // dynamic_cast<ICanRotate *>(primitive.get())->rotate(angle, axis);
+        dynamic_cast<ICanRotate *>(primitive.get())->rotate(axis, angle);
     } else {
-        vector = getVector3D(transformation.lookup("vector"));
+        vector = getVector3D(transformation);
         std::cout << "Rotation: angle: " << angle << "; vector: " << vector.x << ", " << vector.y << ", " << vector.z << std::endl;
-        // dynamic_cast<ICanRotate *>(primitive.get())->rotate(angle, vector);
+        dynamic_cast<ICanRotate *>(primitive.get())->rotate(vector, angle);
     }
 }
 
