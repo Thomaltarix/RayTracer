@@ -35,9 +35,9 @@ RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<
     }
     this->_width = width;
     this->_height = height;
-    this->_args = args;
+    this->_args = args.get();
     if (args->isSFML()) {
-        this->_renderer = std::make_unique<SFMLRenderer>(width, height);
+        this->_renderer = new SFMLRenderer(width, height);
     }
     else {
         this->_renderer = nullptr;
@@ -82,6 +82,7 @@ void RayTracer::Image::renderThread(std::vector<std::vector<Math::Vector3D>> &ta
                 std::any_cast<Math::Point3D>(closestHit);
             }
             catch (const std::bad_any_cast &e) {
+                tab[j][i] = Math::Vector3D(1 ,1, 1);
                 continue;
             }
             Math::Point3D hitPoint = std::any_cast<Math::Point3D>(closestHit);
@@ -100,7 +101,7 @@ void RayTracer::Image::renderThread(std::vector<std::vector<Math::Vector3D>> &ta
         }
     }
     if (fast) {
-        renderThread(tab, threadId, start, end, 0);
+        renderThread(tab, threadId, start, end, fast / 2);
     }
 }
 

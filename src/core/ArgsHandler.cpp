@@ -13,9 +13,9 @@ RayTracer::ArgsHandler::ArgsHandler(int ac, char **av)
     this->_sfml = false;
     this->_fastRender = 0;
     this->_canReload = false;
-    this->_timeToReload = 999999;
+    this->_timeToReload = 1;
     this->_displayWhileRendering = false;
-    this->_timeToDisplay = 999999;
+    this->_timeToDisplay = 1;
     this->parseArgs(ac, av);
 }
 
