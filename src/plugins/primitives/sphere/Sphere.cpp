@@ -100,3 +100,9 @@ void Primitive::Sphere::scale(double multiplier)
 {
     _radius *= multiplier;
 }
+
+void Primitive::Sphere::rotate(const RayTracer::Axis3D &axis, double angle)
+{
+    (void)axis;
+    (void)angle;
+}
