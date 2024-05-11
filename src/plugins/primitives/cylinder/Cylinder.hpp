@@ -86,6 +86,12 @@ namespace Primitive {
         RayTracer::Axis3D _axis; // The axis of the cylinder.
         double _radius; // The radius of the cylinder.
 
+        /**
+         * @brief Calculates the intersection points between a ray and the cylinder.
+         *
+         * @param ray The ray to intersect with the cylinder.
+         * @return A pair of doubles representing the distances from the ray origin to the intersection points.
+         */
         std::pair<double, double> getIntersectionPoints(const Math::Ray &ray);
     };
 }
