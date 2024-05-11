@@ -77,9 +77,11 @@ namespace Light {
          *
          * @param point The point to calculate illumination for.
          * @param material The material of the object at the point.
+         * @param primitives The list of primitives in the scene.
          * @return The illumination vector at the given point.
          */
-        Math::Vector3D Illuminate(Math::Point3D point, const std::shared_ptr<RayTracer::IMaterial> &material) override;
+        Math::Vector3D Illuminate(Math::Point3D point, const std::shared_ptr<RayTracer::IMaterial> &material,
+            const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives) override;
 
     private:
         Math::Vector3D _direction; /**< The direction vector of the light source. */

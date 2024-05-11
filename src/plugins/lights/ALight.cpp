@@ -45,10 +45,12 @@ void RayTracer::ALight::setShadowcast(bool doesShadowcast)
     _doesShadowcast = doesShadowcast;
 }
 
-Math::Vector3D RayTracer::ALight::Illuminate(Math::Point3D point, const std::shared_ptr<IMaterial> &material)
+Math::Vector3D RayTracer::ALight::Illuminate(Math::Point3D point, const std::shared_ptr<IMaterial> &material,
+    const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives)
 {
     Math::Vector3D color = material->compute();
     (void)point;
+    (void)primitives;
 
     return Math::Vector3D(color.x * _intensity, color.y * _intensity, color.z * _intensity);
 }
