@@ -53,7 +53,14 @@ Math::Vector3D Light::Directional::Illuminate(Math::Point3D point, const std::sh
 
     for (auto &primitive : primitives) {
         if (primitive->hits(lightRay)) {
-            return Math::Vector3D(0, 0, 0);
+            //if (primitive->hitPoint(lightRay) != point)
+            //    return Math::Vector3D(0, 0, 0);
+            try {
+                if (primitive->hitPoint(lightRay) != point)
+                    return Math::Vector3D(0, 0, 0);
+            } catch (const std::exception &e) {
+                return Math::Vector3D(0, 0, 0);
+            }
         }
     }
     return Math::Vector3D(color.x * _intensity, color.y * _intensity, color.z * _intensity);
