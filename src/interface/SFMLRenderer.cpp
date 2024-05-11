@@ -17,6 +17,7 @@ RayTracer::SFMLRenderer::SFMLRenderer(int width, int height)
 {
     this->window.create(sf::VideoMode(width, height), "RayTracer");
     this->_image.create(width, height, sf::Color::Black);
+    this->_clock = std::make_unique<sf::Clock>();
 }
 
 RayTracer::SFMLRenderer::~SFMLRenderer()
@@ -24,10 +25,13 @@ RayTracer::SFMLRenderer::~SFMLRenderer()
     this->window.close();
 }
 
-void RayTracer::SFMLRenderer::display()
+void RayTracer::SFMLRenderer::display(int timeBeforeUpdating)
 {
     window.clear();
-    this->updateTexture();
+    if (this->_clock->getElapsedTime().asSeconds() > timeBeforeUpdating) {
+        this->updateTexture();
+        this->_clock->restart();
+    }
     window.draw(this->_sprite);
     window.display();
 }

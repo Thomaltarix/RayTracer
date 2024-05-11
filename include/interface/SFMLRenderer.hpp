@@ -13,6 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
+#include <memory>
 
 namespace RayTracer {
     /**
@@ -39,9 +40,10 @@ namespace RayTracer {
             ~SFMLRenderer();
 
             /**
-             * @brief Displays the rendered image on the SFML window.
+             * @brief Displays the rendered image on the SFML window and waits for the specified time.
+             * @param timeBeforeUpdating The time to wait before updating the window.
              */
-            void display();
+            void display(int timeBeforeUpdating);
 
             /**
              * @brief Clears the rendered image on the SFML window.
@@ -188,5 +190,8 @@ namespace RayTracer {
 
             /**< The height of the renderer. */
             int _height;
+
+            /**< The clock used for rendering. */
+            std::unique_ptr<sf::Clock> _clock;
     };
 }

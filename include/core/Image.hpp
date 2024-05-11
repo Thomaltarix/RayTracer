@@ -9,6 +9,7 @@
 
 #include "Scene.hpp"
 #include "interface/SFMLRenderer.hpp"
+#include "core/ArgsHandler.hpp"
 #include <vector>
 #include <string>
 #include <mutex>
@@ -64,7 +65,7 @@ namespace RayTracer {
          */
         Image(const Camera &camera, const std::vector<std::shared_ptr<IPrimitive>> &primitives,
             const std::vector<std::shared_ptr<ILight>> &lights, std::size_t width, std::size_t height,
-            bool sfmlDisplay = false);
+            std::shared_ptr<ArgsHandler> args);
 
         /**
          * @brief Default destructor.
@@ -95,19 +96,26 @@ namespace RayTracer {
          * @param y The y-coordinate of the pixel.
          * @param color The color of the pixel.
          */
-        void setSFMLPixel(unsigned int x, unsigned int y, Math::Vector3D color);
+        void setSFMLPixels(std::vector<std::vector<Math::Vector3D>> &tab);
 
         /**
          * @brief Renders the image using SFML.
          */
         void renderSFML();
 
-    private:
-        /** A boolean to check if the image should be displayed using SFML. */
-        bool _sfmlDisplay;
+        /**
+         * @brief Renders the image using SFML with multiple threads.
+         *
+         * @param tab The image data to render.
+         */
+        void threadHandlingSFML(std::vector<std::vector<Math::Vector3D>> &tab);
 
+    private:
         /** The SFMLRenderer object used to render the image. */
         std::shared_ptr<SFMLRenderer> _renderer;
+
+        /** The class who contains the arguments */
+        std::shared_ptr<ArgsHandler> _args;
     };
 }
 

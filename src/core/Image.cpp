@@ -24,7 +24,7 @@ RayTracer::Image::Image()
 }
 
 RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<IPrimitive>> &primitives,
-    const std::vector<std::shared_ptr<ILight>> &lights, std::size_t width, std::size_t height, bool sfml)
+    const std::vector<std::shared_ptr<ILight>> &lights, std::size_t width, std::size_t height, std::shared_ptr<ArgsHandler> args)
 {
     _camera = camera;
     for (auto &primitive : primitives) {
@@ -33,10 +33,15 @@ RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<
     for (auto &light : lights) {
         _lights.push_back(light);
     }
-    _width = width;
-    _height = height;
-    this->_sfmlDisplay = sfml;
-    this->_renderer = nullptr;
+    this->_width = width;
+    this->_height = height;
+    this->_args = args;
+    if (args->isSFML()) {
+        this->_renderer = std::make_shared<SFMLRenderer>(width, height);
+    }
+    else {
+        this->_renderer = nullptr;
+    }
 }
 
 void RayTracer::Image::renderThread(std::vector<std::vector<Math::Vector3D>> &tab, size_t threadId, size_t start, size_t end, size_t fast)
@@ -115,8 +120,12 @@ void RayTracer::Image::render(std::string filename)
     maxThreads = maxThreads > _height? _height: maxThreads;
 
     std::vector<std::vector<Math::Vector3D>> tab(_height, std::vector<Math::Vector3D>(_width, Math::Vector3D(1, 1, 1)));
+    if (maxThreads > 1 && this->_args->isSFML()) {
+        maxThreads--;
+        threads.push_back(std::thread(&Image::threadHandlingSFML, this, std::ref(tab)));
+    }
     for (size_t i = 0; i < maxThreads; i++) {
-        threads.push_back(std::thread(&Image::renderThread, this, std::ref(tab), i, i * (_height / maxThreads), (i + 1) * (_height / maxThreads), 0));
+        threads.push_back(std::thread(&Image::renderThread, this, std::ref(tab), i, i * (_height / maxThreads), (i + 1) * (_height / maxThreads), this->_args->isFastRender()));
     }
 
     for (auto &thread : threads) {
@@ -134,3 +143,39 @@ void RayTracer::Image::render(std::string filename)
     file.close();
 }
 
+void RayTracer::Image::threadHandlingSFML(std::vector<std::vector<Math::Vector3D>> &tab)
+{
+    if (this->_renderer == nullptr) {
+        throw std::runtime_error("No renderer set"); //TODO: Create a custom exception
+    }
+    try {
+        while (1) {
+            this->setSFMLPixels(tab);
+            this->renderSFML();
+        }
+    } catch (const SFMLCLoseWindowException &e) {
+        std::cerr << e.what() << std::endl;
+        exit(0);
+    }
+}
+
+void RayTracer::Image::setSFMLPixels(std::vector<std::vector<Math::Vector3D>> &tab)
+{
+    if (this->_renderer == nullptr) {
+        throw std::runtime_error("No renderer set"); // TODO: Create a custom exception
+    }
+    for (size_t j = 0; j < _height; j++) {
+        for (size_t i = 0; i < _width; i++) {
+            this->_renderer->setPixel(i, j, tab[j][i]);
+        }
+    }
+}
+
+void RayTracer::Image::renderSFML()
+{
+    if (this->_renderer == nullptr) {
+        throw std::runtime_error("No renderer set"); // TODO: Create a custom exception
+    }
+    this->_renderer->display(this->_args->getTimeToDisplay());
+    this->_renderer->handleEvents();
+}
