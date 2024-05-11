@@ -29,5 +29,12 @@ namespace RayTracer {
          * @param angle The angle to rotate by.
          */
         virtual void rotate(const RayTracer::Axis3D &axis, double angle) = 0;
+
+        /**
+         * @brief Rotates the object by the given x, y, and z values.
+         * @param axis The axis to rotate around.
+         * @param angle The angle to rotate by.
+        */
+        virtual void rotate(const Math::Vector3D &axis, double angle) = 0;
     };
 }
