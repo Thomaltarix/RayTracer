@@ -141,6 +141,12 @@ namespace Math {
         double distance(const Point3D &point3D) const;
 
         /**
+         * @brief Rotates the point around the origin.
+         * @param rotation The rotation to apply.
+         */
+        void rotate(const Vector3D &rotation);
+
+        /**
          * @brief Checks if two points are equal.
          * @param point3D The point to compare with.
          * @return True if the points are equal, false otherwise.

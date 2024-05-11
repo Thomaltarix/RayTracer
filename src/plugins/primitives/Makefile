@@ -9,6 +9,7 @@
 
 SRC		=	sphere/			\
 			plane/			\
+			cylinder/		\
 
 HEADER	=	APrimitive.hpp	\
 			3DAxis.hpp		\

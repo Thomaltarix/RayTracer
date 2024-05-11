@@ -82,7 +82,7 @@ namespace Light {
          * @return The illumination vector at the given point.
          */
         Math::Vector3D Illuminate(Math::Point3D point, const std::shared_ptr<RayTracer::IMaterial> &material,
-            const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives) override;
+            const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives, Math::Vector3D normal) override;
 
     private:
         Math::Vector3D _direction; /**< The direction vector of the light source. */

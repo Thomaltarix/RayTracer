@@ -14,6 +14,7 @@
 #include "plugins/AMaterial.hpp"
 #include "plugins/Sphere.hpp"
 #include "plugins/Plane.hpp"
+#include "plugins/Cylinder.hpp"
 #include "plugins/3DAxis.hpp"
 #include "plugins/Ambiant.hpp"
 #include "plugins/Directional.hpp"
@@ -174,6 +175,22 @@ namespace RayTracer {
          * @param core pointer to the core object
          */
         void createPlane(libconfig::Setting &primitive, std::shared_ptr<Core> core);
+
+        /**
+         * @brief Create the cylinders
+         * Create the cylinders from the configuration file.
+         * @param primitives configuration file
+         * @param core pointer to the core object
+         */
+        void createCylinders(libconfig::Setting &primitives, std::shared_ptr<Core> core);
+
+        /**
+         * @brief Create a Cylinder object
+         * Create a Cylinder object from the configuration file.
+         * @param primitive configuration file
+         * @param core pointer to the core object
+         */
+        void createCylinder(libconfig::Setting &primitive, std::shared_ptr<Core> core);
 
         /**
          * @brief Get the Color object

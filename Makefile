@@ -28,6 +28,7 @@ SRC				=	src/main.cpp									\
 					src/plugins/primitives/3DAxis.cpp				\
 					src/plugins/primitives/sphere/Sphere.cpp		\
 					src/plugins/primitives/plane/Plane.cpp			\
+					src/plugins/primitives/cylinder/Cylinder.cpp	\
 					\
 					src/plugins/materials/AMaterial.cpp				\
 					src/plugins/materials/flatColor/FlatColor.cpp	\

@@ -82,7 +82,9 @@ void RayTracer::Image::render(std::string filename)
             Math::Point3D hitPoint = std::any_cast<Math::Point3D>(closestHit);
             Math::Vector3D color(0, 0, 0);
             for (const auto& light : _lights) {
-                color += light->Illuminate(hitPoint, closestHitPrimitive->getMaterial(), _primitives);
+                std::vector<std::shared_ptr<IPrimitive>> primitives = _primitives;
+                primitives.erase(std::remove(primitives.begin(), primitives.end(), closestHitPrimitive), primitives.end());
+                color += light->Illuminate(hitPoint, closestHitPrimitive->getMaterial(), primitives, closestHitPrimitive->getNormalAt(hitPoint));
             }
             file << round(color.x) << " " << round(color.y) << " " << round(color.z) << std::endl;
         }

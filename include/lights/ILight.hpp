@@ -44,7 +44,7 @@ namespace RayTracer {
          * @return The light intensity as a Vector3.
          */
         virtual Math::Vector3D Illuminate(Math::Point3D point, const std::shared_ptr<IMaterial> &material,
-        const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives) = 0;
+        const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives, Math::Vector3D normal) = 0;
 
         /**
          * @brief Checks if a given point is in shadow.

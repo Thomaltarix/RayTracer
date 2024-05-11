@@ -80,7 +80,7 @@ namespace RayTracer {
          * @return The illumination at the point.
          */
         Math::Vector3D Illuminate(Math::Point3D point, const std::shared_ptr<IMaterial> &material,
-            const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives) override;
+            const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives, Math::Vector3D normal) override;
 
         /**
          * @brief Check if a point is in shadow.

@@ -210,6 +210,28 @@ double Math::Point3D::distance(const Math::Point3D &point3D) const
         pow(this->z - point3D.z, 2));
 }
 
+void Math::Point3D::rotate(const Math::Vector3D &rotation)
+{
+    double x = -rotation.x * M_PI / 180.0;
+    double y = -rotation.y * M_PI / 180.0;
+    double z = -rotation.z * M_PI / 180.0;
+    double cosX = cos(x);
+    double sinX = sin(x);
+    double cosY = cos(y);
+    double sinY = sin(y);
+    double cosZ = cos(z);
+    double sinZ = sin(z);
+
+    Math::Point3D rotatedPoint;
+    rotatedPoint.x = this->x * cosY * cosZ + this->y * (cosZ * sinX * sinY - cosX * sinZ) + this->z * (sinX * sinZ + cosX * cosZ * sinY);
+    rotatedPoint.y = this->x * cosY * sinZ + this->y * (cosX * cosZ + sinX * sinY * sinZ) + this->z * (cosX * sinY * sinZ - cosZ * sinX);
+    rotatedPoint.z = this->x * -sinY + this->y * cosY * sinX + this->z * cosX * cosY;
+
+    this->x = rotatedPoint.x;
+    this->y = rotatedPoint.y;
+    this->z = rotatedPoint.z;
+}
+
 bool Math::Point3D::operator==(const Math::Point3D &point3D) const
 {
     return this->x == point3D.x && this->y == point3D.y && this->z == point3D.z;
