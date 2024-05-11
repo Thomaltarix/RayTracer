@@ -166,9 +166,9 @@ void RayTracer::Image::setSFMLPixels(std::vector<std::vector<Math::Vector3D>> &t
     if (this->_renderer == nullptr) {
         throw std::runtime_error("No renderer set"); // TODO: Create a custom exception
     }
-    for (size_t j = 0; j < _height; j++) {
+    for (size_t j = 0, h = _height - 1; j < _height; j++, h--) {
         for (size_t i = 0; i < _width; i++) {
-            this->_renderer->setPixel(i, j, tab[j][i]);
+            this->_renderer->setPixel(i, h, tab[j][i]);
         }
     }
 }
