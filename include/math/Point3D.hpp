@@ -15,6 +15,9 @@ namespace Math {
      * @class Point3D
      * @brief Represents a point in 3D space.
      */
+    /**
+     * @brief Represents a point in 3D space.
+     */
     class Point3D {
     public:
         /**
@@ -64,6 +67,8 @@ namespace Math {
 
         /**
          * @brief Adds two points together.
+         * @param point3D The point to be added.
+         * @return The resulting point.
          */
         Point3D operator+(const Point3D &point3D) const;
         Point3D operator+(const double &value) const;
@@ -71,6 +76,8 @@ namespace Math {
 
         /**
          * @brief Adds a point to the current point.
+         * @param point3D The point to be added.
+         * @return Reference to the current point after addition.
          */
         Point3D &operator+=(const Point3D &point3D);
         Point3D &operator+=(const double &value);
@@ -78,6 +85,8 @@ namespace Math {
 
         /**
          * @brief Subtracts two points.
+         * @param point3D The point to be subtracted.
+         * @return The resulting point.
          */
         Point3D operator-(const Point3D &point3D) const;
         Point3D operator-(const double &value) const;
@@ -85,6 +94,8 @@ namespace Math {
 
         /**
          * @brief Subtracts a point from the current point.
+         * @param point3D The point to be subtracted.
+         * @return Reference to the current point after subtraction.
          */
         Point3D &operator-=(const Point3D &point3D);
         Point3D &operator-=(const double &value);
@@ -92,24 +103,32 @@ namespace Math {
 
         /**
          * @brief Multiplies two points.
+         * @param point3D The point to be multiplied.
+         * @return The resulting point.
          */
         Point3D operator*(const Point3D &point3D) const;
         Point3D operator*(const double &value) const;
 
         /**
          * @brief Multiplies the current point by another point.
+         * @param point3D The point to be multiplied.
+         * @return Reference to the current point after multiplication.
          */
         Point3D &operator*=(const Point3D &point3D);
         Point3D &operator*=(const double &value);
 
         /**
          * @brief Divides two points.
+         * @param point3D The point to be divided.
+         * @return The resulting point.
          */
         Point3D operator/(const Point3D &point3D) const;
         Point3D operator/(const double &value) const;
 
         /**
          * @brief Divides the current point by another point.
+         * @param point3D The point to be divided.
+         * @return Reference to the current point after division.
          */
         Point3D &operator/=(const Point3D &point3D);
         Point3D &operator/=(const double &value);
@@ -120,6 +139,20 @@ namespace Math {
          * @return The distance between the two points.
          */
         double distance(const Point3D &point3D) const;
+
+        /**
+         * @brief Checks if two points are equal.
+         * @param point3D The point to compare with.
+         * @return True if the points are equal, false otherwise.
+         */
+        bool operator==(const Point3D &point3D) const;
+
+        /**
+         * @brief Checks if two points are not equal.
+         * @param point3D The point to compare with.
+         * @return True if the points are not equal, false otherwise.
+         */
+        bool operator!=(const Point3D &point3D) const;
 
         double x; /**< The x-coordinate of the point. */
         double y; /**< The y-coordinate of the point. */

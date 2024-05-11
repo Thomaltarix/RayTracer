@@ -209,3 +209,13 @@ double Math::Point3D::distance(const Math::Point3D &point3D) const
     return sqrt(pow(this->x - point3D.x, 2) + pow(this->y - point3D.y, 2) +
         pow(this->z - point3D.z, 2));
 }
+
+bool Math::Point3D::operator==(const Math::Point3D &point3D) const
+{
+    return this->x == point3D.x && this->y == point3D.y && this->z == point3D.z;
+}
+
+bool Math::Point3D::operator!=(const Math::Point3D &point3D) const
+{
+    return this->x != point3D.x || this->y != point3D.y || this->z != point3D.z;
+}
