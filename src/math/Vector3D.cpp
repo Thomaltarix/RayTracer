@@ -178,3 +178,11 @@ Math::Vector3D Math::Vector3D::rotateZ(double angle) const
         this->x * cos(angle) - this->y * sin(angle),
         this->x * sin(angle) + this->y * cos(angle), this->z);
 }
+
+Math::Vector3D Math::Vector3D::normalize() const
+{
+    double length = this->Length();
+    if (length == 0)
+        throw MathDivideByZeroError("Division by 0");
+    return Math::Vector3D(this->x / length, this->y / length, this->z / length);
+}

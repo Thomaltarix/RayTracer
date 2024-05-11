@@ -83,12 +83,13 @@ namespace Primitive {
         void translate(double x, double y, double z) override;
 
     private:
-        RayTracer::Axis3D _axis; // The axis of the cylinder.
-        double _radius; // The radius of the cylinder.
+        /** < The axis of the cylinder. */
+        Math::Vector3D _axis;
+        /** < The radius of the cylinder. */
+        double _radius;
 
         /**
          * @brief Calculates the intersection points between a ray and the cylinder.
-         *
          * @param ray The ray to intersect with the cylinder.
          * @return A pair of doubles representing the distances from the ray origin to the intersection points.
          */

@@ -185,6 +185,13 @@ namespace Math {
          */
         Vector3D rotateZ(double angle) const;
 
+        /**
+         * @brief Normalizes the vector.
+         * This function calculates the normalized version of the vector, which has a length of 1.
+         * @return The normalized vector.
+         */
+        Vector3D normalize() const;
+
         double x; /**< The x-coordinate of the vector. */
         double y; /**< The y-coordinate of the vector. */
         double z; /**< The z-coordinate of the vector. */
