@@ -157,3 +157,24 @@ double Math::Vector3D::Length() const
 {
     return sqrt(this->x * this->x + this->y * this->y + this->z * this->z);
 }
+
+Math::Vector3D Math::Vector3D::normalize() const
+{
+    double length = this->Length();
+    if (length == 0)
+        throw MathDivideByZeroError("Division by 0");
+    return Math::Vector3D(this->x / length, this->y / length, this->z / length);
+}
+
+Math::Vector3D Math::Vector3D::rotate(const Math::Vector3D &axis, double angle)
+{
+    double cosAngle = cos(angle);
+    double sinAngle = sin(angle);
+    double xPrime = axis.x * (axis.x * this->x + axis.y * this->y + axis.z * this->z) * (1 - cosAngle) +
+        this->x * cosAngle + (-axis.z * this->y + axis.y * this->z) * sinAngle;
+    double yPrime = axis.y * (axis.x * this->x + axis.y * this->y + axis.z * this->z) * (1 - cosAngle) +
+        this->y * cosAngle + (axis.z * this->x - axis.x * this->z) * sinAngle;
+    double zPrime = axis.z * (axis.x * this->x + axis.y * this->y + axis.z * this->z) * (1 - cosAngle) +
+        this->z * cosAngle + (-axis.y * this->x + axis.x * this->y) * sinAngle;
+    return Math::Vector3D(xPrime, yPrime, zPrime);
+}

@@ -23,6 +23,7 @@ SRC				=	src/main.cpp									\
 					src/math/MathError.cpp							\
                     src/math/Rectangle3D.cpp                        \
                     src/math/QuadraticEquation.cpp                  \
+					src/math/DegToRad.cpp							\
 					\
 					src/plugins/primitives/APrimitive.cpp			\
 					src/plugins/primitives/3DAxis.cpp				\
