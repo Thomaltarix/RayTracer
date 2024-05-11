@@ -9,6 +9,7 @@
 
 SRC		=	sphere/			\
 			plane/			\
+			cylinder/		\
 
 HEADER	=	APrimitive.hpp	\
 			3DAxis.hpp		\
@@ -16,10 +17,10 @@ HEADER	=	APrimitive.hpp	\
 INCLUDE =	../../../include/plugins/
 
 all:
+	@cp $(HEADER) $(INCLUDE)
 	@for dir in $(SRC); do \
 		$(MAKE) -C $$dir; \
 	done
-	@cp $(HEADER) $(INCLUDE)
 
 clean:
 	@for dir in $(SRC); do \

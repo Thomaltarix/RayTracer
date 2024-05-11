@@ -6,16 +6,16 @@
 ##
 
 # Sources
-SRC		=	Plane.cpp			\
+SRC		=	Cylinder.cpp			\
 			getInstance.cpp 	\
 			../APrimitive.cpp	\
-			../3DAxis.cpp		\
-			../../../math/Vector3D.cpp	\
-			../../../math/Point3D.cpp	\
-			../../../math/MathError.cpp	\
-			../../../math/DegToRad.cpp	\
+			../../../../src/math/Point3D.cpp	\
+			../../../../src/math/MathError.cpp	\
+			../../../../src/math/Vector3D.cpp	\
+			../../../../src/math/QuadraticEquation.cpp	\
+			../../../../src/math/Ray.cpp	\
 
-HEADER	=	Plane.hpp		\
+HEADER	=	Cylinder.hpp		\
 
 # Path to the plugin directory
 PLUGINS	=	../../../../plugins/primitives/
@@ -27,7 +27,7 @@ INCLUDE	=	../../../../include/plugins/
 OBJ		=	$(SRC:.cpp=.o)
 
 # Binary
-NAME	=	libplane.so
+NAME	=	libcylinder.so
 
 # Flags
 CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17
@@ -48,7 +48,7 @@ CXX		=	g++
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	@$(CXX) -shared -o $(NAME) $(OBJ) $(CXXFLAGS)
+	@$(CXX) $(CXXFLAGS) -shared -o $(NAME) $(OBJ)
 	@mv $(NAME) $(PLUGINS)
 	@cp $(HEADER) $(INCLUDE)
 

@@ -9,6 +9,7 @@
 SRC		=	Sphere.cpp			\
 			getInstance.cpp 	\
 			../APrimitive.cpp	\
+			../3DAxis.cpp		\
 			../../../../src/math/Point3D.cpp	\
 			../../../../src/math/MathError.cpp	\
 			../../../../src/math/Vector3D.cpp	\

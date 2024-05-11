@@ -7,6 +7,7 @@
 
 #pragma once
 #include <iostream>
+#include "math/Vector3D.hpp"
 
 namespace RayTracer {
 
@@ -54,6 +55,12 @@ namespace RayTracer {
          * @param axis The axis to set.
          */
         void setAxis(Axis axis);
+
+        /**
+         * @brief Get the vector representation of the axis.
+         * @return The vector representation of the axis.
+         */
+        Math::Vector3D getVector() const;
 
     private:
 

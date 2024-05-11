@@ -14,11 +14,13 @@
 #include "plugins/AMaterial.hpp"
 #include "plugins/Sphere.hpp"
 #include "plugins/Plane.hpp"
+#include "plugins/Cylinder.hpp"
 #include "plugins/3DAxis.hpp"
 #include "plugins/Ambiant.hpp"
 #include "errors/SceneException.hpp"
 #include "transformations/ICanRotate.hpp"
 #include "transformations/ICanTranslate.hpp"
+#include "transformations/ICanScale.hpp"
 #include <iostream>
 #include <memory>
 #include <libconfig.h++>
@@ -104,14 +106,6 @@ namespace RayTracer {
         void importScenes(libconfig::Setting &scenes, std::shared_ptr<Core> core);
 
         /**
-         * @brief Import the scene
-         * Import the scene from the configuration file.
-         * @param scene configuration file
-         * @param core pointer to the core object
-         */
-        void importScene(libconfig::Setting &scene, std::shared_ptr<Core> core);
-
-        /**
          * @brief Apply the transformations
          * Apply the transformations to the primitives.
          * @param transformations configuration file
@@ -142,6 +136,14 @@ namespace RayTracer {
         void applyRotation(libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive);
 
         /**
+         * @brief Apply the scale
+         * Apply the scale to the primitive.
+         * @param transformation configuration file
+         * @param primitive pointer to the primitive object
+         */
+        void applyScale(libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive);
+
+        /**
          * @brief Create the spheres
          * Create the spheres from the configuration file.
          * @param primitives configuration file
@@ -168,10 +170,46 @@ namespace RayTracer {
         /**
          * @brief Create a Plane object
          * Create a Plane object from the configuration file.
+         * It creates a plane from an axis.
          * @param primitive configuration file
          * @param core pointer to the core object
          */
-        void createPlane(libconfig::Setting &primitive, std::shared_ptr<Core> core);
+        void createPlaneFromAxis(libconfig::Setting &primitive, std::shared_ptr<Core> core);
+
+        /**
+         * @brief Create a Plane object
+         * Create a Plane object from the configuration file.
+         * It creates a plane from a vector.
+         * @param primitive configuration file
+         * @param core pointer to the core object
+         */
+        void createPlaneFromVector(libconfig::Setting &primitive, std::shared_ptr<Core> core);
+
+        /**
+         * @brief Create the cylinders
+         * Create the cylinders from the configuration file.
+         * @param primitives configuration file
+         * @param core pointer to the core object
+         */
+        void createCylinders(libconfig::Setting &primitives, std::shared_ptr<Core> core);
+
+        /**
+         * @brief Create a Cylinder object
+         * Create a Cylinder object from the configuration file.
+         * It creates a cylinder from an axis.
+         * @param primitive configuration file
+         * @param core pointer to the core object
+         */
+        void createCylinderFromAxis(libconfig::Setting &primitive, std::shared_ptr<Core> core);
+
+        /**
+         * @brief Create a Cylinder object
+         * Create a Cylinder object from the configuration file.
+         * It creates a cylinder from a vector.
+         * @param primitive configuration file
+         * @param core pointer to the core object
+         */
+        void createCylinderFromVector(libconfig::Setting &primitive, std::shared_ptr<Core> core);
 
         /**
          * @brief Get the Color object
@@ -180,6 +218,14 @@ namespace RayTracer {
          * @return std::shared_ptr<Math::Vector3D> color
          */
         std::shared_ptr<Math::Vector3D> getColor(libconfig::Setting &setting);
+
+        /**
+         * @brief Get the Vector3D object
+         * Get the vector3D from the configuration file.
+         * @param setting configuration file
+         * @return Math::Vector3D vector3D
+         */
+        Math::Vector3D getVector3D(libconfig::Setting &setting);
 
         /** Map of primitive creators */
         std::unordered_map<std::string, std::function<void(libconfig::Setting &, std::shared_ptr<Core>)>> _primitiveCreators;

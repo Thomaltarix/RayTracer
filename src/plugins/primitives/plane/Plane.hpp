@@ -8,14 +8,18 @@
 #pragma once
 
 #include "APrimitive.hpp"
-#include "3DAxis.hpp"
 #include "transformations/ICanTranslate.hpp"
+#include "transformations/ICanRotate.hpp"
+#include "transformations/ICanScale.hpp"
 
 namespace Primitive {
     /**
-     * @brief The Plane class represents a plane primitive in a ray tracer.
+     * @class Plane
+     * @brief Represents a plane primitive in a ray tracer.
+     * The Plane class inherits from APrimitive and implements the ICanTranslate, ICanRotate, and ICanScale interfaces.
+     * It represents an infinite plane in 3D space and provides methods for checking ray-plane intersections, calculating hit points, and obtaining the normal vector at a given point on the plane.
      */
-    class Plane : public RayTracer::APrimitive, public RayTracer::ICanTranslate {
+    class Plane : public RayTracer::APrimitive, public RayTracer::ICanTranslate, public RayTracer::ICanRotate, public RayTracer::ICanScale {
     public:
         /**
          * @brief Default constructor for the Plane class.
@@ -28,10 +32,36 @@ namespace Primitive {
          * @param pos The position of the plane.
          * @param material The material of the plane.
          * @param axis The axis along which the plane is defined.
-        */
+         */
         Plane(const Math::Point3D &pos, const std::shared_ptr<RayTracer::IMaterial> &material = nullptr, const RayTracer::Axis3D &axis = RayTracer::Axis::X);
 
+        /**
+         * @brief Constructs a Plane object with the given position, material, and axis.
+         * @param pos The position of the plane.
+         * @param material The material of the plane.
+         * @param axis The axis along which the plane is defined.
+         */
+        Plane(const Math::Point3D &pos, const std::shared_ptr<RayTracer::IMaterial> &material, const Math::Vector3D &axis = Math::Vector3D(1, 0, 0));
+
+        /**
+         * @brief Constructs a Plane object with the given coordinates, material, and axis.
+         * @param x The x-coordinate of the plane's position.
+         * @param y The y-coordinate of the plane's position.
+         * @param z The z-coordinate of the plane's position.
+         * @param material The material of the plane.
+         * @param axis The axis along which the plane is defined.
+         */
         Plane(double x, double y, double z, const std::shared_ptr<RayTracer::IMaterial> &material = nullptr, const RayTracer::Axis3D &axis = RayTracer::Axis::X);
+
+        /**
+         * @brief Constructs a Plane object with the given coordinates, material, and axis.
+         * @param x The x-coordinate of the plane's position.
+         * @param y The y-coordinate of the plane's position.
+         * @param z The z-coordinate of the plane's position.
+         * @param material The material of the plane.
+         * @param axis The axis along which the plane is defined.
+         */
+        Plane(double x, double y, double z, const std::shared_ptr<RayTracer::IMaterial> &material, const Math::Vector3D &axis = Math::Vector3D(1, 0, 0));
 
         /**
          * @brief Default destructor for the Plane class.
@@ -73,9 +103,29 @@ namespace Primitive {
          */
         void translate(const Math::Vector3D &vec) override;
 
-    private:
+        /**
+         * @brief Scales the plane by the given multiplier.
+         * @attention This does not change any of the other properties of the plane because its size is already infinite.
+         * @param multiplier The amount by which to scale the plane.
+         */
+        void scale(double multiplier) override;
 
+        /**
+         * @brief Rotates the plane by the given angle along the given axis.
+         * @param axis The axis along which to rotate the plane.
+         * @param angle The angle by which to rotate the plane.
+         */
+        void rotate(const RayTracer::Axis3D &axis, double angle) override;
+
+        /**
+         * @brief Rotates the plane by the given angle along the given axis.
+         * @param axis The axis along which to rotate the plane.
+         * @param angle The angle by which to rotate the plane.
+         */
+        void rotate(const Math::Vector3D &axis, double angle) override;
+
+    private:
         /**< The axis along which the plane is defined. */
-        RayTracer::Axis3D _axis;
+        Math::Vector3D _axis;
     };
 }

@@ -121,6 +121,20 @@ namespace Math {
          */
         double distance(const Point3D &point3D) const;
 
+        /**
+         * @brief Rotates the point around the origin.
+         * @param rotation The rotation to apply.
+         */
+        void rotate(const Vector3D &rotation);
+
+        /**
+         * Calculates the dot product between this Point3D and the given Vector3D.
+         *
+         * @param vector3D The Vector3D to calculate the dot product with.
+         * @return The dot product between this Point3D and the given Vector3D.
+         */
+        double dot(const Vector3D &vector3D) const;
+
         double x; /**< The x-coordinate of the point. */
         double y; /**< The y-coordinate of the point. */
         double z; /**< The z-coordinate of the point. */

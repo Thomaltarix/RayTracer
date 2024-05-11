@@ -11,12 +11,14 @@
 #include "math/Point3D.hpp"
 #include "math/Ray.hpp"
 #include "transformations/ICanTranslate.hpp"
+#include "transformations/ICanScale.hpp"
+#include "transformations/ICanRotate.hpp"
 
 namespace Primitive {
     /**
      * @brief The Sphere class represents a sphere primitive in a ray tracer.
      */
-    class Sphere : public RayTracer::APrimitive, public RayTracer::ICanTranslate {
+    class Sphere : public RayTracer::APrimitive, public RayTracer::ICanTranslate, public RayTracer::ICanRotate, public RayTracer::ICanScale {
     public:
         /**
          * @brief Default constructor for the Sphere class.
@@ -92,6 +94,30 @@ namespace Primitive {
          * @param z The z value to translate by.
          */
         void translate(double x, double y, double z) override;
+
+        /**
+         * @brief Scales the sphere by the given multiplier.
+         * If the multiplier is less than 1, the sphere will shrink.
+         * If the multiplier is greater than 1, the sphere will grow.
+         * If the multiplier is 1, the sphere will not change size.
+         * @attention This only changes the radius of the sphere.
+         * @param multiplier The value to scale the sphere by.
+         */
+        void scale(double multiplier) override;
+
+        /**
+         * @brief Rotates the sphere by the given axis and angle.
+         * @param axis The axis to rotate around.
+         * @param angle The angle to rotate by.
+         */
+        void rotate(const RayTracer::Axis3D &axis, double angle) override;
+
+        /**
+         * @brief Rotates the sphere by the given axis and angle.
+         * @param axis The axis to rotate around.
+         * @param angle The angle to rotate by.
+         */
+        void rotate(const Math::Vector3D &axis, double angle) override;
 
     private:
         double _radius; /**< The radius of the sphere. */
