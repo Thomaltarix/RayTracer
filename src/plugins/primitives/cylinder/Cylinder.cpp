@@ -7,6 +7,7 @@
 
 #include "Cylinder.hpp"
 #include "math/MathError.hpp"
+#include "math/DegToRad.hpp"
 #include <cmath>
 
 Primitive::Cylinder::Cylinder() : APrimitive() {}
@@ -73,6 +74,20 @@ void Primitive::Cylinder::translate(double x, double y, double z)
 void Primitive::Cylinder::scale(double factor)
 {
     _radius *= factor;
+}
+
+void Primitive::Cylinder::rotate(const Math::Vector3D &vec, double angle)
+{
+    double radAngle = Math::degToRad(angle);
+
+    _axis = _axis.rotate(vec, radAngle);
+}
+
+void Primitive::Cylinder::rotate(const RayTracer::Axis3D &axis, double angle)
+{
+    double radAngle = Math::degToRad(angle);
+
+    _axis = _axis.rotate(axis.getVector(), radAngle);
 }
 
 std::pair<double, double> Primitive::Cylinder::getIntersectionPoints(const Math::Ray &ray)

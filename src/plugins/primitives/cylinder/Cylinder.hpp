@@ -9,15 +9,15 @@
 
 #include "APrimitive.hpp"
 #include "transformations/ICanTranslate.hpp"
+#include "transformations/ICanRotate.hpp"
 #include "transformations/ICanScale.hpp"
-#include "3DAxis.hpp"
 
 namespace Primitive {
     /**
      * @class Cylinder
      * @brief Represents a cylinder primitive in the RayTracer.
      */
-    class Cylinder : public RayTracer::APrimitive, public RayTracer::ICanTranslate, public RayTracer::ICanScale {
+    class Cylinder : public RayTracer::APrimitive, public RayTracer::ICanTranslate, public RayTracer::ICanRotate, public RayTracer::ICanScale {
     public:
         /**
          * @brief Default constructor for the Cylinder class.
@@ -109,6 +109,20 @@ namespace Primitive {
          * @param factor The factor to scale the cylinder by.
          */
         void scale(double factor) override;
+
+        /**
+         * @brief Rotates the cylinder by a given angle around a given axis.
+         * @param angle The angle to rotate the cylinder by.
+         * @param axis The axis to rotate the cylinder around.
+         */
+        void rotate(const Math::Vector3D &axis, double angle) override;
+
+        /**
+         * @brief Rotates the cylinder by a given angle around a given axis.
+         * @param angle The angle to rotate the cylinder by.
+         * @param axis The axis to rotate the cylinder around.
+         */
+        void rotate(const RayTracer::Axis3D &axis, double angle) override;
 
     private:
         /** < The axis of the cylinder. */
