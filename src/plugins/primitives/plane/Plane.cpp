@@ -6,6 +6,7 @@
 */
 
 #include "Plane.hpp"
+#include "math/DegToRad.hpp"
 
 Primitive::Plane::Plane() : APrimitive()
 {
@@ -96,4 +97,11 @@ void Primitive::Plane::translate(const Math::Vector3D &vec)
 void Primitive::Plane::scale(double multiplier)
 {
     (void) multiplier;
+}
+
+void Primitive::Plane::rotate(const RayTracer::Axis3D &axis, double angle)
+{
+    // Convert the angle from degrees to radians
+    angle = Math::degToRad(angle);
+
 }

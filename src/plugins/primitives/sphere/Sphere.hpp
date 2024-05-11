@@ -110,7 +110,7 @@ namespace Primitive {
          * @param axis The axis to rotate around.
          * @param angle The angle to rotate by.
          */
-        void rotate(const RayTracer::Axis3D &axis, double angle);
+        void rotate(const RayTracer::Axis3D &axis, double angle) override;
 
     private:
         double _radius; /**< The radius of the sphere. */

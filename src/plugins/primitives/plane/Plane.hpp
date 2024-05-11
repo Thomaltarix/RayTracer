@@ -8,15 +8,15 @@
 #pragma once
 
 #include "APrimitive.hpp"
-#include "3DAxis.hpp"
 #include "transformations/ICanTranslate.hpp"
+#include "transformations/ICanRotate.hpp"
 #include "transformations/ICanScale.hpp"
 
 namespace Primitive {
     /**
      * @brief The Plane class represents a plane primitive in a ray tracer.
      */
-    class Plane : public RayTracer::APrimitive, public RayTracer::ICanTranslate, public RayTracer::ICanScale {
+    class Plane : public RayTracer::APrimitive, public RayTracer::ICanTranslate, public RayTracer::ICanRotate, public RayTracer::ICanScale {
     public:
         /**
          * @brief Default constructor for the Plane class.
@@ -82,9 +82,19 @@ namespace Primitive {
          */
         void scale(double multiplier) override;
 
+        /**
+         * @brief Rotates the plane by the given angle along the given axis.
+         * @param axis The axis along which to rotate the plane.
+         * @param angle The angle by which to rotate the plane.
+         */
+        void rotate(const RayTracer::Axis3D &axis, double angle) override;
+
     private:
 
         /**< The axis along which the plane is defined. */
         RayTracer::Axis3D _axis;
+
+        /**< The rotation of the plane. */
+        Math::Vector3D _rotation;
     };
 }
