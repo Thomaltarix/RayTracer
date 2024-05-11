@@ -13,7 +13,8 @@
 
 namespace Primitive {
     /**
-     * @brief The Cylinder class represents a cylinder primitive in a ray tracer.
+     * @class Cylinder
+     * @brief Represents a cylinder primitive in the RayTracer.
      */
     class Cylinder : public RayTracer::APrimitive, public RayTracer::ICanTranslate {
     public:
@@ -33,6 +34,15 @@ namespace Primitive {
 
         /**
          * @brief Constructor for the Cylinder class.
+         * @param pos The position of the cylinder.
+         * @param material The material of the cylinder.
+         * @param axis The axis of the cylinder.
+         * @param radius The radius of the cylinder.
+         */
+        Cylinder(const Math::Point3D &pos, const std::shared_ptr<RayTracer::IMaterial> &material, const Math::Vector3D &axis = Math::Vector3D(1, 0, 0), double radius = 0);
+
+        /**
+         * @brief Constructor for the Cylinder class.
          * @param x The x-coordinate of the position of the cylinder.
          * @param y The y-coordinate of the position of the cylinder.
          * @param z The z-coordinate of the position of the cylinder.
@@ -41,6 +51,17 @@ namespace Primitive {
          * @param radius The radius of the cylinder.
          */
         Cylinder(double x, double y, double z, const std::shared_ptr<RayTracer::IMaterial> &material = nullptr, const RayTracer::Axis3D &axis = RayTracer::Axis::X, double radius = 0);
+
+        /**
+         * @brief Constructor for the Cylinder class.
+         * @param x The x-coordinate of the position of the cylinder.
+         * @param y The y-coordinate of the position of the cylinder.
+         * @param z The z-coordinate of the position of the cylinder.
+         * @param material The material of the cylinder.
+         * @param axis The axis of the cylinder.
+         * @param radius The radius of the cylinder.
+         */
+        Cylinder(double x, double y, double z, const std::shared_ptr<RayTracer::IMaterial> &material, const Math::Vector3D &axis = Math::Vector3D(1, 0, 0), double radius = 0);
 
         /**
          * @brief Default destructor for the Cylinder class.
