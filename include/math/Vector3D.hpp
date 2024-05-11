@@ -165,32 +165,19 @@ namespace Math {
         double Length() const;
 
         /**
-         * @brief Rotates the vector around the x-axis by the given angle.
-         * @param angle The angle of rotation in radians.
-         * @return The rotated vector.
-         */
-        Vector3D rotateX(double angle) const;
-
-        /**
-         * @brief Rotates the vector around the y-axis by the given angle.
-         * @param angle The angle of rotation in radians.
-         * @return The rotated vector.
-         */
-        Vector3D rotateY(double angle) const;
-
-        /**
-         * @brief Rotates the vector around the z-axis by the given angle.
-         * @param angle The angle of rotation in radians.
-         * @return The rotated vector.
-         */
-        Vector3D rotateZ(double angle) const;
-
-        /**
          * @brief Normalizes the vector.
          * This function calculates the normalized version of the vector, which has a length of 1.
          * @return The normalized vector.
          */
         Vector3D normalize() const;
+
+        /**
+         * @brief Rotates the vector around the given axis by the given angle.
+         * @param axis The axis of rotation.
+         * @param angle The angle of rotation in radians.
+         * @return The rotated vector.
+         */
+        Vector3D rotate(const Vector3D &axis, double angle);
 
         double x; /**< The x-coordinate of the vector. */
         double y; /**< The y-coordinate of the vector. */

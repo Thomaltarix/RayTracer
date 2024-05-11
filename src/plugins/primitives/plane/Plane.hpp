@@ -117,6 +117,13 @@ namespace Primitive {
          */
         void rotate(const RayTracer::Axis3D &axis, double angle) override;
 
+        /**
+         * @brief Rotates the plane by the given angle along the given axis.
+         * @param axis The axis along which to rotate the plane.
+         * @param angle The angle by which to rotate the plane.
+         */
+        void rotate(const Math::Vector3D &axis, double angle) override;
+
     private:
         /**< The axis along which the plane is defined. */
         Math::Vector3D _axis;

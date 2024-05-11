@@ -81,18 +81,12 @@ void Primitive::Plane::rotate(const RayTracer::Axis3D &axis, double angle)
 {
     double radAngle = Math::degToRad(angle);
 
-    switch (axis.getAxis())
-    {
-        case RayTracer::Axis::X:
-            _axis = _axis.rotateX(radAngle);
-            break;
-        case RayTracer::Axis::Y:
-            _axis = _axis.rotateY(radAngle);
-            break;
-        case RayTracer::Axis::Z:
-            _axis = _axis.rotateZ(radAngle);
-            break;
-        default:
-            break;
-    }
+    _axis = _axis.rotate(axis.getVector(), radAngle);
+}
+
+void Primitive::Plane::rotate(const Math::Vector3D &axis, double angle)
+{
+    double radAngle = Math::degToRad(angle);
+
+    _axis = _axis.rotate(axis, radAngle);
 }

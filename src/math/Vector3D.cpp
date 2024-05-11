@@ -158,31 +158,29 @@ double Math::Vector3D::Length() const
     return sqrt(this->x * this->x + this->y * this->y + this->z * this->z);
 }
 
-Math::Vector3D Math::Vector3D::rotateX(double angle) const
-{
-    return Math::Vector3D(
-        this->x, this->y * cos(angle) - this->z * sin(angle),
-        this->y * sin(angle) + this->z * cos(angle));
-}
-
-Math::Vector3D Math::Vector3D::rotateY(double angle) const
-{
-    return Math::Vector3D(
-        this->x * cos(angle) + this->z * sin(angle), this->y,
-        -this->x * sin(angle) + this->z * cos(angle));
-}
-
-Math::Vector3D Math::Vector3D::rotateZ(double angle) const
-{
-    return Math::Vector3D(
-        this->x * cos(angle) - this->y * sin(angle),
-        this->x * sin(angle) + this->y * cos(angle), this->z);
-}
-
 Math::Vector3D Math::Vector3D::normalize() const
 {
     double length = this->Length();
     if (length == 0)
         throw MathDivideByZeroError("Division by 0");
     return Math::Vector3D(this->x / length, this->y / length, this->z / length);
+}
+
+Math::Vector3D Math::Vector3D::rotate(const Math::Vector3D &axis, double angle)
+{
+    double cosAngle = cos(angle);
+    double sinAngle = sin(angle);
+    double x = this->x;
+    double y = this->y;
+    double z = this->z;
+    double u = axis.x;
+    double v = axis.y;
+    double w = axis.z;
+    double xPrime = u * (u * x + v * y + w * z) * (1 - cosAngle) +
+        x * cosAngle + (-w * y + v * z) * sinAngle;
+    double yPrime = v * (u * x + v * y + w * z) * (1 - cosAngle) +
+        y * cosAngle + (w * x - u * z) * sinAngle;
+    double zPrime = w * (u * x + v * y + w * z) * (1 - cosAngle) +
+        z * cosAngle + (-v * x + u * y) * sinAngle;
+    return Math::Vector3D(xPrime, yPrime, zPrime);
 }
