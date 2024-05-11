@@ -170,17 +170,11 @@ Math::Vector3D Math::Vector3D::rotate(const Math::Vector3D &axis, double angle)
 {
     double cosAngle = cos(angle);
     double sinAngle = sin(angle);
-    double x = this->x;
-    double y = this->y;
-    double z = this->z;
-    double u = axis.x;
-    double v = axis.y;
-    double w = axis.z;
-    double xPrime = u * (u * x + v * y + w * z) * (1 - cosAngle) +
-        x * cosAngle + (-w * y + v * z) * sinAngle;
-    double yPrime = v * (u * x + v * y + w * z) * (1 - cosAngle) +
-        y * cosAngle + (w * x - u * z) * sinAngle;
-    double zPrime = w * (u * x + v * y + w * z) * (1 - cosAngle) +
-        z * cosAngle + (-v * x + u * y) * sinAngle;
+    double xPrime = axis.x * (axis.x * this->x + axis.y * this->y + axis.z * this->z) * (1 - cosAngle) +
+        this->x * cosAngle + (-axis.z * this->y + axis.y * this->z) * sinAngle;
+    double yPrime = axis.y * (axis.x * this->x + axis.y * this->y + axis.z * this->z) * (1 - cosAngle) +
+        this->y * cosAngle + (axis.z * this->x - axis.x * this->z) * sinAngle;
+    double zPrime = axis.z * (axis.x * this->x + axis.y * this->y + axis.z * this->z) * (1 - cosAngle) +
+        this->z * cosAngle + (-axis.y * this->x + axis.x * this->y) * sinAngle;
     return Math::Vector3D(xPrime, yPrime, zPrime);
 }
