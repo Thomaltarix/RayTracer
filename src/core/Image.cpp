@@ -21,6 +21,8 @@ RayTracer::Image::Image()
     _camera = Camera();
     _height = 0;
     _width = 0;
+    _renderer = nullptr;
+    _args = nullptr;
 }
 
 RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<IPrimitive>> &primitives,
@@ -38,8 +40,7 @@ RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<
     this->_args = args.get();
     if (args->isSFML()) {
         this->_renderer = new SFMLRenderer(width, height);
-    }
-    else {
+    } else {
         this->_renderer = nullptr;
     }
 }
@@ -149,7 +150,7 @@ void RayTracer::Image::render(std::string filename)
 void RayTracer::Image::threadHandlingSFML(std::vector<std::vector<Math::Vector3D>> &tab)
 {
     if (this->_renderer == nullptr) {
-        throw std::runtime_error("No renderer set"); //TODO: Create a custom exception
+        throw RayTracer::SFMLException("No renderer set");
     }
     try {
         while (1) {
@@ -164,7 +165,7 @@ void RayTracer::Image::threadHandlingSFML(std::vector<std::vector<Math::Vector3D
 void RayTracer::Image::setSFMLPixels(std::vector<std::vector<Math::Vector3D>> &tab)
 {
     if (this->_renderer == nullptr) {
-        throw std::runtime_error("No renderer set"); // TODO: Create a custom exception
+        throw RayTracer::SFMLException("No renderer set");
     }
     for (size_t j = 0, h = _height - 1; j < _height; j++, h--) {
         for (size_t i = 0; i < _width; i++) {
@@ -176,7 +177,7 @@ void RayTracer::Image::setSFMLPixels(std::vector<std::vector<Math::Vector3D>> &t
 void RayTracer::Image::renderSFML()
 {
     if (this->_renderer == nullptr) {
-        throw std::runtime_error("No renderer set"); // TODO: Create a custom exception
+        throw RayTracer::SFMLException("No renderer set");
     }
     this->_renderer->display(this->_args->getTimeToDisplay());
     this->_renderer->handleEvents();

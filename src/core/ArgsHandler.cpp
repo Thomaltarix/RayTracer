@@ -10,6 +10,7 @@
 
 RayTracer::ArgsHandler::ArgsHandler(int ac, char **av)
 {
+    this->_scenePath = "";
     this->_sfml = false;
     this->_fastRender = 0;
     this->_canReload = false;
