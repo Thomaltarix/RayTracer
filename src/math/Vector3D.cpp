@@ -157,3 +157,24 @@ double Math::Vector3D::Length() const
 {
     return sqrt(this->x * this->x + this->y * this->y + this->z * this->z);
 }
+
+Math::Vector3D Math::Vector3D::rotateX(double angle) const
+{
+    return Math::Vector3D(
+        this->x, this->y * cos(angle) - this->z * sin(angle),
+        this->y * sin(angle) + this->z * cos(angle));
+}
+
+Math::Vector3D Math::Vector3D::rotateY(double angle) const
+{
+    return Math::Vector3D(
+        this->x * cos(angle) + this->z * sin(angle), this->y,
+        -this->x * sin(angle) + this->z * cos(angle));
+}
+
+Math::Vector3D Math::Vector3D::rotateZ(double angle) const
+{
+    return Math::Vector3D(
+        this->x * cos(angle) - this->y * sin(angle),
+        this->x * sin(angle) + this->y * cos(angle), this->z);
+}

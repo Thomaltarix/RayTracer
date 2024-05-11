@@ -27,17 +27,7 @@ bool Primitive::Plane::hits(const Math::Ray &ray)
 {
     double coef = 0;
 
-    switch (_axis.getAxis()) {
-        case RayTracer::Axis::X:
-            coef = (_pos.x - ray.getOrigin().x) / ray.getDirection().x;
-            break;
-        case RayTracer::Axis::Y:
-            coef = (_pos.y - ray.getOrigin().y) / ray.getDirection().y;
-            break;
-        case RayTracer::Axis::Z:
-            coef = (_pos.z - ray.getOrigin().z) / ray.getDirection().z;
-            break;
-    }
+    coef = (_pos - ray.getOrigin()).dot(_axis) / ray.getDirection().dot(_axis);
     if (coef < 0)
         return false;
     return true;
@@ -47,37 +37,14 @@ Math::Point3D Primitive::Plane::hitPoint(const Math::Ray &ray)
 {
     double coef = 0;
 
-    switch (_axis.getAxis()) {
-        case RayTracer::Axis::X:
-            coef = (_pos.x - ray.getOrigin().x) / ray.getDirection().x;
-            break;
-        case RayTracer::Axis::Y:
-            coef = (_pos.y - ray.getOrigin().y) / ray.getDirection().y;
-            break;
-        case RayTracer::Axis::Z:
-            coef = (_pos.z - ray.getOrigin().z) / ray.getDirection().z;
-            break;
-    }
+    coef = (_pos - ray.getOrigin()).dot(_axis) / ray.getDirection().dot(_axis);
     return ray.getOrigin() + ray.getDirection() * coef;
 }
 
 Math::Vector3D Primitive::Plane::getNormalAt(const Math::Point3D &point)
 {
     (void) point;
-    Math::Vector3D normal = Math::Vector3D(0, 0, 0);
-
-    switch (_axis.getAxis()) {
-        case RayTracer::Axis::X:
-            normal = Math::Vector3D(1, 0, 0);
-            break;
-        case RayTracer::Axis::Y:
-            normal = Math::Vector3D(0, 1, 0);
-            break;
-        case RayTracer::Axis::Z:
-            normal = Math::Vector3D(0, 0, 1);
-            break;
-    }
-    return normal;
+    return _axis;
 }
 
 void Primitive::Plane::translate(double x, double y, double z)
@@ -101,7 +68,20 @@ void Primitive::Plane::scale(double multiplier)
 
 void Primitive::Plane::rotate(const RayTracer::Axis3D &axis, double angle)
 {
-    // Convert the angle from degrees to radians
-    angle = Math::degToRad(angle);
+    double radAngle = Math::degToRad(angle);
 
+    switch (axis.getAxis())
+    {
+        case RayTracer::Axis::X:
+            _axis = _axis.rotateX(radAngle);
+            break;
+        case RayTracer::Axis::Y:
+            _axis = _axis.rotateY(radAngle);
+            break;
+        case RayTracer::Axis::Z:
+            _axis = _axis.rotateZ(radAngle);
+            break;
+        default:
+            break;
+    }
 }

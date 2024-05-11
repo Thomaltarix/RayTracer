@@ -90,11 +90,7 @@ namespace Primitive {
         void rotate(const RayTracer::Axis3D &axis, double angle) override;
 
     private:
-
         /**< The axis along which the plane is defined. */
-        RayTracer::Axis3D _axis;
-
-        /**< The rotation of the plane. */
-        Math::Vector3D _rotation;
+        Math::Vector3D _axis;
     };
 }
