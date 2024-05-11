@@ -8,6 +8,7 @@
 #pragma once
 
 #include "ALight.hpp"
+#include "math/Ray.hpp"
 
 namespace Light {
     /**

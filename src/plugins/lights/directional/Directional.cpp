@@ -47,8 +47,12 @@ Math::Vector3D Light::Directional::Illuminate(Math::Point3D point, const std::sh
     const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives)
 {
     Math::Vector3D color = material->compute();
-    (void)point;
-    (void)primitives;
+    Math::Ray lightRay = Math::Ray(point, _direction);
 
+    for (auto &primitive : primitives) {
+        if (primitive->hits(lightRay)) {
+            return Math::Vector3D(0, 0, 0);
+        }
+    }
     return Math::Vector3D(color.x * _intensity, color.y * _intensity, color.z * _intensity);
 }
