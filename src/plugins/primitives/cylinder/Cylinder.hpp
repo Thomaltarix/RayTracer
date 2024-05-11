@@ -9,6 +9,7 @@
 
 #include "APrimitive.hpp"
 #include "transformations/ICanTranslate.hpp"
+#include "transformations/ICanScale.hpp"
 #include "3DAxis.hpp"
 
 namespace Primitive {
@@ -16,7 +17,7 @@ namespace Primitive {
      * @class Cylinder
      * @brief Represents a cylinder primitive in the RayTracer.
      */
-    class Cylinder : public RayTracer::APrimitive, public RayTracer::ICanTranslate {
+    class Cylinder : public RayTracer::APrimitive, public RayTracer::ICanTranslate, public RayTracer::ICanScale {
     public:
         /**
          * @brief Default constructor for the Cylinder class.
@@ -102,6 +103,12 @@ namespace Primitive {
          * @param z The z-coordinate to translate the cylinder by.
          */
         void translate(double x, double y, double z) override;
+
+        /**
+         * @brief Scales the cylinder by a given factor.
+         * @param factor The factor to scale the cylinder by.
+         */
+        void scale(double factor) override;
 
     private:
         /** < The axis of the cylinder. */

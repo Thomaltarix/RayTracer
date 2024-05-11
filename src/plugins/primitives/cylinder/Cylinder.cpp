@@ -70,6 +70,11 @@ void Primitive::Cylinder::translate(double x, double y, double z)
     _pos.z += z;
 }
 
+void Primitive::Cylinder::scale(double factor)
+{
+    _radius *= factor;
+}
+
 std::pair<double, double> Primitive::Cylinder::getIntersectionPoints(const Math::Ray &ray)
 {
     Math::Point3D pos = ray.getOrigin();
