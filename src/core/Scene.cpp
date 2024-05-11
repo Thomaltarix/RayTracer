@@ -38,7 +38,8 @@ RayTracer::Scene::Scene(std::string path, std::shared_ptr<Core> core)
 {
     this->_primitiveCreators = {
         {"spheres", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createSpheres(primitive, core);} },
-        {"planes", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createPlanes(primitive, core);} }
+        {"planes", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createPlanes(primitive, core);} },
+        {"cylinders", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createCylinders(primitive, core);} }
     };
     this->_primitiveTransformations = {
         {"rotation", [this](libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive) {applyRotation(transformation, primitive);} },
@@ -262,6 +263,41 @@ void RayTracer::Scene::createPlane(libconfig::Setting &primitive, std::shared_pt
     if (this->_primitives.find(name) != this->_primitives.end())
         throw SceneDuplicateNameException("Duplicate primitive name");
     this->_primitives[name] = plane;
+}
+
+void RayTracer::Scene::createCylinders(libconfig::Setting &cylinders, std::shared_ptr<Core> core)
+{
+    std::cout << "Creating cylinders" << std::endl;
+    for (int i = 0; i < cylinders.getLength(); i++) {
+        libconfig::Setting &cylinder = cylinders[i];
+        createCylinder(cylinder, core);
+    }
+    std::cout << "Cylinders created" << std::endl << std::endl;
+}
+
+void RayTracer::Scene::createCylinder(libconfig::Setting &primitive, std::shared_ptr<Core> core)
+{
+    double x, y, z, radius;
+    std::string name;
+    std::string material;
+    Axis3D axis;
+
+    primitive.lookupValue("name", name);
+    x = transformValue(primitive.lookup("x"));
+    y = transformValue(primitive.lookup("y"));
+    z = transformValue(primitive.lookup("z"));
+    radius = transformValue(primitive.lookup("r"));
+    axis = transformAxis(primitive.lookup("axis"));
+    primitive.lookupValue("material", material);
+    std::shared_ptr<Math::Vector3D> color = getColor(primitive);
+    std::shared_ptr<IMaterial> materialPtr = core->factoryMaterial(material);
+    materialPtr->setColor(*color);
+    std::shared_ptr<Primitive::Cylinder> cylinder = std::make_shared<Primitive::Cylinder>(x, y, z, materialPtr, axis, radius);
+    std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << "; radius: " << radius << "; axis: " << axis;
+    std::cout << "; material: " << material << " ; color: " << color->x << ", " << color->y << ", " << color->z << std::endl;
+    if (this->_primitives.find(name) != this->_primitives.end())
+        throw SceneDuplicateNameException("Duplicate primitive name");
+    this->_primitives[name] = cylinder;
 }
 
 std::shared_ptr<Math::Vector3D> RayTracer::Scene::getColor(libconfig::Setting &setting)
