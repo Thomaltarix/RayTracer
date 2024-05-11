@@ -18,7 +18,7 @@ namespace Primitive {
     /**
      * @brief The Sphere class represents a sphere primitive in a ray tracer.
      */
-    class Sphere : public RayTracer::APrimitive, public RayTracer::ICanTranslate, public RayTracer::ICanScale, public RayTracer::ICanRotate {
+    class Sphere : public RayTracer::APrimitive, public RayTracer::ICanTranslate, public RayTracer::ICanRotate, public RayTracer::ICanScale {
     public:
         /**
          * @brief Default constructor for the Sphere class.
@@ -110,7 +110,7 @@ namespace Primitive {
          * @param axis The axis to rotate around.
          * @param angle The angle to rotate by.
          */
-        void rotate(const RayTracer::Axis3D &axis, double angle) override;
+        void rotate(const RayTracer::Axis3D &axis, double angle);
 
     private:
         double _radius; /**< The radius of the sphere. */

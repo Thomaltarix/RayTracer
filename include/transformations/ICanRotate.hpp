@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include "Vector3D.hpp"
+#include "../plugins/3DAxis.hpp"
 
-namespace Raytracer {
+namespace RayTracer {
     /**
      * @class ICanRotate
      * @brief This class is an interface for all the classes that can rotate.
