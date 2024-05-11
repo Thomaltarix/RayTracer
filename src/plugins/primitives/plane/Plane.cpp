@@ -10,15 +10,26 @@
 
 Primitive::Plane::Plane() : APrimitive()
 {
-    _axis = RayTracer::Axis3D();
+    RayTracer::Axis3D x_axis = RayTracer::Axis3D();
+    _axis = x_axis.getVector();
 }
 
 Primitive::Plane::Plane(const Math::Point3D &pos, const std::shared_ptr<RayTracer::IMaterial> &material, const RayTracer::Axis3D &axis) : APrimitive(pos, material)
+{
+    _axis = axis.getVector();
+}
+
+Primitive::Plane::Plane(const Math::Point3D &pos, const std::shared_ptr<RayTracer::IMaterial> &material, const Math::Vector3D &axis) : APrimitive(pos, material)
 {
     _axis = axis;
 }
 
 Primitive::Plane::Plane(double x, double y, double z, const std::shared_ptr<RayTracer::IMaterial> &material, const RayTracer::Axis3D &axis) : APrimitive(x, y, z, material)
+{
+    _axis = axis.getVector();
+}
+
+Primitive::Plane::Plane(double x, double y, double z, const std::shared_ptr<RayTracer::IMaterial> &material, const Math::Vector3D &axis) : APrimitive(x, y, z, material)
 {
     _axis = axis;
 }
