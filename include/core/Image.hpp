@@ -86,7 +86,7 @@ namespace RayTracer {
          * @param start The starting row of the image data to render.
          * @param end The ending row of the image data to render.
          */
-        void renderThread(std::vector<std::vector<Math::Vector3D>> &tab, size_t threadId, size_t start, size_t end);
+        void renderThread(std::vector<std::vector<Math::Vector3D>> &tab, size_t threadId, size_t start, size_t end, size_t fast = 0);
 
         /**
          * @brief Sets the pixel at the specified coordinates to the specified color.

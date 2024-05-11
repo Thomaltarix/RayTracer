@@ -39,12 +39,14 @@ RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<
     this->_renderer = nullptr;
 }
 
-void RayTracer::Image::renderThread(std::vector<std::vector<Math::Vector3D>> &tab, size_t threadId, size_t start, size_t end)
+void RayTracer::Image::renderThread(std::vector<std::vector<Math::Vector3D>> &tab, size_t threadId, size_t start, size_t end, size_t fast)
 {
     (void)threadId;
 
     for (size_t j = start; j < end; j++) {
+        if (fast && j % fast != 0) continue;
         for (size_t i = 0; i < _width; i++) {
+            if (fast && i % fast != 0) continue;
             double u = double(i) / (double)_width;
             double v = double(j) / (double)_height;
             Math::Ray ray = _camera.ray(u, v);
@@ -83,7 +85,17 @@ void RayTracer::Image::renderThread(std::vector<std::vector<Math::Vector3D>> &ta
                 color += light->Illuminate(hitPoint, closestHitPrimitive->getMaterial()); // color with light
             }
             tab[j][i] = color;
+            if (fast) {
+                for (size_t dj = 0; dj < fast && j + dj < _height; dj++) {
+                    for (size_t di = 0; di < fast && i + di < _width; di++) {
+                        tab[j + dj][i + di] = color;
+                    }
+                }
+            }
         }
+    }
+    if (fast) {
+        renderThread(tab, threadId, start, end, 0);
     }
 }
 
@@ -104,8 +116,9 @@ void RayTracer::Image::render(std::string filename)
 
     std::vector<std::vector<Math::Vector3D>> tab(_height, std::vector<Math::Vector3D>(_width, Math::Vector3D(1, 1, 1)));
     for (size_t i = 0; i < maxThreads; i++) {
-        threads.push_back(std::thread(&Image::renderThread, this, std::ref(tab), i, i * (_height / maxThreads), (i + 1) * (_height / maxThreads)));
+        threads.push_back(std::thread(&Image::renderThread, this, std::ref(tab), i, i * (_height / maxThreads), (i + 1) * (_height / maxThreads), 0));
     }
+
     for (auto &thread : threads) {
         thread.join();
     }
