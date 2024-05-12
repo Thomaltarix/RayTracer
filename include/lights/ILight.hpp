@@ -10,7 +10,9 @@
 #include "Vector3D.hpp"
 #include "Point3D.hpp"
 #include "materials/IMaterial.hpp"
+#include "primitives/IPrimitive.hpp"
 #include <memory>
+#include <vector>
 
 namespace RayTracer {
     /**
@@ -38,9 +40,11 @@ namespace RayTracer {
          * @brief Calculates the light intensity at a given point.
          * @param point The point at which to calculate the light intensity.
          * @param material The material of the object at the point.
+         * @param primitives The list of primitives in the scene.
          * @return The light intensity as a Vector3.
          */
-        virtual Math::Vector3D Illuminate(Math::Point3D point, const std::shared_ptr<IMaterial> &material) = 0;
+        virtual Math::Vector3D Illuminate(Math::Point3D point, const std::shared_ptr<IMaterial> &material,
+        const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives, Math::Vector3D normal) = 0;
 
         /**
          * @brief Checks if a given point is in shadow.

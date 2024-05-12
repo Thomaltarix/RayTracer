@@ -17,6 +17,7 @@
 #include "plugins/Cylinder.hpp"
 #include "plugins/3DAxis.hpp"
 #include "plugins/Ambiant.hpp"
+#include "plugins/Directional.hpp"
 #include "errors/SceneException.hpp"
 #include "transformations/ICanRotate.hpp"
 #include "transformations/ICanTranslate.hpp"

@@ -89,7 +89,15 @@ void RayTracer::Image::renderThread(std::vector<std::vector<Math::Vector3D>> &ta
             Math::Point3D hitPoint = std::any_cast<Math::Point3D>(closestHit);
             Math::Vector3D color(0, 0, 0);
             for (const auto& light : _lights) {
-                color += light->Illuminate(hitPoint, closestHitPrimitive->getMaterial()); // color with light
+                std::vector<std::shared_ptr<IPrimitive>> primitives = _primitives;
+                primitives.erase(std::remove(primitives.begin(), primitives.end(), closestHitPrimitive), primitives.end());
+                color += light->Illuminate(hitPoint, closestHitPrimitive->getMaterial(), primitives, closestHitPrimitive->getNormalAt(hitPoint));
+            }
+            if (!closestHitPrimitive->getMaterial()->reflectsLight()) {
+                Math::Vector3D originalColor = closestHitPrimitive->getMaterial()->compute(hitPoint);
+                color.x = color.x > originalColor.x ? originalColor.x : color.x;
+                color.y = color.y > originalColor.y ? originalColor.y : color.y;
+                color.z = color.z > originalColor.z ? originalColor.z : color.z;
             }
             tab[j][i] = color;
             if (fast) {
