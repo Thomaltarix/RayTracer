@@ -42,3 +42,4 @@ include/plugins/*.hpp
 
 # Built ppm files
 *.ppm
+!screenshots/*.ppm
