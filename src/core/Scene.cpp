@@ -169,8 +169,8 @@ void RayTracer::Scene::createLights(libconfig::Setting &lights, std::shared_ptr<
             y = transformValue(light.lookup("y"));
             z = transformValue(light.lookup("z"));
 
-            if (lightVectors.exists("color")) {
-                libconfig::Setting &color = lightVectors.lookup("color");
+            if (light.exists("color")) {
+                libconfig::Setting &color = light.lookup("color");
                 r = transformValue(color.lookup("r"));
                 g = transformValue(color.lookup("g"));
                 b = transformValue(color.lookup("b"));

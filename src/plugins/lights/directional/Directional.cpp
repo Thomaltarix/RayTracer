@@ -60,5 +60,6 @@ Math::Vector3D Light::Directional::Illuminate(Math::Point3D point, const std::sh
     dotProduct = std::max(0.0f, std::min(1.0f, dotProduct));
     float modulatedIntensity = _intensity * dotProduct;
 
-    return Math::Vector3D(color.x * modulatedIntensity, color.y * modulatedIntensity, color.z * modulatedIntensity);
+    return Math::Vector3D(color.x * modulatedIntensity * _color.x / 255,
+        color.y * modulatedIntensity * _color.y / 255, color.z * modulatedIntensity * _color.z / 255);
 }

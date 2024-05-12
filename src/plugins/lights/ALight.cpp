@@ -56,7 +56,8 @@ Math::Vector3D RayTracer::ALight::Illuminate(Math::Point3D point, const std::sha
     (void)primitives;
     (void)normal;
 
-    return Math::Vector3D(color.x * _intensity, color.y * _intensity, color.z * _intensity);
+    return Math::Vector3D(color.x * _intensity * _color.x / 255,
+        color.y * _intensity * _color.y / 255, color.z * _intensity * _color.z / 255);
 }
 
 bool RayTracer::ALight::InShadow(Math::Point3D point)
