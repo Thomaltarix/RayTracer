@@ -38,12 +38,6 @@ void Light::Directional::setDirection(Math::Vector3D direction)
     _direction = direction;
 }
 
-bool Light::Directional::InShadow(Math::Point3D point)
-{
-    (void)point;
-    return false;
-}
-
 Math::Vector3D Light::Directional::Illuminate(Math::Point3D point, const std::shared_ptr<RayTracer::IMaterial> &material,
     const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives, Math::Vector3D normal)
 {
