@@ -44,7 +44,7 @@ namespace RayTracer {
          *
          * @return The computed material properties.
          */
-        Math::Vector3D compute() override;
+        Math::Vector3D compute(Math::Point3D point) override;
 
         /**
          * @brief Gets the color of the material.
