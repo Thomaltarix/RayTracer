@@ -24,25 +24,6 @@ RayTracer::Image::Image()
     _renderer = nullptr;
     _args = nullptr;
 }
-
-RayTracer::Image::Image(const Camera &camera, const std::vector<std::shared_ptr<IPrimitive>> &primitives,
-    const std::vector<std::shared_ptr<ILight>> &lights, std::size_t width, std::size_t height, std::shared_ptr<ArgsHandler> args)
-{
-    _camera = camera;
-    for (auto &primitive : primitives) {
-        _primitives.push_back(primitive);
-    }
-    for (auto &light : lights) {
-        _lights.push_back(light);
-    }
-    this->_width = width;
-    this->_height = height;
-    this->_args = args.get();
-    if (args->isSFML()) {
-        this->_renderer = new SFMLRenderer(width, height);
-    } else {
-        this->_renderer = nullptr;
-    }
 }
 
 void RayTracer::Image::renderThread(std::vector<std::vector<Math::Vector3D>> &tab, size_t threadId, size_t start, size_t end, size_t fast)
