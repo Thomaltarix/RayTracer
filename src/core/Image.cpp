@@ -21,9 +21,6 @@ RayTracer::Image::Image()
     _camera = Camera();
     _height = 0;
     _width = 0;
-    _renderer = nullptr;
-    _args = nullptr;
-}
 }
 
 void RayTracer::Image::renderThread(std::vector<std::vector<Math::Vector3D>> &tab, size_t threadId, size_t start, size_t end, size_t fast)
@@ -111,12 +108,12 @@ void RayTracer::Image::render(std::string filename)
     maxThreads = maxThreads > _height? _height: maxThreads;
 
     std::vector<std::vector<Math::Vector3D>> tab(_height, std::vector<Math::Vector3D>(_width, Math::Vector3D(1, 1, 1)));
-    if (maxThreads > 1 && this->_args->isSFML()) {
+    if (maxThreads > 1 && this->_args.get()->isSFML()) {
         maxThreads--;
         threads.push_back(std::thread(&Image::threadHandlingSFML, this, std::ref(tab)));
     }
     for (size_t i = 0; i < maxThreads; i++) {
-        threads.push_back(std::thread(&Image::renderThread, this, std::ref(tab), i, i * (_height / maxThreads), (i + 1) * (_height / maxThreads), this->_args->isFastRender()));
+        threads.push_back(std::thread(&Image::renderThread, this, std::ref(tab), i, i * (_height / maxThreads), (i + 1) * (_height / maxThreads), this->_args.get()->isFastRender()));
     }
 
     for (auto &thread : threads) {
@@ -158,7 +155,7 @@ void RayTracer::Image::setSFMLPixels(std::vector<std::vector<Math::Vector3D>> &t
     }
     for (size_t j = 0, h = _height - 1; j < _height; j++, h--) {
         for (size_t i = 0; i < _width; i++) {
-            this->_renderer->setPixel(i, h, tab[j][i]);
+            this->_renderer.get()->setPixel(i, h, tab[j][i]);
         }
     }
 }
@@ -168,6 +165,17 @@ void RayTracer::Image::renderSFML()
     if (this->_renderer == nullptr) {
         throw RayTracer::SFMLException("No renderer set");
     }
-    this->_renderer->display(this->_args->getTimeToDisplay());
-    this->_renderer->handleEvents();
+    this->_renderer.get()->display(this->_args.get()->getTimeToDisplay());
+    this->_renderer.get()->handleEvents();
+}
+
+void RayTracer::Image::setArgs(std::shared_ptr<ArgsHandler> args)
+{
+    this->_args = args;
+}
+
+void RayTracer::Image::setRenderer(std::shared_ptr<ArgsHandler> args)
+{
+    if (args->isSFML())
+        this->_renderer = std::make_shared<SFMLRenderer>(_width, _height);
 }

@@ -97,12 +97,15 @@ namespace RayTracer {
          */
         void threadHandlingSFML(std::vector<std::vector<Math::Vector3D>> &tab);
 
+        void setArgs(std::shared_ptr<ArgsHandler> args);
+
+        void setRenderer(std::shared_ptr<ArgsHandler> args);
+
     private:
         /** The SFMLRenderer object used to render the image. */
-        SFMLRenderer *_renderer;
+        std::shared_ptr<SFMLRenderer> _renderer;
 
         /** The class who contains the arguments */
-        ArgsHandler *_args;
+        std::shared_ptr<ArgsHandler> _args;
     };
 }
-
