@@ -67,24 +67,6 @@ namespace RayTracer {
         void scanMaterials();
 
         /**
-         * @brief Factory method for primitives
-         * Create an instance of a primitive from the given name.
-         *
-         * @param name Name of the primitive to create
-         * @return std::shared_ptr<IPrimitive> Instance of the primitive
-         */
-        std::shared_ptr<IPrimitive> factoryPrimitive(std::string const &name);
-
-        /**
-         * @brief Factory method for lights
-         * Create an instance of a light from the given name.
-         *
-         * @param name Name of the light to create
-         * @return std::shared_ptr<ILight> Instance of the light
-         */
-        std::shared_ptr<ILight> factoryLight(std::string const &name);
-
-        /**
          * @brief Factory method for materials
          * Create an instance of a material from the given name.
          *

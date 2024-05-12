@@ -90,24 +90,6 @@ void RayTracer::Core::loadPlugins()
     this->scanMaterials();
 }
 
-std::shared_ptr<RayTracer::IPrimitive> RayTracer::Core::factoryPrimitive(std::string const &name)
-{
-    if (this->_primitives.find(name) == this->_primitives.end()) {
-        throw CoreUnknownPrimitiveException("Unknown primitive: " + name);
-    }
-    std::shared_ptr<IPrimitive> primitive(this->_primitives[name]->getInstance());
-    return primitive;
-}
-
-std::shared_ptr<RayTracer::ILight> RayTracer::Core::factoryLight(std::string const &name)
-{
-    if (this->_lights.find(name) == this->_lights.end()) {
-        throw CoreUnknownLightException("Unknown light: " + name);
-    }
-    std::shared_ptr<ILight> light(this->_lights[name]->getInstance());
-    return light;
-}
-
 std::shared_ptr<RayTracer::IMaterial> RayTracer::Core::factoryMaterial(std::string const &name)
 {
     if (this->_materials.find(name) == this->_materials.end()) {
