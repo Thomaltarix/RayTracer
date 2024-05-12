@@ -68,14 +68,6 @@ namespace Light {
         void setDirection(Math::Vector3D direction);
 
         /**
-         * @brief Check if a given point is in shadow.
-         *
-         * @param point The point to check.
-         * @return True if the point is in shadow, false otherwise.
-         */
-        bool InShadow(Math::Point3D point) override;
-
-        /**
          * @brief Calculate the illumination at a given point.
          *
          * @param point The point to calculate illumination for.

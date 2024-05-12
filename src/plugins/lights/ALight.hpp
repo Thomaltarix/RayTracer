@@ -92,18 +92,11 @@ namespace RayTracer {
          * @param point The point to illuminate.
          * @param material The material of the object at the point.
          * @param primitives The list of primitives in the scene.
+         * @param normal The normal of the object at the point.
          * @return The illumination at the point.
          */
         Math::Vector3D Illuminate(Math::Point3D point, const std::shared_ptr<IMaterial> &material,
             const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives, Math::Vector3D normal) override;
-
-        /**
-         * @brief Check if a point is in shadow.
-         *
-         * @param point The point to check.
-         * @return True if the point is in shadow, false otherwise.
-         */
-        bool InShadow(Math::Point3D point) override;
 
     protected:
         float _intensity; /**< The intensity of the light. */
