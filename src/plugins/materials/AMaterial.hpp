@@ -60,7 +60,15 @@ namespace RayTracer {
          */
         void setColor(Math::Vector3D color) override;
 
+        /**
+         * @brief Checks if the material reflects light.
+         *
+         * @return true if the material reflects light, false otherwise.
+         */
+        bool reflectsLight() override;
+
     protected:
         Math::Vector3D _color; /**< The color of the material. */
+        bool _reflectsLight; /**< Flag indicating if the material reflects light. */
     };
 }

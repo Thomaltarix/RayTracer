@@ -46,7 +46,7 @@ bool Light::Directional::InShadow(Math::Point3D point)
 Math::Vector3D Light::Directional::Illuminate(Math::Point3D point, const std::shared_ptr<RayTracer::IMaterial> &material,
     const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives, Math::Vector3D normal)
 {
-    Math::Vector3D color = material->compute();
+    Math::Vector3D color = material->compute(point);
     Math::Ray lightRay = Math::Ray(point, _direction);
 
     for (auto &primitive : primitives) {
