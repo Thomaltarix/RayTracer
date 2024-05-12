@@ -31,12 +31,13 @@ namespace RayTracer {
         ALight(float intensity);
 
         /**
-         * @brief Constructor that sets the intensity and shadow casting property of the light.
+         * @brief Constructor that sets the intensity and color of the light.
          *
          * @param intensity The intensity of the light.
+         * @param color The color of the light.
          * @param doesShadowcast Whether the light casts shadows or not.
          */
-        ALight(float intensity, bool doesShadowcast);
+        ALight(float intensity, Math::Vector3D color, bool doesShadowcast = false);
 
         /**
          * @brief Destructor.
@@ -58,6 +59,20 @@ namespace RayTracer {
         void setIntensity(float intensity);
 
         /**
+         * @brief Get the color of the light.
+         *
+         * @return The color of the light.
+         */
+        Math::Vector3D getColor() const;
+
+        /**
+         * @brief Set the color of the light.
+         *
+         * @param color The color of the light.
+         */
+        void setColor(Math::Vector3D color);
+
+        /**
          * @brief Check if the light casts shadows.
          *
          * @return True if the light casts shadows, false otherwise.
@@ -76,9 +91,11 @@ namespace RayTracer {
          *
          * @param point The point to illuminate.
          * @param material The material of the object at the point.
+         * @param primitives The list of primitives in the scene.
          * @return The illumination at the point.
          */
-        Math::Vector3D Illuminate(Math::Point3D point, const std::shared_ptr<IMaterial> &material) override;
+        Math::Vector3D Illuminate(Math::Point3D point, const std::shared_ptr<IMaterial> &material,
+            const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives, Math::Vector3D normal) override;
 
         /**
          * @brief Check if a point is in shadow.
@@ -90,6 +107,7 @@ namespace RayTracer {
 
     protected:
         float _intensity; /**< The intensity of the light. */
+        Math::Vector3D _color; /**< The color of the light. */
         bool _doesShadowcast; /**< Whether the light casts shadows or not. */
     };
 }

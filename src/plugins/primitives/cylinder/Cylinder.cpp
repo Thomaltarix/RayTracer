@@ -41,10 +41,6 @@ Math::Point3D Primitive::Cylinder::hitPoint(const Math::Ray &ray)
 
     if (points.first < 0 && points.second < 0)
         throw Math::MathNoSolutionError("No intersection with sphere");
-    if (points.first < 0)
-        return ray.getOrigin() + ray.getDirection() * points.second;
-    if (points.second < 0)
-        return ray.getOrigin() + ray.getDirection() * points.first;
     return ray.getOrigin() + ray.getDirection() * std::min(points.first, points.second);
 }
 

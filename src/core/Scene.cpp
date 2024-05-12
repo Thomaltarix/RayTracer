@@ -39,7 +39,8 @@ RayTracer::Scene::Scene(std::string path, std::shared_ptr<Core> core)
     this->_primitiveCreators = {
         {"spheres", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createSpheres(primitive, core);} },
         {"planes", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createPlanes(primitive, core);} },
-        {"cylinders", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createCylinders(primitive, core);} }
+        {"cylinders", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createCylinders(primitive, core);} },
+        {"cones", [this](libconfig::Setting &primitive, std::shared_ptr<Core> core) {createCones(primitive, core);} }
     };
     this->_primitiveTransformations = {
         {"rotation", [this](libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive) {applyRotation(transformation, primitive);} },
@@ -123,10 +124,21 @@ void RayTracer::Scene::createLights(libconfig::Setting &lights, std::shared_ptr<
 {
     double ambiantIntensity, diffuseIntensity;
     std::unordered_map<std::string, Math::Point3D> positions;
+    std::unordered_map<std::string, std::vector<Math::Vector3D>> vectors;
+    Math::Vector3D ambiantColor = Math::Vector3D(255, 255, 255);
 
     (void)core;
     std::cout << "Creating lights" << std::endl;
     ambiantIntensity = transformValue(lights.lookup("ambiant"));
+    if (lights.exists("ambiantColor")) {
+        libconfig::Setting &color = lights.lookup("ambiantColor");
+        double r, g, b;
+
+        r = transformValue(color.lookup("r"));
+        g = transformValue(color.lookup("g"));
+        b = transformValue(color.lookup("b"));
+        ambiantColor = Math::Vector3D(r, g, b);
+    }
     diffuseIntensity = transformValue(lights.lookup("diffuse"));
     if (lights.exists("points")) {
         libconfig::Setting &lightPositions = lights.lookup("points");
@@ -145,15 +157,38 @@ void RayTracer::Scene::createLights(libconfig::Setting &lights, std::shared_ptr<
             std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << std::endl;
         }
     }
-    // if (lights.exists("directional")) {
-    //     libconfig::Setting &directionalLights = lights.lookup("directional");
-    //     for (int i = 0; i < directionalLights.getLength(); i++) {
-    //         libconfig::Setting &light = directionalLights[i];
-    //         CREATE DIRECTIONAL LIGHT
-    // }
-    std::shared_ptr<Light::Ambiant> ambiant = std::make_shared<Light::Ambiant>(ambiantIntensity);
+    if (lights.exists("directional")) {
+        libconfig::Setting &lightVectors = lights.lookup("directional");
+        for (int i = 0; i < lightVectors.getLength(); i++) {
+            libconfig::Setting &light = lightVectors[i];
+            double x, y, z;
+            std::string name;
+            double r = 255, g = 255, b = 255;
+
+            light.lookupValue("name", name);
+            x = transformValue(light.lookup("x"));
+            y = transformValue(light.lookup("y"));
+            z = transformValue(light.lookup("z"));
+
+            if (light.exists("color")) {
+                libconfig::Setting &color = light.lookup("color");
+                r = transformValue(color.lookup("r"));
+                g = transformValue(color.lookup("g"));
+                b = transformValue(color.lookup("b"));
+            }
+
+            if (vectors.find(name) != vectors.end())
+                throw SceneDuplicateNameException("Duplicate light name");
+            vectors[name] = {Math::Vector3D(x, y, z), Math::Vector3D(r, g, b)};
+            std::cout << name << " --> {x: " << x << "; y: " << y << "; z: " << z << "};" << std::endl;
+        }
+    }
+    std::shared_ptr<Light::Ambiant> ambiant = std::make_shared<Light::Ambiant>(ambiantIntensity, ambiantColor);
     this->_lights["ambiant"] = ambiant;
-    (void)diffuseIntensity;
+    for (auto &vector : vectors) {
+        std::shared_ptr<Light::Directional> directional = std::make_shared<Light::Directional>(diffuseIntensity, vector.second.at(0), vector.second.at(1));
+        this->_lights[vector.first] = directional;
+    }
     std::cout << "Lights created" << std::endl << std::endl;
 }
 
@@ -353,6 +388,70 @@ void RayTracer::Scene::createCylinderFromVector(libconfig::Setting &primitive, s
     if (this->_primitives.find(name) != this->_primitives.end())
         throw SceneDuplicateNameException("Duplicate primitive name");
     this->_primitives[name] = cylinder;
+}
+
+void RayTracer::Scene::createCones(libconfig::Setting &cones, std::shared_ptr<Core> core)
+{
+    std::cout << "Creating cones" << std::endl;
+    for (int i = 0; i < cones.getLength(); i++) {
+        libconfig::Setting &cone = cones[i];
+        if (cone.exists("axis")) {
+            createConeFromAxis(cone, core);
+        } else {
+            createConeFromVector(cone, core);
+        }
+    }
+    std::cout << "Cones created" << std::endl << std::endl;
+}
+
+void RayTracer::Scene::createConeFromAxis(libconfig::Setting &primitive, std::shared_ptr<Core> core)
+{
+    double x, y, z, angle;
+    std::string name;
+    std::string material;
+    Axis3D axis;
+
+    primitive.lookupValue("name", name);
+    x = transformValue(primitive.lookup("x"));
+    y = transformValue(primitive.lookup("y"));
+    z = transformValue(primitive.lookup("z"));
+    angle = transformValue(primitive.lookup("angle"));
+    axis = transformAxis(primitive.lookup("axis"));
+    primitive.lookupValue("material", material);
+    std::shared_ptr<Math::Vector3D> color = getColor(primitive);
+    std::shared_ptr<IMaterial> materialPtr = core->factoryMaterial(material);
+    materialPtr->setColor(*color);
+    std::shared_ptr<Primitive::Cone> cone = std::make_shared<Primitive::Cone>(x, y, z, materialPtr, axis, angle);
+    std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << "; angle: " << angle << "; axis: " << axis;
+    std::cout << "; material: " << material << " ; color: " << color->x << ", " << color->y << ", " << color->z << std::endl;
+    if (this->_primitives.find(name) != this->_primitives.end())
+        throw SceneDuplicateNameException("Duplicate primitive name");
+    this->_primitives[name] = cone;
+}
+
+void RayTracer::Scene::createConeFromVector(libconfig::Setting &primitive, std::shared_ptr<Core> core)
+{
+    double x, y, z, angle;
+    std::string name;
+    std::string material;
+    Math::Vector3D vector;
+
+    primitive.lookupValue("name", name);
+    x = transformValue(primitive.lookup("x"));
+    y = transformValue(primitive.lookup("y"));
+    z = transformValue(primitive.lookup("z"));
+    angle = transformValue(primitive.lookup("angle"));
+    vector = getVector3D(primitive);
+    primitive.lookupValue("material", material);
+    std::shared_ptr<Math::Vector3D> color = getColor(primitive);
+    std::shared_ptr<IMaterial> materialPtr = core->factoryMaterial(material);
+    materialPtr->setColor(*color);
+    std::shared_ptr<Primitive::Cone> cone = std::make_shared<Primitive::Cone>(x, y, z, materialPtr, vector, angle);
+    std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << "; angle: " << angle << "; vector: " << vector.x << ", " << vector.y << ", " << vector.z;
+    std::cout << "; material: " << material << " ; color: " << color->x << ", " << color->y << ", " << color->z << std::endl;
+    if (this->_primitives.find(name) != this->_primitives.end())
+        throw SceneDuplicateNameException("Duplicate primitive name");
+    this->_primitives[name] = cone;
 }
 
 std::shared_ptr<Math::Vector3D> RayTracer::Scene::getColor(libconfig::Setting &setting)

@@ -15,8 +15,10 @@
 #include "plugins/Sphere.hpp"
 #include "plugins/Plane.hpp"
 #include "plugins/Cylinder.hpp"
+#include "plugins/Cone.hpp"
 #include "plugins/3DAxis.hpp"
 #include "plugins/Ambiant.hpp"
+#include "plugins/Directional.hpp"
 #include "errors/SceneException.hpp"
 #include "transformations/ICanRotate.hpp"
 #include "transformations/ICanTranslate.hpp"
@@ -210,6 +212,32 @@ namespace RayTracer {
          * @param core pointer to the core object
          */
         void createCylinderFromVector(libconfig::Setting &primitive, std::shared_ptr<Core> core);
+
+        /**
+         * @brief Create the cones
+         * Create the cones from the configuration file.
+         * @param primitives configuration file
+         * @param core pointer to the core object
+         */
+        void createCones(libconfig::Setting &primitives, std::shared_ptr<Core> core);
+
+        /**
+         * @brief Create a Cone object
+         * Create a Cone object from the configuration file.
+         * It creates a cone from an axis.
+         * @param primitive configuration file
+         * @param core pointer to the core object
+         */
+        void createConeFromAxis(libconfig::Setting &primitive, std::shared_ptr<Core> core);
+
+        /**
+         * @brief Create a Cone object
+         * Create a Cone object from the configuration file.
+         * It creates a cone from a vector.
+         * @param primitive configuration file
+         * @param core pointer to the core object
+         */
+        void createConeFromVector(libconfig::Setting &primitive, std::shared_ptr<Core> core);
 
         /**
          * @brief Get the Color object

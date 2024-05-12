@@ -16,6 +16,9 @@ SRC				=	src/main.cpp									\
 					src/core/SceneException.cpp						\
                     src/core/Camera.cpp                             \
                     src/core/Image.cpp                              \
+					src/core/ArgsHandler.cpp						\
+					src/core/ArgsHandlerException.cpp				\
+					src/core/ImageBuilder.cpp						\
 					\
 					src/math/Point3D.cpp							\
 					src/math/Vector3D.cpp							\
@@ -30,14 +33,17 @@ SRC				=	src/main.cpp									\
 					src/plugins/primitives/sphere/Sphere.cpp		\
 					src/plugins/primitives/plane/Plane.cpp			\
 					src/plugins/primitives/cylinder/Cylinder.cpp	\
+					src/plugins/primitives/cone/Cone.cpp			\
 					\
 					src/plugins/materials/AMaterial.cpp				\
 					src/plugins/materials/flatColor/FlatColor.cpp	\
 					\
 					src/plugins/lights/ALight.cpp		            \
 					src/plugins/lights/ambiant/Ambiant.cpp	        \
+					src/plugins/lights/directional/Directional.cpp	\
 					\
 					src/interface/SFMLRenderer.cpp		            \
+					src/interface/SFMLException.cpp		            \
 
 TESTS			=	tests/test.cpp
 
