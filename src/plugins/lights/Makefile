@@ -8,6 +8,7 @@
 .PHONY: all clean fclean re
 
 SRC		=	ambiant/		\
+			directional/	\
 
 HEADER	=	ALight.hpp		\
 

@@ -34,9 +34,16 @@ namespace RayTracer {
 
         /**
          * @brief Compute the color of the material and return a Vector with RGB values -> should be RGBA values in the future.
+         * @param point The point at which to compute the color.
          * @return The computed color of the material.
          * @note If the material is reflective, refractive, etc., implement this method; otherwise, return the color of the material.
          */
         virtual Math::Vector3D compute(Math::Point3D point) = 0;
+
+        /**
+         * @brief Checks if the material reflects light.
+         * @return True if the material reflects light, false otherwise.
+         */
+        virtual bool reflectsLight() = 0;
     };
 }
