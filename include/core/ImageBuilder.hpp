@@ -8,21 +8,25 @@
 #pragma once
 
 #include "Image.hpp"
+#include "Core.hpp"
 
 namespace RayTracer {
     class ImageBuilder {
     public:
-        ImageBuilder();
-        ~ImageBuilder();
+        ImageBuilder() = default;
+        ~ImageBuilder() = default;
 
-        std::shared_ptr<Image> buildImage();
+        Image buildImage();
 
-        ImageBuilder &withCamera(const Camera &camera);
-        ImageBuilder &withWidth(const int &width);
-        ImageBuilder &withHeight(const int &height);
-        ImageBuilder &withPrimitives(const std::vector<std::shared_ptr<IPrimitive>> &primitives);
+        ImageBuilder &buildCamera(const Camera &camera);
+        ImageBuilder &buildWidth(const int &width);
+        ImageBuilder &buildHeight(const int &height);
+        ImageBuilder &buildPrimitives(const std::vector<std::shared_ptr<IPrimitive>> &primitives);
+        ImageBuilder &buildLights(const std::vector<std::shared_ptr<ILight>> &lights);
+        ImageBuilder &buildArgs(std::shared_ptr<ArgsHandler> args);
+        ImageBuilder &buildRenderer(std::shared_ptr<ArgsHandler> args);
 
     private:
-        std::shared_ptr<Image> _image;
+        Image _image;
     };
 }

@@ -7,43 +7,53 @@
 
 #include "core/ImageBuilder.hpp"
 
-RayTracer::ImageBuilder::ImageBuilder()
-{
-    _image = std::make_shared<Image>();
-}
-
-RayTracer::ImageBuilder::~ImageBuilder()
-{
-}
-
-std::shared_ptr<RayTracer::Image> RayTracer::ImageBuilder::buildImage()
+RayTracer::Image RayTracer::ImageBuilder::buildImage()
 {
     return _image;
 }
 
-RayTracer::ImageBuilder &RayTracer::ImageBuilder::withCamera(const Camera &camera)
+RayTracer::ImageBuilder &RayTracer::ImageBuilder::buildCamera(const Camera &camera)
 {
-    _image->_camera = camera;
+    _image._camera = camera;
     return *this;
 }
 
-RayTracer::ImageBuilder &RayTracer::ImageBuilder::withWidth(const int &width)
+RayTracer::ImageBuilder &RayTracer::ImageBuilder::buildWidth(const int &width)
 {
-    _image->_width = width;
+    _image._width = width;
     return *this;
 }
 
-RayTracer::ImageBuilder &RayTracer::ImageBuilder::withHeight(const int &height)
+RayTracer::ImageBuilder &RayTracer::ImageBuilder::buildHeight(const int &height)
 {
-    _image->_height = height;
+    _image._height = height;
     return *this;
 }
 
-RayTracer::ImageBuilder &RayTracer::ImageBuilder::withPrimitives(const std::vector<std::shared_ptr<IPrimitive>> &primitives)
+RayTracer::ImageBuilder &RayTracer::ImageBuilder::buildPrimitives(const std::vector<std::shared_ptr<IPrimitive>> &primitives)
 {
     for (auto &primitive : primitives) {
-        std::shared_ptr<IPrimitive> new_primitive = primitive->clone();
-        _image->_primitives.push_back(new_primitive);
+        _image._primitives.push_back(primitive);
     }
+    return *this;
+}
+
+RayTracer::ImageBuilder &RayTracer::ImageBuilder::buildLights(const std::vector<std::shared_ptr<ILight>> &lights)
+{
+    for (auto &light : lights) {
+        _image._lights.push_back(light);
+    }
+    return *this;
+}
+
+RayTracer::ImageBuilder &RayTracer::ImageBuilder::buildArgs(std::shared_ptr<ArgsHandler> args)
+{
+    _image.setArgs(args);
+    return *this;
+}
+
+RayTracer::ImageBuilder &RayTracer::ImageBuilder::buildRenderer(std::shared_ptr<ArgsHandler> args)
+{
+    _image.setRenderer(args);
     return *this;
 }
