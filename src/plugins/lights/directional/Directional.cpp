@@ -17,14 +17,15 @@ Light::Directional::Directional(float intensity) : ALight(intensity)
     _direction = Math::Vector3D(0, 0, 0);
 }
 
-Light::Directional::Directional(float intensity, Math::Vector3D direction) : ALight(intensity)
+Light::Directional::Directional(float intensity, Math::Vector3D direction, Math::Vector3D color) : ALight(intensity, color)
 {
     _direction = direction;
 }
 
-Light::Directional::Directional(Math::Vector3D direction) : ALight()
+Light::Directional::Directional(Math::Vector3D direction, Math::Vector3D color) : ALight()
 {
     _direction = direction;
+    _color = color;
 }
 
 Math::Vector3D Light::Directional::getDirection() const
@@ -59,5 +60,6 @@ Math::Vector3D Light::Directional::Illuminate(Math::Point3D point, const std::sh
     dotProduct = std::max(0.0f, std::min(1.0f, dotProduct));
     float modulatedIntensity = _intensity * dotProduct;
 
-    return Math::Vector3D(color.x * modulatedIntensity, color.y * modulatedIntensity, color.z * modulatedIntensity);
+    return Math::Vector3D(color.x * modulatedIntensity * _color.x / 255,
+        color.y * modulatedIntensity * _color.y / 255, color.z * modulatedIntensity * _color.z / 255);
 }

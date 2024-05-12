@@ -12,4 +12,4 @@ Light::Ambiant::Ambiant() : ALight()
     _intensity = 1.0f;
 }
 
-Light::Ambiant::Ambiant(float intensity) : ALight(intensity) {}
+Light::Ambiant::Ambiant(float intensity, Math::Vector3D color) : ALight(intensity, color) {}

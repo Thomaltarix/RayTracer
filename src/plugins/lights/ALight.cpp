@@ -10,18 +10,21 @@
 RayTracer::ALight::ALight()
 {
     _intensity = 1.0f;
+    _color = Math::Vector3D(255, 255, 255);
     _doesShadowcast = false;
 }
 
 RayTracer::ALight::ALight(float intensity)
 {
     _intensity = intensity;
+    _color = Math::Vector3D(255, 255, 255);
     _doesShadowcast = false;
 }
 
-RayTracer::ALight::ALight(float intensity, bool doesShadowcast)
+RayTracer::ALight::ALight(float intensity, Math::Vector3D color, bool doesShadowcast)
 {
     _intensity = intensity;
+    _color = color;
     _doesShadowcast = doesShadowcast;
 }
 
@@ -53,7 +56,8 @@ Math::Vector3D RayTracer::ALight::Illuminate(Math::Point3D point, const std::sha
     (void)primitives;
     (void)normal;
 
-    return Math::Vector3D(color.x * _intensity, color.y * _intensity, color.z * _intensity);
+    return Math::Vector3D(color.x * _intensity * _color.x / 255,
+        color.y * _intensity * _color.y / 255, color.z * _intensity * _color.z / 255);
 }
 
 bool RayTracer::ALight::InShadow(Math::Point3D point)

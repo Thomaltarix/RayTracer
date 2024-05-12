@@ -124,11 +124,21 @@ void RayTracer::Scene::createLights(libconfig::Setting &lights, std::shared_ptr<
 {
     double ambiantIntensity, diffuseIntensity;
     std::unordered_map<std::string, Math::Point3D> positions;
-    std::unordered_map<std::string, Math::Vector3D> vectors;
+    std::unordered_map<std::string, std::vector<Math::Vector3D>> vectors;
+    Math::Vector3D ambiantColor = Math::Vector3D(255, 255, 255);
 
     (void)core;
     std::cout << "Creating lights" << std::endl;
     ambiantIntensity = transformValue(lights.lookup("ambiant"));
+    if (lights.exists("ambiantColor")) {
+        libconfig::Setting &color = lights.lookup("ambiantColor");
+        double r, g, b;
+
+        r = transformValue(color.lookup("r"));
+        g = transformValue(color.lookup("g"));
+        b = transformValue(color.lookup("b"));
+        ambiantColor = Math::Vector3D(r, g, b);
+    }
     diffuseIntensity = transformValue(lights.lookup("diffuse"));
     if (lights.exists("points")) {
         libconfig::Setting &lightPositions = lights.lookup("points");
@@ -153,22 +163,30 @@ void RayTracer::Scene::createLights(libconfig::Setting &lights, std::shared_ptr<
             libconfig::Setting &light = lightVectors[i];
             double x, y, z;
             std::string name;
+            double r = 255, g = 255, b = 255;
 
             light.lookupValue("name", name);
             x = transformValue(light.lookup("x"));
             y = transformValue(light.lookup("y"));
             z = transformValue(light.lookup("z"));
 
+            if (light.exists("color")) {
+                libconfig::Setting &color = light.lookup("color");
+                r = transformValue(color.lookup("r"));
+                g = transformValue(color.lookup("g"));
+                b = transformValue(color.lookup("b"));
+            }
+
             if (vectors.find(name) != vectors.end())
                 throw SceneDuplicateNameException("Duplicate light name");
-            vectors[name] = Math::Vector3D(x, y, z);
+            vectors[name] = {Math::Vector3D(x, y, z), Math::Vector3D(r, g, b)};
             std::cout << name << " --> {x: " << x << "; y: " << y << "; z: " << z << "};" << std::endl;
         }
     }
-    std::shared_ptr<Light::Ambiant> ambiant = std::make_shared<Light::Ambiant>(ambiantIntensity);
+    std::shared_ptr<Light::Ambiant> ambiant = std::make_shared<Light::Ambiant>(ambiantIntensity, ambiantColor);
     this->_lights["ambiant"] = ambiant;
     for (auto &vector : vectors) {
-        std::shared_ptr<Light::Directional> directional = std::make_shared<Light::Directional>(diffuseIntensity, vector.second);
+        std::shared_ptr<Light::Directional> directional = std::make_shared<Light::Directional>(diffuseIntensity, vector.second.at(0), vector.second.at(1));
         this->_lights[vector.first] = directional;
     }
     std::cout << "Lights created" << std::endl << std::endl;

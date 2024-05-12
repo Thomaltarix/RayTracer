@@ -31,12 +31,13 @@ namespace RayTracer {
         ALight(float intensity);
 
         /**
-         * @brief Constructor that sets the intensity and shadow casting property of the light.
+         * @brief Constructor that sets the intensity and color of the light.
          *
          * @param intensity The intensity of the light.
+         * @param color The color of the light.
          * @param doesShadowcast Whether the light casts shadows or not.
          */
-        ALight(float intensity, bool doesShadowcast);
+        ALight(float intensity, Math::Vector3D color, bool doesShadowcast = false);
 
         /**
          * @brief Destructor.
@@ -56,6 +57,20 @@ namespace RayTracer {
          * @param intensity The intensity of the light.
          */
         void setIntensity(float intensity);
+
+        /**
+         * @brief Get the color of the light.
+         *
+         * @return The color of the light.
+         */
+        Math::Vector3D getColor() const;
+
+        /**
+         * @brief Set the color of the light.
+         *
+         * @param color The color of the light.
+         */
+        void setColor(Math::Vector3D color);
 
         /**
          * @brief Check if the light casts shadows.
@@ -92,6 +107,7 @@ namespace RayTracer {
 
     protected:
         float _intensity; /**< The intensity of the light. */
+        Math::Vector3D _color; /**< The color of the light. */
         bool _doesShadowcast; /**< Whether the light casts shadows or not. */
     };
 }
