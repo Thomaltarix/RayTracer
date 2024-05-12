@@ -8,8 +8,11 @@
 #pragma once
 
 #include "Scene.hpp"
+#include "interface/SFMLRenderer.hpp"
+#include "core/ArgsHandler.hpp"
 #include <vector>
 #include <string>
+#include <mutex>
 
 namespace RayTracer {
     /**
@@ -60,7 +63,9 @@ namespace RayTracer {
          * @param width The width of the image in pixels.
          * @param height The height of the image in pixels.
          */
-        Image(const Camera &camera, const std::vector<std::shared_ptr<IPrimitive>> &primitives, const std::vector<std::shared_ptr<ILight>> &lights, std::size_t width, std::size_t height);
+        Image(const Camera &camera, const std::vector<std::shared_ptr<IPrimitive>> &primitives,
+            const std::vector<std::shared_ptr<ILight>> &lights, std::size_t width, std::size_t height,
+            std::shared_ptr<ArgsHandler> args);
 
         /**
          * @brief Default destructor.
@@ -73,6 +78,44 @@ namespace RayTracer {
          * @param filename The name of the file to which the image is rendered.
          */
         void render(std::string filename="output.ppm");
+
+        /**
+         * @brief Renders the image to a file using multiple threads.
+         *
+         * @param tab The image data to render.
+         * @param threadId The ID of the thread rendering the image.
+         * @param start The starting row of the image data to render.
+         * @param end The ending row of the image data to render.
+         */
+        void renderThread(std::vector<std::vector<Math::Vector3D>> &tab, size_t threadId, size_t start, size_t end, size_t fast = 0);
+
+        /**
+         * @brief Sets the pixel at the specified coordinates to the specified color.
+         *
+         * @param x The x-coordinate of the pixel.
+         * @param y The y-coordinate of the pixel.
+         * @param color The color of the pixel.
+         */
+        void setSFMLPixels(std::vector<std::vector<Math::Vector3D>> &tab);
+
+        /**
+         * @brief Renders the image using SFML.
+         */
+        void renderSFML();
+
+        /**
+         * @brief Renders the image using SFML with multiple threads.
+         *
+         * @param tab The image data to render.
+         */
+        void threadHandlingSFML(std::vector<std::vector<Math::Vector3D>> &tab);
+
+    private:
+        /** The SFMLRenderer object used to render the image. */
+        SFMLRenderer *_renderer;
+
+        /** The class who contains the arguments */
+        ArgsHandler *_args;
     };
 }
 

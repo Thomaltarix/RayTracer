@@ -232,6 +232,12 @@ void Math::Point3D::rotate(const Math::Vector3D &rotation)
     this->z = rotatedPoint.z;
 }
 
+double Math::Point3D::dot(const Math::Vector3D &vector3D) const
+{
+    return this->x * vector3D.x + this->y * vector3D.y + this->z * vector3D.z;
+}
+
+
 bool Math::Point3D::operator==(const Math::Point3D &point3D) const
 {
     return this->x == point3D.x && this->y == point3D.y && this->z == point3D.z;

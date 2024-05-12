@@ -6,19 +6,17 @@
 ##
 
 # Sources
-SRC		=	Plane.cpp			\
-			getInstance.cpp 	\
-			../APrimitive.cpp	\
-			../3DAxis.cpp		\
+SRC		=	../AMaterial.cpp	\
+			GridY.cpp	\
+			getInstance.cpp \
 			../../../math/Vector3D.cpp	\
 			../../../math/Point3D.cpp	\
 			../../../math/MathError.cpp	\
-			../../../math/DegToRad.cpp	\
 
-HEADER	=	Plane.hpp		\
+HEADER	=	GridY.hpp	\
 
 # Path to the plugin directory
-PLUGINS	=	../../../../plugins/primitives/
+PLUGINS	=	../../../../plugins/materials/
 
 # Path to the include directory to copy the header
 INCLUDE	=	../../../../include/plugins/
@@ -27,7 +25,7 @@ INCLUDE	=	../../../../include/plugins/
 OBJ		=	$(SRC:.cpp=.o)
 
 # Binary
-NAME	=	libplane.so
+NAME	=	libgridY.so
 
 # Flags
 CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17
@@ -35,7 +33,6 @@ CXXFLAGS	=	-W -Wall -Wextra -I./include -std=c++17
 CXXFLAGS	+=	-I../ 						\
 				-I../../../../include 		\
 				-I../../../../include/math 	\
-				-I../../../../include/transformations	\
 
 CXXFLAGS	+=	-fPIC
 

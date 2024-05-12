@@ -48,7 +48,7 @@ void RayTracer::ALight::setShadowcast(bool doesShadowcast)
 Math::Vector3D RayTracer::ALight::Illuminate(Math::Point3D point, const std::shared_ptr<IMaterial> &material,
     const std::vector<std::shared_ptr<RayTracer::IPrimitive>> &primitives, Math::Vector3D normal)
 {
-    Math::Vector3D color = material->compute();
+    Math::Vector3D color = material->compute(point);
     (void)point;
     (void)primitives;
     (void)normal;

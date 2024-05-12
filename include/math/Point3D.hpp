@@ -222,6 +222,14 @@ namespace Math {
         void rotate(const Vector3D &rotation);
 
         /**
+         * Calculates the dot product between this Point3D and the given Vector3D.
+         *
+         * @param vector3D The Vector3D to calculate the dot product with.
+         * @return The dot product between this Point3D and the given Vector3D.
+         */
+        double dot(const Vector3D &vector3D) const;
+
+        /**
          * @brief Checks if two points are equal.
          * @param point3D The point to compare with.
          * @return True if the points are equal, false otherwise.

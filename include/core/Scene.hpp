@@ -171,10 +171,20 @@ namespace RayTracer {
         /**
          * @brief Create a Plane object
          * Create a Plane object from the configuration file.
+         * It creates a plane from an axis.
          * @param primitive configuration file
          * @param core pointer to the core object
          */
-        void createPlane(libconfig::Setting &primitive, std::shared_ptr<Core> core);
+        void createPlaneFromAxis(libconfig::Setting &primitive, std::shared_ptr<Core> core);
+
+        /**
+         * @brief Create a Plane object
+         * Create a Plane object from the configuration file.
+         * It creates a plane from a vector.
+         * @param primitive configuration file
+         * @param core pointer to the core object
+         */
+        void createPlaneFromVector(libconfig::Setting &primitive, std::shared_ptr<Core> core);
 
         /**
          * @brief Create the cylinders
@@ -187,10 +197,20 @@ namespace RayTracer {
         /**
          * @brief Create a Cylinder object
          * Create a Cylinder object from the configuration file.
+         * It creates a cylinder from an axis.
          * @param primitive configuration file
          * @param core pointer to the core object
          */
-        void createCylinder(libconfig::Setting &primitive, std::shared_ptr<Core> core);
+        void createCylinderFromAxis(libconfig::Setting &primitive, std::shared_ptr<Core> core);
+
+        /**
+         * @brief Create a Cylinder object
+         * Create a Cylinder object from the configuration file.
+         * It creates a cylinder from a vector.
+         * @param primitive configuration file
+         * @param core pointer to the core object
+         */
+        void createCylinderFromVector(libconfig::Setting &primitive, std::shared_ptr<Core> core);
 
         /**
          * @brief Get the Color object
@@ -199,6 +219,14 @@ namespace RayTracer {
          * @return std::shared_ptr<Math::Vector3D> color
          */
         std::shared_ptr<Math::Vector3D> getColor(libconfig::Setting &setting);
+
+        /**
+         * @brief Get the Vector3D object
+         * Get the vector3D from the configuration file.
+         * @param setting configuration file
+         * @return Math::Vector3D vector3D
+         */
+        Math::Vector3D getVector3D(libconfig::Setting &setting);
 
         /** Map of primitive creators */
         std::unordered_map<std::string, std::function<void(libconfig::Setting &, std::shared_ptr<Core>)>> _primitiveCreators;

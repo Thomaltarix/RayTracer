@@ -16,6 +16,8 @@ SRC				=	src/main.cpp									\
 					src/core/SceneException.cpp						\
                     src/core/Camera.cpp                             \
                     src/core/Image.cpp                              \
+					src/core/ArgsHandler.cpp						\
+					src/core/ArgsHandlerException.cpp				\
 					\
 					src/math/Point3D.cpp							\
 					src/math/Vector3D.cpp							\
@@ -23,6 +25,7 @@ SRC				=	src/main.cpp									\
 					src/math/MathError.cpp							\
                     src/math/Rectangle3D.cpp                        \
                     src/math/QuadraticEquation.cpp                  \
+					src/math/DegToRad.cpp							\
 					\
 					src/plugins/primitives/APrimitive.cpp			\
 					src/plugins/primitives/3DAxis.cpp				\
@@ -38,6 +41,7 @@ SRC				=	src/main.cpp									\
 					src/plugins/lights/directional/Directional.cpp	\
 					\
 					src/interface/SFMLRenderer.cpp		            \
+					src/interface/SFMLException.cpp		            \
 
 TESTS			=	tests/test.cpp
 

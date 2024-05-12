@@ -111,7 +111,7 @@ void RayTracer::Scene::createCamera(libconfig::Setting &camera)
     }
     Math::Point3D position(posX, posY, posZ);
     Math::Vector3D rotation(rotX, rotY, rotZ);
-    _camera = std::make_shared<RayTracer::Camera>(position, rotation, width, height, fov); // Add the camera class here
+    _camera = std::make_shared<RayTracer::Camera>(position, rotation, width, height, fov);
     std::cout << "Position: " << posX << ", " << posY << ", " << posZ << std::endl;
     std::cout << "Rotation: " << rotX << ", " << rotY << ", " << rotZ << std::endl;
     std::cout << "Resolution: " << width << ", " << height << std::endl;
@@ -252,12 +252,15 @@ void RayTracer::Scene::createPlanes(libconfig::Setting &planes, std::shared_ptr<
     std::cout << "Creating planes" << std::endl;
     for (int i = 0; i < planes.getLength(); i++) {
         libconfig::Setting &plane = planes[i];
-        createPlane(plane, core);
+        if (plane.exists("axis"))
+            createPlaneFromAxis(plane, core);
+        else
+            createPlaneFromVector(plane, core);
     }
     std::cout << "Planes created" << std::endl << std::endl;
 }
 
-void RayTracer::Scene::createPlane(libconfig::Setting &primitive, std::shared_ptr<Core> core)
+void RayTracer::Scene::createPlaneFromAxis(libconfig::Setting &primitive, std::shared_ptr<Core> core)
 {
     double x, y, z;
     Axis axis;
@@ -281,17 +284,44 @@ void RayTracer::Scene::createPlane(libconfig::Setting &primitive, std::shared_pt
     this->_primitives[name] = plane;
 }
 
+void RayTracer::Scene::createPlaneFromVector(libconfig::Setting &primitive, std::shared_ptr<Core> core)
+{
+    double x, y, z;
+    Math::Vector3D vector;
+    std::string name;
+    std::string material;
+
+    primitive.lookupValue("name", name);
+    vector = getVector3D(primitive);
+    x = transformValue(primitive.lookup("x"));
+    y = transformValue(primitive.lookup("y"));
+    z = transformValue(primitive.lookup("z"));
+    primitive.lookupValue("material", material);
+    std::shared_ptr<Math::Vector3D> color = getColor(primitive);
+    std::shared_ptr<IMaterial> materialPtr = core->factoryMaterial(material);
+    materialPtr->setColor(*color);
+    std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << " ; vector: " << vector.x << ", " << vector.y << ", " << vector.z;
+    std::cout << "; material: " << material << " ; color: " << color->x << ", " << color->y << ", " << color->z << std::endl;
+    std::shared_ptr<Primitive::Plane> plane = std::make_shared<Primitive::Plane>(x, y, z, materialPtr, vector);
+    if (this->_primitives.find(name) != this->_primitives.end())
+        throw SceneDuplicateNameException("Duplicate primitive name");
+    this->_primitives[name] = plane;
+}
+
 void RayTracer::Scene::createCylinders(libconfig::Setting &cylinders, std::shared_ptr<Core> core)
 {
     std::cout << "Creating cylinders" << std::endl;
     for (int i = 0; i < cylinders.getLength(); i++) {
         libconfig::Setting &cylinder = cylinders[i];
-        createCylinder(cylinder, core);
+        if (cylinder.exists("axis"))
+            createCylinderFromAxis(cylinder, core);
+        else
+            createCylinderFromVector(cylinder, core);
     }
     std::cout << "Cylinders created" << std::endl << std::endl;
 }
 
-void RayTracer::Scene::createCylinder(libconfig::Setting &primitive, std::shared_ptr<Core> core)
+void RayTracer::Scene::createCylinderFromAxis(libconfig::Setting &primitive, std::shared_ptr<Core> core)
 {
     double x, y, z, radius;
     std::string name;
@@ -316,6 +346,31 @@ void RayTracer::Scene::createCylinder(libconfig::Setting &primitive, std::shared
     this->_primitives[name] = cylinder;
 }
 
+void RayTracer::Scene::createCylinderFromVector(libconfig::Setting &primitive, std::shared_ptr<Core> core)
+{
+    double x, y, z, radius;
+    std::string name;
+    std::string material;
+    Math::Vector3D vector;
+
+    primitive.lookupValue("name", name);
+    x = transformValue(primitive.lookup("x"));
+    y = transformValue(primitive.lookup("y"));
+    z = transformValue(primitive.lookup("z"));
+    radius = transformValue(primitive.lookup("r"));
+    vector = getVector3D(primitive);
+    primitive.lookupValue("material", material);
+    std::shared_ptr<Math::Vector3D> color = getColor(primitive);
+    std::shared_ptr<IMaterial> materialPtr = core->factoryMaterial(material);
+    materialPtr->setColor(*color);
+    std::shared_ptr<Primitive::Cylinder> cylinder = std::make_shared<Primitive::Cylinder>(x, y, z, materialPtr, vector, radius);
+    std::cout << name << " --> x: " << x << "; y: " << y << "; z: " << z << "; radius: " << radius << "; vector: " << vector.x << ", " << vector.y << ", " << vector.z;
+    std::cout << "; material: " << material << " ; color: " << color->x << ", " << color->y << ", " << color->z << std::endl;
+    if (this->_primitives.find(name) != this->_primitives.end())
+        throw SceneDuplicateNameException("Duplicate primitive name");
+    this->_primitives[name] = cylinder;
+}
+
 std::shared_ptr<Math::Vector3D> RayTracer::Scene::getColor(libconfig::Setting &setting)
 {
     double r, g, b;
@@ -327,6 +382,19 @@ std::shared_ptr<Math::Vector3D> RayTracer::Scene::getColor(libconfig::Setting &s
     g = transformValue(color.lookup("g"));
     b = transformValue(color.lookup("b"));
     return std::make_shared<Math::Vector3D>(r, g, b);
+}
+
+Math::Vector3D RayTracer::Scene::getVector3D(libconfig::Setting &setting)
+{
+    double x, y, z;
+
+    if (!setting.exists("vector"))
+        throw RayTracer::SceneParseError("Vector not found");
+    libconfig::Setting &vector = setting.lookup("vector");
+    x = transformValue(vector.lookup("x"));
+    y = transformValue(vector.lookup("y"));
+    z = transformValue(vector.lookup("z"));
+    return Math::Vector3D(x, y, z);
 }
 
 void RayTracer::Scene::applyTransformations(libconfig::Setting &transformations)
@@ -371,14 +439,20 @@ void RayTracer::Scene::applyRotation(libconfig::Setting &transformation, std::sh
 {
     double angle;
     Axis axis;
+    Math::Vector3D vector;
 
+    if (dynamic_cast<ICanRotate *>(primitive.get()) == nullptr)
+        throw SceneInvalidTransformationException("Invalid transformation for object");
     angle = transformValue(transformation.lookup("angle"));
-    axis = transformAxis(transformation.lookup("axis"));
-    std::cout << "Rotation: angle: " << angle << "; axis: " << axis << std::endl;
-    (void)primitive;
-    // if (dynamic_cast<ICanRotate *>(primitive.get()) == nullptr)
-    //     throw SceneInvalidTransformationException("Invalid transformation for object");
-    // dynamic_cast<ICanRotate *>(primitive.get())->rotate(angle, axis);
+    if (transformation.exists("axis")) {
+        axis = transformAxis(transformation.lookup("axis"));
+        std::cout << "Rotation: angle: " << angle << "; axis: " << axis << std::endl;
+        dynamic_cast<ICanRotate *>(primitive.get())->rotate(axis, angle);
+    } else {
+        vector = getVector3D(transformation);
+        std::cout << "Rotation: angle: " << angle << "; vector: " << vector.x << ", " << vector.y << ", " << vector.z << std::endl;
+        dynamic_cast<ICanRotate *>(primitive.get())->rotate(vector, angle);
+    }
 }
 
 void RayTracer::Scene::applyScale(libconfig::Setting &transformation, std::shared_ptr<IPrimitive> primitive)
