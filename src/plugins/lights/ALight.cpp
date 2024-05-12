@@ -10,18 +10,21 @@
 RayTracer::ALight::ALight()
 {
     _intensity = 1.0f;
+    _color = Math::Vector3D(255, 255, 255);
     _doesShadowcast = false;
 }
 
 RayTracer::ALight::ALight(float intensity)
 {
     _intensity = intensity;
+    _color = Math::Vector3D(255, 255, 255);
     _doesShadowcast = false;
 }
 
-RayTracer::ALight::ALight(float intensity, bool doesShadowcast)
+RayTracer::ALight::ALight(float intensity, Math::Vector3D color, bool doesShadowcast)
 {
     _intensity = intensity;
+    _color = color;
     _doesShadowcast = doesShadowcast;
 }
 

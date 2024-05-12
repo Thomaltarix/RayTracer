@@ -27,8 +27,9 @@ namespace Light {
          * @brief Constructor for the Ambiant class with a specified intensity.
          *
          * @param intensity The intensity of the ambient light source.
+         * @param color The color of the ambient light source.
          */
-        Ambiant(float intensity);
+        Ambiant(float intensity, Math::Vector3D color = Math::Vector3D(255, 255, 255));
 
         /**
          * @brief Destructor for the Ambiant class.

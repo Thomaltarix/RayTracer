@@ -17,14 +17,15 @@ Light::Directional::Directional(float intensity) : ALight(intensity)
     _direction = Math::Vector3D(0, 0, 0);
 }
 
-Light::Directional::Directional(float intensity, Math::Vector3D direction) : ALight(intensity)
+Light::Directional::Directional(float intensity, Math::Vector3D direction, Math::Vector3D color) : ALight(intensity, color)
 {
     _direction = direction;
 }
 
-Light::Directional::Directional(Math::Vector3D direction) : ALight()
+Light::Directional::Directional(Math::Vector3D direction, Math::Vector3D color) : ALight()
 {
     _direction = direction;
+    _color = color;
 }
 
 Math::Vector3D Light::Directional::getDirection() const

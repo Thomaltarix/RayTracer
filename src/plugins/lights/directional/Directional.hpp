@@ -36,15 +36,17 @@ namespace Light {
          *
          * @param intensity The intensity of the light source.
          * @param direction The direction of the light source.
+         * @param color The color of the light source.
          */
-        Directional(float intensity, Math::Vector3D direction);
+        Directional(float intensity, Math::Vector3D direction, Math::Vector3D color = Math::Vector3D(255, 255, 255));
 
         /**
          * @brief Constructor for the Directional class.
          *
          * @param direction The direction of the light source.
+         * @param color The color of the light source.
          */
-        Directional(Math::Vector3D direction);
+        Directional(Math::Vector3D direction, Math::Vector3D color = Math::Vector3D(255, 255, 255));
 
         /**
          * @brief Default destructor for the Directional class.
