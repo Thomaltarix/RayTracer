@@ -8,6 +8,7 @@
 #include "Cone.hpp"
 #include "math/QuadraticEquation.hpp"
 #include "math/MathError.hpp"
+#include "math/DegToRad.hpp"
 #include <cmath>
 
 Primitive::Cone::Cone() : APrimitive() {}
@@ -104,4 +105,18 @@ void Primitive::Cone::translate(const Math::Vector3D &vec)
     _pos.x += vec.x;
     _pos.y += vec.y;
     _pos.z += vec.z;
+}
+
+void Primitive::Cone::rotate(const Math::Vector3D &axis, double angle)
+{
+    double radAngle = Math::degToRad(angle);
+
+    _axis = _axis.rotate(axis, radAngle);
+}
+
+void Primitive::Cone::rotate(const RayTracer::Axis3D &axis, double angle)
+{
+    double radAngle = Math::degToRad(angle);
+
+    _axis = _axis.rotate(axis.getVector(), radAngle);
 }

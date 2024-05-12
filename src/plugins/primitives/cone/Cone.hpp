@@ -9,13 +9,13 @@
 
 #include "APrimitive.hpp"
 #include "transformations/ICanTranslate.hpp"
-#include "3DAxis.hpp"
+#include "transformations/ICanRotate.hpp"
 
 namespace Primitive {
     /**
      * @brief The Cone class represents a cone primitive in a ray tracer.
      */
-    class Cone : public RayTracer::APrimitive, public RayTracer::ICanTranslate {
+    class Cone : public RayTracer::APrimitive, public RayTracer::ICanTranslate, public RayTracer::ICanRotate {
     public:
         /**
          * @brief Default constructor for the Cone class.
@@ -85,6 +85,20 @@ namespace Primitive {
          * @param z The z-coordinate to translate the cone by.
          */
         void translate(double x, double y, double z) override;
+
+        /**
+         * @brief Rotates the cone by a given angle around a given axis.
+         * @param axis The axis to rotate the cone around.
+         * @param angle The angle to rotate the cone by.
+         */
+        void rotate(const Math::Vector3D &axis, double angle) override;
+
+        /**
+         * @brief Rotates the cone by a given angle around a given axis.
+         * @param axis The axis to rotate the cone around.
+         * @param angle The angle to rotate the cone by.
+         */
+        void rotate(const RayTracer::Axis3D &axis, double angle) override;
 
     private:
         Math::Vector3D _axis; /** The axis of the cone*/
