@@ -55,19 +55,6 @@ namespace RayTracer {
         Image();
 
         /**
-         * @brief Constructor. Creates an image with the specified camera, primitives, and lights.
-         *
-         * @param camera The camera used to capture the image.
-         * @param primitives A list of primitives (shapes) in the image.
-         * @param lights A list of lights in the image.
-         * @param width The width of the image in pixels.
-         * @param height The height of the image in pixels.
-         */
-        Image(const Camera &camera, const std::vector<std::shared_ptr<IPrimitive>> &primitives,
-            const std::vector<std::shared_ptr<ILight>> &lights, std::size_t width, std::size_t height,
-            std::shared_ptr<ArgsHandler> args);
-
-        /**
          * @brief Default destructor.
          */
         ~Image() = default;
@@ -110,12 +97,15 @@ namespace RayTracer {
          */
         void threadHandlingSFML(std::vector<std::vector<Math::Vector3D>> &tab);
 
+        void setArgs(std::shared_ptr<ArgsHandler> args);
+
+        void setRenderer(std::shared_ptr<ArgsHandler> args);
+
     private:
         /** The SFMLRenderer object used to render the image. */
-        SFMLRenderer *_renderer;
+        std::shared_ptr<SFMLRenderer> _renderer;
 
         /** The class who contains the arguments */
-        ArgsHandler *_args;
+        std::shared_ptr<ArgsHandler> _args;
     };
 }
-
