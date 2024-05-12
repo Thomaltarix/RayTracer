@@ -18,6 +18,7 @@ SRC				=	src/main.cpp									\
                     src/core/Image.cpp                              \
 					src/core/ArgsHandler.cpp						\
 					src/core/ArgsHandlerException.cpp				\
+					src/core/ImageBuilder.cpp						\
 					\
 					src/math/Point3D.cpp							\
 					src/math/Vector3D.cpp							\
